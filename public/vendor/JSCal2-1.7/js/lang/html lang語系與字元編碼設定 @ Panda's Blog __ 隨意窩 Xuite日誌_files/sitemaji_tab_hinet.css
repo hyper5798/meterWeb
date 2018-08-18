@@ -1,0 +1,109 @@
+.sitemaji_tab {
+    position: fixed;
+    z-index: 999999;
+    bottom: 30px;
+    background: #007ac5;
+}
+.sitemaji_tab[data-position="right"] {
+    right: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.sitemaji_tab[data-position="left"] {
+    left: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.sitemaji_tab[model="300x250"] {
+    width: 40px;
+    height: 250px;
+}
+.sitemaji_tab .sitemaji_tab_bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.sitemaji_tab .sitemaji_tab_ad {
+    position: absolute;
+    z-index: 10000;
+    display: none;
+    margin: 0;
+    padding: 0;
+    top: 0px;
+    background: #fff url("//ad.sitemaji.com/static/ajax-loader.gif") 50% 50% no-repeat;
+}
+.sitemaji_tab[model="300x250"] .sitemaji_tab_ad {
+    width: 300px;
+    height: 250px;
+}
+.sitemaji_tab[model="300x250"][data-position="right"] .sitemaji_tab_ad {
+    left: -260px;
+}
+.sitemaji_tab[model="300x250"][data-position="left"] .sitemaji_tab_ad {
+    right: -260px;
+}
+.sitemaji_tab .sitemaji_tab_close {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    z-index: 1;
+    cursor: pointer;
+    top: 2px;
+    margin: 3px;
+    background: url("//ad.sitemaji.com/static/close.png") 0px 0px no-repeat;
+}
+.sitemaji_tab[data-position="right"] .sitemaji_tab_close {
+    float: left;
+}
+.sitemaji_tab[data-position="left"] .sitemaji_tab_close {
+    float: right;
+}
+.sitemaji_tab .sitemaji_tab_open {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    z-index: 1;
+    display: block;
+    cursor: pointer;
+    margin: 3px;
+}
+.sitemaji_tab[data-position="right"] .sitemaji_tab_open {
+    background: url("//ad.sitemaji.com/static/expand_left.png") 0px 0px no-repeat;
+    float: left;
+}
+.sitemaji_tab[data-position="left"] .sitemaji_tab_open {
+    background: url("//ad.sitemaji.com/static/expand_right.png") 0px 0px no-repeat;
+    float: right;
+}
+.sitemaji_tab .sitemaji_tab_ad .sitemaji_tab_ad_close {
+    position: absolute;
+    top: 5px;
+    height: 16px;
+    width: 16px;
+    background: url("//ad.sitemaji.com/static/mini.png") 0px 0px no-repeat;
+    cursor: pointer;
+}
+.sitemaji_tab[data-position="right"] .sitemaji_tab_ad .sitemaji_tab_ad_close {
+    left: 10px;
+}
+.sitemaji_tab[data-position="left"] .sitemaji_tab_ad .sitemaji_tab_ad_close {
+    right: 10px;
+}
+.sitemaji_tab .sitemaji_tab_text {
+    position: relative;
+    top: 170px;
+}
+.sitemaji_tab[data-position="right"] .sitemaji_tab_text {
+    right: 8px;
+}
+.sitemaji_tab[data-position="left"] .sitemaji_tab_text {
+    left: 8px;
+}
+.sitemaji_tab .sitemaji_tab_text:after {
+    content: "贊助";
+    font-size: 16px;
+    line-height: 180%;
+    font-weight: bold;
+    color: #ffffff;
+}

@@ -1,0 +1,199 @@
+<%- include page/header %>
+<div class="row">
+    <div class="col-md-12 column">
+            <form method = "post" id="unitList" name="unitList">
+                <div id="app">
+                  <div class="panel panel-default">
+                        <div v-if="hasError" class="alert alert-danger" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button
+                                <strong>警告!</strong> {{errMsg}}
+                        </div>
+                        <div class="panel-heading">
+                                <div class="row">
+                                        <div class="col-md-4 column">
+                                                <h4>裝置</h4>
+                                        </div>
+                                        <div class="col-md-6 column">
+                                                測試資料 : <input type="text" v-model="testData" size="50">
+                                        </div>
+                                        <div class="col-md-2 column">
+                                                <button  type="button" class="btn btn-primary btn-sm" onClick="parseData()">	
+                                                    <span class="fa fa-pencil "></span>   測試
+                                                </button>
+                                        </div>
+                                </div>
+
+                            
+                        </div>
+                        <div class="panel-body">
+                            
+                            <div class="col-md-3 column">
+                                    <label class="control-label"  for="username">裝置類型</label>
+                                    <div class="controls">
+                                        <input v-if="!hasMap" type="text" id="postType" name="postType" v-model="target.deviceType">
+                                        <input v-else type="text" id="postType" name="postType" v-model="target.deviceType" readonly="readonly">
+                                    </div>
+                            </div>
+                            <div class="col-md-3 column">
+                                <label class="control-label" for="password">類型名稱</label>
+                                <div class="controls">
+                                            <input type="text" id="typeName" name="typeName" v-model="target.typeName" >
+                                </div>
+                            </div>
+                            <div class="col-md-6 column">
+                                <br>
+                                <span v-if="hasMap">
+                                        <button  v-if="!isEditMode" type="button" name="add" class="btn btn-info btn-sm" onClick="editMap()">	
+                                            <span class="fa fa-pencil "></span>   編輯裝置類型
+                                        </button>
+                                        <button  v-if="isEditMode" type="button" name="add" class="btn btn-primary btn-sm" onClick="editMap()">	
+                                            <span class="fa fa-pencil "></span>   更新裝置類型
+                                        </button>
+                                </span>
+                                
+                                <button  v-else type="button" name="add" class="btn btn-success btn-sm" onClick="createMap()">	
+                                    <span class="fa fa-plus-square"></span> 新增裝置類型
+                                </button>
+                            
+                                <button type="button" name="add" class="btn btn-default btn-sm" onClick="clearMap()">	
+                                    <span class="fa fa-refresh"></span>  重置
+                                </button>	
+                            </div>
+                            <div class="col-md-12 column">
+                                    <table id ="myTable" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>欄位</th>
+                                                <th>啟始前一位</th>
+                                                <th>結束位置</th>
+                                                <th>公式</th>
+                                                <th>欄位名稱</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(item, index) in target.list">
+                                                <td>
+                                                    <input v-if="isEditMode" name="field" v-model="item[0]">
+                                                    <span v-else >{{item[0]}}</span>
+                                                </td>
+                                                <td>
+                                                    <input v-if="isEditMode" name="start" v-model="item[1]" type="number">
+                                                    <span v-else >{{item[1]}}</span>
+                                                </td>
+                                                <td>
+                                                    <input v-if="isEditMode" name="end" v-model="item[2]" type="number">
+                                                    <span v-else >{{item[2]}}</span>
+                                                </td>
+                                                <td>
+                                                    <input v-if="isEditMode" name="method" v-model="item[3]">
+                                                    <span v-else >{{item[3]}}</span>
+                                                </td>
+                                                <td>
+                                                    <input v-if="isEditMode" name="fieldName" v-model="item[4]">
+                                                    <span v-else >{{item[4]}}</span>
+                                                </td>
+                                                <td>
+                                                    <button v-if="showRemove" type="button" name="del" class="btn btn-warning btn-sm" @click="delItem(index)">
+                                                            <span class="fa fa-remove"></span> 
+                                                    </button>
+                                                    <button  v-if="showAdd < index" type="button" name="add" class="btn btn-success btn-sm" @click="addItem(index)">	
+                                                        <span class="fa fa-plus-square"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>	
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <table id ="table1" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>裝置類型</th>
+                            <th>裝置名稱</th>
+                            <th>創建日期</th>
+                            <th>創建人員</th>
+                            <th>更新人員</th>
+                            <th>更新日期</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% if (maps) { %>
+                        <% for(let i = 0;i<maps.length;i++) { %>
+                            <tr>
+                                    <td>
+                                            <%= (i+1) %>
+                                    </td>
+                                    <td>
+                                        <%= maps[i].deviceType %>
+                                    </td>
+                                    <td>
+                                            <%= maps[i].typeName %>
+                                    </td>
+                                    <td>
+                                        <%= maps[i].createTime %>
+                                    </td>
+                                    <td>
+                                            <%= maps[i].createUser %>
+                                    </td>
+                                    <td>
+                                            <%= maps[i].updateTime %>
+                                    </td>
+                                    <td>
+                                            <%= maps[i].updateUser %>
+                                    </td>
+                                    <td>
+                                        <button type="button" name="del" class="btn btn-danger btn-sm" onClick="delCheck('<%= maps[i].deviceType %>')">
+                                                <span class="fa fa-remove"></span> 刪除
+                                        </button>
+                                    </td>
+                            </tr>
+                        <% } %>
+                    <% } %>
+                    </tbody>
+                </table>
+                <input id="errorMsg" name="errorMsg"  value="<%= error%>" type="hidden">
+                <input id="postSelect" name="postSelect" type="hidden">
+                <input id="mapList" name="mapList"  value="<%= JSON.stringify(maps)%>" type="hidden">
+            </form>
+
+    </div> <!-- column-->	
+</div>	<!--row--> 
+
+<!-- （Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+     <div class="modal-header " style="background-color:#ff4d4d;">
+                    <button type="button" class="close"
+                    data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h3 class="modal-title" id="myModalLabel">
+                        <p style="color:white">Warning</p>
+                    </h3>
+                </div>
+     <div id="account" class="modal-body">
+        Are you sure you want to delete the account?
+     </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-default"
+           data-dismiss="modal">Cancel
+        </button>
+        <button type="button" onClick="toSubmit()" class="btn btn-danger">
+           YES
+        </button>
+     </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal -->
+
+<%- include page/footer %>

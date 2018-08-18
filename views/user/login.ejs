@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset  ="utf-8">
+<meta name     ="viewport" content="width=device-width, initial-scale=1">
+<title><%= title%></title>
+<%- include ../page/include_style.ejs %>
+</head>
+<style>
+.loginBox{width:420px;height:250px;padding:0 20px;border:1px solid #fff; color:#000;
+margin-top:40px; border-radius:8px;background: white; box-shadow:0 0 15px #222;
+background: -moz-linear-gradient(top, #fff, #efefef 8%);
+background: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#f4f4f4));font:11px/1.5em 'Microsoft YaHei' ;
+position: absolute;left:50%;top:50%;margin-left:-210px;margin-top:-115px;}
+</style>
+
+<body>
+	 <body  style="background: #444">
+        <div class="container">
+		<section class="loginBox row-fluid">
+			<h2 style="height:35px;font-size:20px;font-weight:normal;"><%= title%></h2>
+<!--                        <h2 style="height:35px;font-size:20px;font-weight:normal;">DEMO</h2>-->
+		<div class="form-horizontal" role="form">
+        <form id="login-form" name="login-form" action="/login" method="post">
+            <table class="wwFormTable">
+			  <div class="form-group">
+				<label for="account" class="col-sm-2 control-label">Account:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" placeholder="Account" required="required" name="account" id="account" type="text" onfocus="myFunction(this)">
+				</div>
+			  </div>
+			  <div class="form-group">
+                <label for="LoginForm_password" class="col-sm-2 control-label">Password:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" placeholder="Password" required="required" name="password" id="password" type="password" onfocus="myFunction(this)">
+                </div>
+			  </div>
+			  <div class="form-group">
+				<div class="col-sm-10">
+                    <table align="center" width="100%" border="0" cellspacing="6" cellpadding="0">
+
+                        <td align="center" width="ˊ40%">
+                            <label id="error_message" class="checkbox">
+                                <font color="red"><b></b>
+                                <% if (error) { %>
+                                    <%= error %>
+                                <% } %>
+                            </label>
+                        </td>
+                        <td width="20%">
+                            <input class="btn btn-primary" type="submit" value="Login">
+                        </td>
+                        <!--Jason mark for register post on 2016.08.24 -->
+                        <!--<td width="20%">
+                            <input class="btn btn-deault" type="button" value=註冊 onClick="register()">
+                        </td>
+                        <td width="20%">
+                            <a href="/register" class="btn btn-success">Register
+                            </a>
+                        </td>-->
+                    </table>
+                </div>
+		     </div>
+        </table>
+        </form>
+
+			</div>
+		</section>
+	</div>
+    <center> <br>
+
+    </center>
+
+<script class="code" type="text/javascript">
+    function myFunction(btn) {
+        //btn.style.background = "#EEFFBD";
+        document.getElementById('error_message').innerText = '';
+    }
+    
+</script>
+<%- include ../page/include_js.ejs %>	
+</body>
+
+</html>

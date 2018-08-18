@@ -1,0 +1,576 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0134)http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A -->
+<html itemscope="itemscope" itemtype="http://schema.org/Blog" class="desktop landscape"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta property="og:type" content="website"><meta name="author" content="Jon (jon6773)"><meta property="fb:app_id" content="177656797355"><meta property="og:site_name" content="隨意窩 Xuite日誌"><meta name="keywords" content="jon6773"><meta property="og:url" content="//blog.xuite.net/jon6773/blog/30632711"><meta property="og:title" content="html lang語系與字元編碼設定"><meta property="og:image" itemprop="image" content="//blog.xuite.net/jon6773/blog/30632711/cover600.jpg"><meta property="og:description" itemprop="description" content="做網頁時需針對內容的語系與編碼做正確的設定，才能讓搜尋引擎與瀏覽器做正確的辨識。  &amp;nbsp;  語系設定：  &amp;lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&amp;gt;  中文：zh、zh-cn、zh-hk、zh-sp、zh-tw  英語：en、en-us、en-gb  法語：fr  德語：de  日語：ja  葡萄牙語：pt  西班牙語：es  &amp;nbsp;  &amp;nbsp;  字元編碼：  &amp;lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&amp;gt;  &amp;nbsp;  萬國碼Unicode：UTF-8  繁體"><link rel="canonical" href="http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A"><meta name="description" content="做網頁時需針對內容的語系與編碼做正確的設定，才能讓搜尋引擎與瀏覽器做正確的辨識。  &amp;nbsp;  語系設定：  &amp;lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&amp;gt;  中文：zh、zh-cn、zh-hk、zh-sp、zh-tw  英語：en、en-us、en-gb  法語：fr  德語：de  日語：ja  葡萄牙語：pt  西班牙語：es  &amp;nbsp;  &amp;nbsp;  字元編碼：  &amp;lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&amp;gt;  &amp;nbsp;  萬國碼Unicode：UTF-8  繁體 @ jon6773.pixnet.net/blog @ jon6773"><link rel="stylesheet" id="sidebarTreeStyle" type="text/css" href="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/main.css"><link rel="stylesheet" id="sidebarTreeStyle" type="text/css" href="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/main.css"><script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/gemini.js.下載" type="text/javascript"></script><script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/ysm_xuite.js.下載"></script><script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/syndication.js.下載" type="text/javascript"></script><link href="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/sitemaji_tab_hinet.css" rel="stylesheet" type="text/css" media="all"><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:25px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:15px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:19px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:13px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:13px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:17px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head><body ondragstart="return false" oncontextmenu="return false" onselectstart="return false" style="-moz-user-select:none;-webkit-user-select:none;user-select:none"><wptpass><script id="facebook-jssdk" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/sdk.js.下載"></script><script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/ca-pub-3198157561636075.js.下載"></script><script async="" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/analytics.js.下載"></script><script type="text/javascript" async="" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/atrk.js.下載"></script><script type="text/javascript" async="" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/ga.js.下載"></script><script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/toptoolbar,like,pinnedsite,announce,visitor,ie6,footer,dialog,push,dynamicviewinc,dynamicview,brickview,mosaicview,snapshotview,plainview,albumpost,albump"></script></wptpass><script type="text/javascript">var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-22581404-1']);_gaq.push(['_setSampleRate', '1.0']);$.getScript('/_theme/GAExp.php?site_label='+164);(function() {var ga = document.createElement('script');ga.type = 'text/javascript';ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl': 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga, s);})();</script>
+<script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/BlogPlugins.leading_area.js.下載"></script><wptpass><script type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/previewbubble_jsonp.js.下載"></script></wptpass><wptpass><script language="javascript" type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blog_01.js.下載"></script></wptpass><wptpass><script language="javascript" type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/AC_RunActiveContent.js.下載"></script></wptpass><!--[if lt IE 9]><script src="//img.xuite.net/xui/plugins/html5shiv.js" ></script><![endif]--><wptpass><link rel="meta" href="http://s.blog.xuite.net/_public/js/labels.rdf" type="application/rdf+xml" title="ICRA labels"></wptpass><title>html lang語系與字元編碼設定 @ Panda's Blog :: 隨意窩 Xuite日誌</title><!--hinet所提供的css:Begin --><link type="text/css" rel="stylesheet" href="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/tree.css"><link type="text/css" rel="stylesheet" href="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/jqModal.css"><link rel="StyleSheet" href="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/css.css" type="text/css"><link rel="stylesheet" href="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/fix.css" type="text/css"><!--hinet所提供的css:End --><link href="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blog.css" rel="stylesheet" type="text/css"><wptpass><script language="javascript" type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/common.js.下載"></script></wptpass><link rel="alternate" type="application/rss+xml" title="Xuite Blog / RSS 2.0" href="http://blog.xuite.net/jon6773/blog/rss.xml"><link rel="alternate" type="application/atom+xml" title="Xuite Blog / ATOM 0.3" href="http://blog.xuite.net/jon6773/blog/atom.xml"><link rel="apple-touch-icon-precomposed" sizes="152x152" href="http://img.xuite.net/_v_1.0.111/favicon/xuite/apple-touch-icon-152x152-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="http://img.xuite.net/_v_1.0.111/favicon/xuite/apple-touch-icon-120x120-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://img.xuite.net/_v_1.0.111/favicon/xuite/apple-touch-icon-144x144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://img.xuite.net/_v_1.0.111/favicon/xuite/apple-touch-icon-114x114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="http://img.xuite.net/_v_1.0.111/favicon/xuite/apple-touch-icon-76x76-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://img.xuite.net/_v_1.0.111/favicon/xuite/apple-touch-icon-72x72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="http://img.xuite.net/_v_1.0.111/favicon/xuite/apple-touch-icon-64x64-precomposed.png">
+<link rel="shortcut icon" href="http://img.xuite.net/_v_1.0.111/favicon/xuite/favicon.ico"><script type="text/javascript">
+_atrk_opts = { atrk_acct:"Q+7Ii1a8Dy00qI", domain:"xuite.net",dynamic: true};
+(function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+</script>
+<noscript>&lt;img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=Q+7Ii1a8Dy00qI" style="display:none" height="1" width="1" alt="" /&gt;</noscript>
+
+<style type="text/css"><!--  #mid{margin:0px 215px 0px 0px;} --></style><!--[if lte IE 7]><div id="ie6" ></div><script>(new XUI.Widgets.IE6(document.getElementById('ie6'))).render();</script><![endif]--><meta http-equiv="imagetoolbar" content="no"><img width="0" height="0" border="0" style="display:none;" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/cArticle"><!--toptoolbar start-->
+<div id="top-toolbar1" class="top-toolbar"><ul class="top-toolbar-general-menu">    <li class="top-toolbar-general-home">        <p><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/home/blog%5Ehttp://blog.xuite.net">隨意窩</a></p>        <ul>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/www/blog%5Ehttp://xuite.net">首頁</a></li>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/blog/blog%5Ehttp://blog.xuite.net">日誌</a></li>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/photo/blog%5Ehttp://photo.xuite.net">相簿</a></li>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/vlog/blog%5Ehttp://vlog.xuite.net">影音</a></li>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/yo/blog%5Ehttp://yo.xuite.net">旅遊</a></li>        </ul>    </li>    <li class="top-toolbar-general-add">        <p><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/add_content/blog%5Ehttp://blog.xuite.net/_my2/redir_article_post.php?bid=543979">新增內容</a></p>        <ul>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/add_article/blog%5Ehttp://blog.xuite.net/_my2/redir_article_post.php?bid=543979">新增文章</a></li>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/add_photo/blog%5Ehttp://photo.xuite.net/_my2/photo/html5uploader">新增相片</a></li>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/add_vlog/blog%5Ehttp://vlog.xuite.net/_my2/xupload/new">新增影音</a></li>            <li><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/add_mywall/blog%5Ehttp://mywall.xuite.net/?ohoh">新增歐喔</a></li>        </ul>    </li>    <li class="top-toolbar-general-manage">        <p><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/my2/blog%5Ehttp://blog.xuite.net/_my2/redir_article_post.php?bid=543979&amp;target=index">管理後台</a></p>    </li>    <li class="top-toolbar-general-view-mode" style="display: none;">        <p><a href="javascript:void(0)">瀏覽模式</a></p>        <ul></ul>    </li>    <li class="top-toolbar-general-push">        <p><a href="javascript:void(0)">分享好友</a></p>        <ul>            <li><a target="_blank" href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/to_fb/blog%5Ehttp://www.facebook.com/sharer.php?u=http%3A%2F%2Fblog.xuite.net%2Fjon6773%2Fblog%2F30632711-html%2Blang%25E8%25AA%259E%25E7%25B3%25BB%25E8%2588%2587%25E5%25AD%2597%25E5%2585%2583%25E7%25B7%25A8%25E7%25A2%25BC%25E8%25A8%25AD%25E5%25AE%259A&amp;t=html%20lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A%20%40%20Panda%27s%20Blog%20%3A%3A%20%E9%9A%A8%E6%84%8F%E7%AA%A9%20Xuite%E6%97%A5%E8%AA%8C" title="分享到 Facebook">Facebook</a></li>            <li><a target="_blank" href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/to_plurk/blog%5Ehttp://plurk.com/?qualifier=shares&amp;status=http%3A%2F%2Fblog.xuite.net%2Fjon6773%2Fblog%2F30632711-html%2Blang%25E8%25AA%259E%25E7%25B3%25BB%25E8%2588%2587%25E5%25AD%2597%25E5%2585%2583%25E7%25B7%25A8%25E7%25A2%25BC%25E8%25A8%25AD%25E5%25AE%259A%20" title="分享到噗浪">Plurk</a></li>            <li><a target="_blank" href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/to_mywall/blog%5Ehttp://mywall.xuite.net/?ohoh=http%3A%2F%2Fblog.xuite.net%2Fjon6773%2Fblog%2F30632711-html%2Blang%25E8%25AA%259E%25E7%25B3%25BB%25E8%2588%2587%25E5%25AD%2597%25E5%2585%2583%25E7%25B7%25A8%25E7%25A2%25BC%25E8%25A8%25AD%25E5%25AE%259A" title="分享到歐喔">歐喔</a></li>        </ul>    </li>    <li class="top-toolbar-general-sysop">        <p><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/admin_blog/blog%5Ehttp://blog.xuite.net/xuite.net/xuite">站長日誌</a></p>    </li></ul><ul class="top-toolbar-user-menu">    <li class="top-toolbar-user-login">        <p><a href="http://redir.xuite.net/redir/xuite/xui/toptoolbar/login/blog%5Ehttp://blog.xuite.net/_members/login.php?furl=http%3A%2F%2Fblog.xuite.net%2Fjon6773%2Fblog%2F30632711-html%2Blang%25E8%25AA%259E%25E7%25B3%25BB%25E8%2588%2587%25E5%25AD%2597%25E5%2585%2583%25E7%25B7%25A8%25E7%25A2%25BC%25E8%25A8%25AD%25E5%25AE%259A">登入</a></p>    </li>    <li class="top-toolbar-user-short">        <p><a href="http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A#">短網址</a></p>    </li>    <li class="top-toolbar-user-tool">        <p><a href="javascript:void(0)">工具</a></p>        <ul>            <li class="top-toolbar-user-favor"><a href="javascript:void(0)">收藏</a></li>            <li class="top-toolbar-user-abuse"><a href="http://www.xuite.net/service/report/report.html" target="_blank">檢舉</a></li>            <li class="top-toolbar-user-recommend"><a href="javascript:void(0)">推薦</a></li>        </ul>    </li></ul><form class="top-toolbar-search-form">    <a href="http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A#">搜尋</a>    <input placeholder="搜尋 Xuite 全網"></form><div class="top-toolbar-ad-bar" style="left: 336px; width: 514px; display: block;"><div id="ypaAdWrapper-xuite_1" style="width:1600px;margin-top:4px;"><iframe id="ypaAdWrapper-xuite_1-iframe" name="ypaAdWrapper-xuite_1-iframe" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/saved_resource.html" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="100%" height="17"></iframe></div></div></div>
+<script>
+TemplateJS.theme_navigationbar.main({
+	bid: '543979', articleID: '30632711', reportType: 'article', tpl_type: 0
+});
+</script>
+<!--toptoolbar end--><div id="wrap"><div id="container">
+<script language="javascript" type="text/javascript">
+var g_sidebar = {"ItemCustom":"Advertisement","ItemLink":"\u6700\u611b\u9023\u7d50","ItemArticleList":"\u6700\u65b0\u6587\u7ae0","ItemMessageList":"\u6700\u65b0\u56de\u61c9","ItemCategory":"\u6587\u7ae0\u5206\u985e","ItemCounter":"\u53c3\u89c0\u4eba\u6b21\u7d71\u8a08","ItemBlogResource":"\u65e5\u8a8c\u4f7f\u7528\u8cc7\u6e90"};
+var xuiteBlogPlugin_auto_resize='N';var xuiteBlogPlugin_auto_yo='N';var xuiteBlogPlugin_bookmark='N';var xuiteBlogPlugin_random_article='N';var xuiteBlogPlugin_relate_article='Y';var xuiteBlogPlugin_article_snapshot='Y';var xuiteBlogPlugin_facebook_comment_color='Y';var xuiteBlogPlugin_facebook_like_down='Y';var xuiteBlogPlugin_history_today='Y';var xuiteBlogPlugin_facebook_comment='Y';(function() {var fn = $.fn,h = fn.height,w = fn.width,t = fn.scrollTop,l = fn.scrollLeft;fn.height = function() {return this[0] === window && arguments.length === 0 ? document.body.clientHeight : h.apply(this, arguments);};fn.width = function() {return this[0] === window && arguments.length === 0 ? document.body.clientWidth : w.apply(this, arguments);};if(navigator.userAgent.indexOf('MSIE') === -1)return;fn.scrollTop = function() {return this[0] === window && arguments.length === 0 ? document.body.scrollTop : t.apply(this, arguments);};fn.scrollLeft = function() {return this[0] === window && arguments.length === 0 ? document.body.scrollLeft : l.apply(this, arguments);};})(); 
+</script>       
+
+<!-- 插入Head選單程式:End --><style> #xuitelogo {_behavior:url(/png.htc)} </style><div id="banner"><div class="menulist"><div class="logo"><a href="http://blog.xuite.net/"><img id="xuitelogo" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/logo.png" border="0"></a></div></div><div class="blogname"><a href="http://blog.xuite.net/jon6773/blog">Panda's Blog</a><span class="blogemotion"><a href="http://blog.xuite.net/new_index.php?type=mood&amp;mind=1"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/mind_b1.gif" width="90" height="25" border="0" align="middle"></a></span><span class="blogfavo"><a href="javascript:TemplateJS.theme_navigationbar.favorClickHandler();"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/addFavorite.gif" width="82" height="19" border="0" align="middle"></a></span></div><div class="description">插畫,設計,攝影,3C,音樂,電影,電玩,程式...<br></div><div class="tab_service"><ul><li id="tab_service_blog" onclick="javascript:location.href=&#39;//blog.xuite.net/jon6773&#39;" title="日誌">日誌</li><li id="tab_select_photo" onclick="javascript:location.href=&#39;//photo.xuite.net/jon6773&#39;" title="相簿">相簿</li><li id="tab_select_vlog" onclick="javascript:location.href=&#39;//vlog.xuite.net/jon6773&#39;" title="影音">影音</li><li id="tab_select_gbook" onclick="javascript:location.href=&#39;//gbook.xuite.net/jon6773&#39;" title="留言">留言</li><li id="tab_select_friend" onclick="javascript:location.href=&#39;//my.xuite.net/friend/jon6773&#39;" title="好友">好友</li><li id="tab_select_card" onclick="javascript:location.href=&#39;//xuite.net/jon6773&#39;" title="名片">名片</li></ul></div></div><div id="main"><div id="linksRight"><div class="sidetitle"><div class="customTitle"><li>Google搜尋</li></div></div><div class="side"><div class="customSide"><script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/urchin.js.下載" type="text/javascript"></script><script type="text/javascript">_uacct = "UA-3052674-1";urchinTracker();</script><!-- Search Google --><center><form method="get" action="http://www.google.com.tw/custom" target="google_window"><table bgcolor="#ffffff"><tbody><tr><td nowrap="nowrap" valign="top" align="left" height="32"><br><label for="sbi" style="display: none">輸入您的搜尋字詞</label><input type="text" name="q" size="25" maxlength="255" value="" id="sbi"></td></tr><tr><td valign="top" align="left"><label for="sbb" style="display: none">提交搜尋表單</label><input type="submit" name="sa" value="Google 搜尋" id="sbb"><input type="hidden" name="client" value="pub-3198157561636075"><input type="hidden" name="forid" value="1"><input type="hidden" name="ie" value="big5"><input type="hidden" name="oe" value="big5"><input type="hidden" name="cof" value="GALT:#3D81EE;GL:1;DIV:#FFFFFF;VLC:191919;AH:center;BGC:FFFFFF;LBGC:FFFFFF;ALC:333333;LC:333333;T:808080;GFNT:3D81EE;GIMP:3D81EE;FORID:1"><input type="hidden" name="hl" value="zh-TW"></td></tr></tbody></table></form></center><!-- Search Google -->
+<meta name="ROBOTS" content="ALL"></div></div>
+<div class="sidetitle"><div class="customTitle"><li>Advertisement</li></div></div><div class="side"><div class="customSide"><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3052674-1', 'xuite.net');
+  ga('send', 'pageview');
+
+</script>
+<div style="align:center;">
+<script type="text/javascript"><!--
+google_ad_client = "pub-3198157561636075";
+/* 200x200, 已建立 2009/6/3*/
+google_ad_slot = "2671105355";
+google_ad_width = 200;
+google_ad_height = 200;
+//-->
+</script>
+<script type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/show_ads.js.下載">
+</script><ins id="aswift_0_expand" style="display:inline-table;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:200px;background-color:transparent"><iframe width="200" height="200" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/saved_resource(2).html"></iframe></ins></ins><br>
+<script type="text/javascript"><!--
+google_ad_client = "pub-3198157561636075";
+/* 160x600, 已建立 2009/11/4 */
+google_ad_slot = "9983551270";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/show_ads.js.下載">
+</script><ins id="aswift_1_expand" style="display:inline-table;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:600px;margin:0;padding:0;position:relative;visibility:visible;width:160px;background-color:transparent"><iframe width="160" height="600" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/saved_resource(3).html"></iframe></ins></ins>
+</div></div></div>
+
+<div class="sidetitle"><div class="linkTitle"><li><script language="javascript" type="text/javascript">document.write(g_sidebar.ItemLink);</script>最愛連結</li></div></div><div class="side"><div class="LoveLinkSide"><a href="javascript:void(0);" id="expandTree-4797">全部展開</a>|<a href="javascript:void(0);" id="collapseTree-4797">全部收合</a><div class="treeDiv" id="treeDiv-4797"><ul class="sidebar-tree-container"><li class="sidebar-tree-dir "><a href="javascript:void(0)" class="sidebar-tree-toggle">友站連結</a><div class="sidebar-tree-empty">此目錄下並未新增連結</div></li><li class="sidebar-tree-leaf sidebar-tree-last-node"><a target="_blank" href="http://jon6773.pixnet.net/blog" class="sidebar-tree-link">放棄Xuite重練</a></li></ul></div></div></div>
+<script>
+(function(){
+	var SidebarTree = window.SidebarTree;
+	if(!SidebarTree){
+		SidebarTree = window.SidebarTree = {queue:[]};
+		$.ajax({
+			dataType: "script",
+			cache: true,
+			url: "//s.blog.xuite.net/_public/js/BlogPlugins.SidebarTree.js"
+		})
+	}
+	SidebarTree.queue.push([
+		"4797",
+		{"dir_2889950":{"id":"2889950","title":"\u53cb\u7ad9\u9023\u7d50","description":"","order":"1","children":[]},"leaf_5040368":{"id":"5040368","title":"\u653e\u68c4Xuite\u91cd\u7df4","description":"","order":"0","link":"http:\/\/jon6773.pixnet.net\/blog"}},
+		{msg: {	emptyTree: "作者並未新增連結", emptyGroup: "此目錄下並未新增連結" }, type:"lovelink"}
+	]);
+	if(SidebarTree.processQueue){
+		SidebarTree.processQueue();
+	}
+})();
+</script>
+<div id="sliceItemArticleList" class="hslice"> <h3 class="entry-title" style="display:none">jon6773's 新文章</h3><div class="entry-content"><div class="sidetitle"><div class="articleTitle"><li><script language="javascript" type="text/javascript">document.write(g_sidebar.ItemArticleList);</script>最新文章</li></div></div><div class="side"><div class="articleSide"><li><a href="http://blog.xuite.net/jon6773/blog/39920570">不用Xuite了</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39496387">譚詠麟 X Mr. 太匆匆</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39495630">Panasonic GF2發表</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39460259">PageRank 查詢</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39428443">GF2本週發表!?</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39406959">Far East Movement / Like A G6</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39331600">不可思議影片匯集</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39311138">花博煙火</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39309557">白色iPhone 4不賣了!?</a></li><li><a href="http://blog.xuite.net/jon6773/blog/39277554">Canon 60D、Nikon D7000規格比較</a></li></div></div></div></div>
+
+<div id="sliceItemMessageList" class="hslice"> <h3 class="entry-title" style="display:none">jon6773's 新回應</h3><div class="entry-content"><div class="sidetitle"><div class="messageTitle"><li><script language="javascript" type="text/javascript">document.write(g_sidebar.ItemMessageList);</script>最新回應</li></div></div><div class="side"><div id="new-comment"><ol id="new-comment-list"><li class="new-comment-item"><a href="http://blog.xuite.net/jon6773/blog/39920570#290931298" class="new-comment-avatar-c"><img width="30" height="30" class="new-comment-avatar" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/cover.jpg" title="不用Xuite了"></a><a href="http://blog.xuite.net/jon6773/blog/39920570#290931298" class="new-comment-content">75國語言翻譯公司
+&nbsp;
+提供俄文口譯價錢等服務
+&nbsp;
+電話:  02-2369-0937
+&nbsp;
+LINE-ID:    0989000581
+&nbsp;
+PS: 點擊小房子會有優惠喔!!!
+&nbsp;
+華頓數位翻譯社
+&nbsp;
+翻譯|http://ppt.cc/6eJsm
+&nbsp;</a><span class="new-comment-author-c">by <span class="new-comment-author"><a href="javascript:void(0);">52國語言翻譯公司</a></span></span><span class="new-comment-date"><span class="new-comment-month">11</span>/<span class="new-comment-day">20</span></span></li><li class="new-comment-item"><a href="http://blog.xuite.net/jon6773/blog/39277554#288069807" class="new-comment-avatar-c"><img width="30" height="30" class="new-comment-avatar" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/cover(1).jpg" title="Canon 60D、Nikon D7000規格比較"></a><a href="http://blog.xuite.net/jon6773/blog/39277554#288069807" class="new-comment-content">跟前夫相識六年，直到最近才看清楚這斯會家庭暴力的男人，竟是為了外面的小三，原本預期會有相夫教子的美好情況，真想不到電視劇發生在哀家身上，更生氣也把我手機line對話紀錄資料和照片刪除，幸好上網找到硬碟什麼醫院，data1,com,tw順利讓我結束這段婚姻
+&nbsp;
+&nbsp;</a><span class="new-comment-author-c">by <span class="new-comment-author"><a href="javascript:void(0);">v7310j38</a></span></span><span class="new-comment-date"><span class="new-comment-month">9</span>/<span class="new-comment-day">10</span></span></li><li class="new-comment-item"><a href="http://blog.xuite.net/jon6773/blog/38174486#21859294" class="new-comment-avatar-c"><img width="30" height="30" class="new-comment-avatar" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/cover(2).jpg" title="iPhone鈴聲下載、線上剪輯"></a><a href="http://blog.xuite.net/jon6773/blog/38174486#21859294" class="new-comment-content">抱歉打擾!
+我看不到你說的"skip&nbsp; this&nbsp; step "&nbsp; 誒..
+右上角指的範圍是哪?怎樣把它弄出來才看得到?
+能拍給我看在哪嘛?? 謝謝:))</a><span class="new-comment-author-c">by <span class="new-comment-author"><a href="javascript:void(0);">小丁</a></span></span><span class="new-comment-date"><span class="new-comment-month">7</span>/<span class="new-comment-day">23</span></span></li><li class="new-comment-item"><a href="http://blog.xuite.net/jon6773/blog/21852256#20880556" class="new-comment-avatar-c"><img width="30" height="30" class="new-comment-avatar" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/cover(3).jpg" title="2009陳綺貞小巨蛋演唱會(下)"></a><a href="http://blog.xuite.net/jon6773/blog/21852256#20880556" class="new-comment-content">您好
+我是文化部藝文部落格的小編菲比，
+有幸到這兒拜讀您的文章，
+流暢的文筆真的讓我想看完部落格內每篇網誌。
+也正如此，
+想在此代表文化部的邀請，
+請您參加本站正在舉辦的「我的青春追藝路」徵文活動。
+活動網站：http://blog.moc.gov.tw/event02/index.jsp
+這個非常有意義的投稿活動
+就是要廣邀全國對展覽、電影、音樂、舞蹈、戲劇或是逛市集有興趣的朋友來參加，
+而您正是我們要找的人喔~
+這個徵心得文活動不但可以跟更多網友交流觀展心得，
+還特地準備了百來項的獎品鼓勵參賽者，
+還有文化部所頒發的得獎狀，
+不管是學生升學或是對於社會人士求職都很好用喔！
+小編真心拜求您來參與投稿，
+對本站或活動有任何意見或問題，
+也很歡迎跟我聯繫，謝謝囉。
+藝文部落格 維運小組 菲比
+phoebe.dong@techmore.com.tw
+(02)8773-4300#156</a><span class="new-comment-author-c">by <span class="new-comment-author"><a href="javascript:void(0);">菲比</a></span></span><span class="new-comment-date"><span class="new-comment-month">9</span>/<span class="new-comment-day">26</span></span></li><li class="new-comment-item"><a href="http://blog.xuite.net/jon6773/blog/35956416#19145200" class="new-comment-avatar-c"><img width="30" height="30" class="new-comment-avatar" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/cover(4).jpg" title="iPhone 4 烤漆服務"></a><a href="http://blog.xuite.net/jon6773/blog/35956416#19145200" class="new-comment-content">有國際運輸嗎？，</a><span class="new-comment-author-c">by <span class="new-comment-author"><a href="javascript:void(0);">Lovephone</a></span></span><span class="new-comment-date"><span class="new-comment-month">7</span>/<span class="new-comment-day">9</span></span></li></ol></div></div></div></div>
+<script language="javascript">
+$(document).ready(function(){   
+  $.ajax({
+       type: "GET",
+       url: "/_theme/MessageListExp.php?bid=543979&msg_list_nums=5&loginID=jon6773&url=blog&ga="+(new Date()).getTime(),
+       async: false,
+       dataType: 'json',
+       success: getMessageList
+  });
+}); 
+
+function getMessageList(json){
+  var messageSideContent = "";
+  if(json.length > 0){
+    for(var i=0;i< json.length;i++){
+        messageSideContent = messageSideContent + '<li class="new-comment-item"><a href="'+json[i].link+'" class="new-comment-avatar-c"><img width="30" height="30" class="new-comment-avatar" src="'+json[i].avatar+'" title="'+json[i].title+'"></a><a href="'+json[i].link+'" class="new-comment-content" >'+json[i].content+'</a><span class="new-comment-author-c" >by <span class="new-comment-author"><a href="'+json[i].profile_url+'">'+json[i].author_nickname+'</a></span></span><span class="new-comment-date"><span class="new-comment-month" >'+json[i].cm+'</span>/<span class="new-comment-day" >'+json[i].cd+'</span></span></li>';
+	}
+	$("#new-comment-list").html(messageSideContent);
+  }
+} 
+</script>
+
+<div class="sidetitle"><div class="categoryTitle"><li><script language="javascript" type="text/javascript">document.write(g_sidebar.ItemCategory);</script>文章分類</li></div></div><div class="side"><div class="categorySide"><a href="javascript:void(0);" id="expandTree-3316">全部展開</a>|<a href="javascript:void(0);" id="collapseTree-3316">全部收合</a><div class="treeDiv" id="treeDiv-3316"><ul class="sidebar-tree-container"><li class="sidebar-tree-dir "><a href="javascript:void(0)" class="sidebar-tree-toggle">網頁</a><ul class="sidebar-tree-sub-container"><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1654274" class="sidebar-tree-link">CSS(14)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=2043219" class="sidebar-tree-link">網頁語法(9)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1992995" class="sidebar-tree-link">SEO(7)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=2043220" class="sidebar-tree-link">Flash(3)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1676323" class="sidebar-tree-link">RSS(2)</a></li><li class="sidebar-tree-leaf sidebar-tree-last-node"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=805752" class="sidebar-tree-link">工作筆記(2)</a></li></ul></li><li class="sidebar-tree-dir "><a href="javascript:void(0)" class="sidebar-tree-toggle">藝文</a><ul class="sidebar-tree-sub-container"><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=527629" class="sidebar-tree-link">電影(45)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=494044" class="sidebar-tree-link">音樂(34)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=546248" class="sidebar-tree-link">插畫(30)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1981699" class="sidebar-tree-link">藝文(19)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=2086631" class="sidebar-tree-link">流行(8)</a></li><li class="sidebar-tree-leaf sidebar-tree-last-node"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=2304777" class="sidebar-tree-link">創意(6)</a></li></ul></li><li class="sidebar-tree-dir "><a href="javascript:void(0)" class="sidebar-tree-toggle">科技</a><ul class="sidebar-tree-sub-container"><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1598102" class="sidebar-tree-link">相機攝影(112)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=2339322" class="sidebar-tree-link">Apple(87)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=498670" class="sidebar-tree-link">程式應用(34)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=2086171" class="sidebar-tree-link">網路(22)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1964398" class="sidebar-tree-link">手機(24)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1711248" class="sidebar-tree-link">電玩(18)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=492975" class="sidebar-tree-link">新玩意(17)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=2094555" class="sidebar-tree-link">3C(11)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=951613" class="sidebar-tree-link">小遊戲(6)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1644725" class="sidebar-tree-link">免費下載(7)</a></li><li class="sidebar-tree-leaf sidebar-tree-last-node"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1490423" class="sidebar-tree-link">開箱文(1)</a></li></ul></li><li class="sidebar-tree-dir  sidebar-tree-last-node"><a href="javascript:void(0)" class="sidebar-tree-toggle">生活</a><ul class="sidebar-tree-sub-container"><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=491062" class="sidebar-tree-link">生活雜記(56)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=491061" class="sidebar-tree-link">好笑分享(27)</a></li><li class="sidebar-tree-leaf"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=491088" class="sidebar-tree-link">景點分享(3)</a></li><li class="sidebar-tree-leaf sidebar-tree-last-node"><a href="http://blog.xuite.net/jon6773/blog?st=c&amp;p=1&amp;w=1080188" class="sidebar-tree-link">純吃團(1)</a></li></ul></li></ul></div></div></div>
+<script>
+(function(){
+	var SidebarTree = window.SidebarTree;
+	if(!SidebarTree){
+		SidebarTree = window.SidebarTree = {queue:[]};
+		$.ajax({
+			dataType: "script",
+			cache: true,
+			url: "//s.blog.xuite.net/_public/js/BlogPlugins.SidebarTree.js"
+		})
+	}
+	SidebarTree.queue.push([
+		"3316",
+		{"dir_251085":{"id":"251085","title":"\u7db2\u9801","order":"1","children":{"leaf_1654274":{"id":"1654274","title":"CSS(14)","order":"1","link":"\/jon6773\/blog?st=c&p=1&w=1654274"},"leaf_2043219":{"id":"2043219","title":"\u7db2\u9801\u8a9e\u6cd5(9)","order":"2","link":"\/jon6773\/blog?st=c&p=1&w=2043219"},"leaf_1992995":{"id":"1992995","title":"SEO(7)","order":"3","link":"\/jon6773\/blog?st=c&p=1&w=1992995"},"leaf_2043220":{"id":"2043220","title":"Flash(3)","order":"4","link":"\/jon6773\/blog?st=c&p=1&w=2043220"},"leaf_1676323":{"id":"1676323","title":"RSS(2)","order":"5","link":"\/jon6773\/blog?st=c&p=1&w=1676323"},"leaf_805752":{"id":"805752","title":"\u5de5\u4f5c\u7b46\u8a18(2)","order":"6","link":"\/jon6773\/blog?st=c&p=1&w=805752"}}},"dir_251086":{"id":"251086","title":"\u85dd\u6587","order":"2","children":{"leaf_527629":{"id":"527629","title":"\u96fb\u5f71(45)","order":"7","link":"\/jon6773\/blog?st=c&p=1&w=527629"},"leaf_494044":{"id":"494044","title":"\u97f3\u6a02(34)","order":"8","link":"\/jon6773\/blog?st=c&p=1&w=494044"},"leaf_546248":{"id":"546248","title":"\u63d2\u756b(30)","order":"9","link":"\/jon6773\/blog?st=c&p=1&w=546248"},"leaf_1981699":{"id":"1981699","title":"\u85dd\u6587(19)","order":"10","link":"\/jon6773\/blog?st=c&p=1&w=1981699"},"leaf_2086631":{"id":"2086631","title":"\u6d41\u884c(8)","order":"11","link":"\/jon6773\/blog?st=c&p=1&w=2086631"},"leaf_2304777":{"id":"2304777","title":"\u5275\u610f(6)","order":"12","link":"\/jon6773\/blog?st=c&p=1&w=2304777"}}},"dir_251087":{"id":"251087","title":"\u79d1\u6280","order":"3","children":{"leaf_1598102":{"id":"1598102","title":"\u76f8\u6a5f\u651d\u5f71(112)","order":"13","link":"\/jon6773\/blog?st=c&p=1&w=1598102"},"leaf_2339322":{"id":"2339322","title":"Apple(87)","order":"14","link":"\/jon6773\/blog?st=c&p=1&w=2339322"},"leaf_498670":{"id":"498670","title":"\u7a0b\u5f0f\u61c9\u7528(34)","order":"15","link":"\/jon6773\/blog?st=c&p=1&w=498670"},"leaf_2086171":{"id":"2086171","title":"\u7db2\u8def(22)","order":"16","link":"\/jon6773\/blog?st=c&p=1&w=2086171"},"leaf_1964398":{"id":"1964398","title":"\u624b\u6a5f(24)","order":"17","link":"\/jon6773\/blog?st=c&p=1&w=1964398"},"leaf_1711248":{"id":"1711248","title":"\u96fb\u73a9(18)","order":"18","link":"\/jon6773\/blog?st=c&p=1&w=1711248"},"leaf_492975":{"id":"492975","title":"\u65b0\u73a9\u610f(17)","order":"19","link":"\/jon6773\/blog?st=c&p=1&w=492975"},"leaf_2094555":{"id":"2094555","title":"3C(11)","order":"20","link":"\/jon6773\/blog?st=c&p=1&w=2094555"},"leaf_951613":{"id":"951613","title":"\u5c0f\u904a\u6232(6)","order":"21","link":"\/jon6773\/blog?st=c&p=1&w=951613"},"leaf_1644725":{"id":"1644725","title":"\u514d\u8cbb\u4e0b\u8f09(7)","order":"22","link":"\/jon6773\/blog?st=c&p=1&w=1644725"},"leaf_1490423":{"id":"1490423","title":"\u958b\u7bb1\u6587(1)","order":"23","link":"\/jon6773\/blog?st=c&p=1&w=1490423"}}},"dir_251088":{"id":"251088","title":"\u751f\u6d3b","order":"4","children":{"leaf_491062":{"id":"491062","title":"\u751f\u6d3b\u96dc\u8a18(56)","order":"24","link":"\/jon6773\/blog?st=c&p=1&w=491062"},"leaf_491061":{"id":"491061","title":"\u597d\u7b11\u5206\u4eab(27)","order":"25","link":"\/jon6773\/blog?st=c&p=1&w=491061"},"leaf_491088":{"id":"491088","title":"\u666f\u9ede\u5206\u4eab(3)","order":"26","link":"\/jon6773\/blog?st=c&p=1&w=491088"},"leaf_1080188":{"id":"1080188","title":"\u7d14\u5403\u5718(1)","order":"27","link":"\/jon6773\/blog?st=c&p=1&w=1080188"}}}},
+		{msg: {	emptyTree: "作者尚未新增文章喔！", emptyGroup: "作者尚未建立分類喔！" }, type:"category"}
+	]);
+	if(SidebarTree.processQueue){
+		SidebarTree.processQueue();
+	}
+})();
+</script>
+  <script language="javascript" type="text/javascript">
+   $(document).ready(function(){
+   		$.ajax({
+     type: "GET",
+     url: '/_theme/CountSideExp.php?bid=543979&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: getCountSide
+    });
+
+ });
+ 
+   function getCountSide(json){
+     $("div#todayHit").html("今日人氣: "+json.now_hit);
+     $("div#totalHit").html("累積人氣: "+json.all_hit);
+   }
+   
+ </script>  
+<div class="sidetitle"><div class="countTitle"><li><script language="javascript" type="text/javascript">document.write(g_sidebar.ItemCounter);</script>參觀人次統計</li></div></div><div class="side"><div class="countSide"><div id="todayHit">今日人氣: 53</div><div id="totalHit">累積人氣: 512362</div></div></div>
+
+<script language="javascript" type="text/javascript">
+function AddRss_test(blogID,title){
+			window.open('//xuite.net/api/addrss/index.php?title='+title+'+&feedURL='+blogID,'_blank','height=615,width=520,status=no,toolbar=no,menubar=no,location=no','true');
+}
+</script>
+<div class="sidetitle"><div class="resourceTitle"><li><script language="javascript" type="text/javascript">document.write(g_sidebar.ItemBlogResource);</script>日誌使用資源</li></div></div><div class="side"><div class="resourceSide"><a href="javascript:;" onclick="javascript:TemplateJS.theme_navigationbar.addFriendClickHandler(&#39;jon6773&#39;);return false;"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/addFriend.gif" width="82" height="19" border="0"></a><br><a href="javascript:;" onclick="javascript:TemplateJS.theme_navigationbar.favorClickHandler();return false;"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/addFavorite.gif" width="82" height="19" border="0"></a><br><a href="http://blog.xuite.net/jon6773/blog/rss.xml" target="_blank"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/rss01.gif" width="93" height="15" border="0" vspace="1"></a><br><a href="http://blog.xuite.net/jon6773/blog/atom.xml" target="_blank"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/atom01.gif" width="93" height="15" border="0" vspace="1"></a><br><a href="http://blog.xuite.net/jon6773/blog/message.xml" target="_blank"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/atom02.gif" width="93" height="15" border="0" vspace="1"></a><br>Powered by Xuite<br></div></div></div><div id="mid"><div id="content">
+<script language="javascript">
+function wopen(){
+ window.open("//blog.xuite.net/_theme/item/item_auto_trackback.php?ping=http://blog.xuite.net/jon6773/blog/30632711/track","trackBack","location=no,toolbar=no,resizable=yes,scrollbars=yes,width=430,height=400")
+}
+
+
+function copy_clip(meintext)
+{
+ if (window.clipboardData) 
+   {
+   // the IE-manier
+   window.clipboardData.setData("Text", meintext);
+   } 
+}
+
+</script>
+<script type="application/ld+json">{"@context": "http://schema.org","@type": "BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://blog.xuite.net/jon6773/blog/30632711"},"headline": "html lang語系與字元編碼設定","image": {"@type": "ImageObject","url": "http://blog.xuite.net/jon6773/blog/30632711/cover600.jpg","width": "600","height": "400"},"datePublished": "2010-02-04T12:23:00+08:00","dateModified": "2013-01-23T04:09:00+08:00","author": {"@type": "Person","name": "jon6773(Jon)"},"publisher": {"@type": "Organization","name": "Xuite","logo": {"@type": "ImageObject","url": "http://img.xuite.net/_v_1.0.103/blog/img/xuite_logo_blog.png"}},"description": "做網頁時需針對內容的語系與編碼做正確的設定，才能讓搜尋引擎與瀏覽器做正確的辨識。  &amp;amp;nbsp;  語系設定：  &amp;amp;lt;html xmlns=&amp;quot;http://www.w3.org/1999/xhtml&amp;quot; xml:lang=&amp;quot;en&amp;quot; lang=&amp;quot;en&amp;quot;&amp;amp;gt;  中文：zh、zh-cn、zh-hk、zh-sp、zh-tw  英語：en、en-us、en-gb  法語：fr  德語：de  日語：ja  葡萄牙語：pt  西班牙語：es  &amp;amp;nbsp;  &amp;amp;nbsp;  字元編碼：  &amp;amp;lt;meta http-equiv=&amp;quot;Content-Type&amp;quot; content=&amp;quot;text/html; charset=UTF-8&amp;quot; /&amp;amp;gt;  &amp;amp;nbsp;  萬國碼Unicode：UTF-8  繁體"}</script><div class="ArticleContent"><div class="title"><span class="titledate"><span class="titledate-year">2010</span><span class="titledate-month">02</span><span class="titledate-day">04</span><span class="titledate-hour">12</span><span class="titledate-min">23</span></span><span class="titlename">html lang語系與字元編碼設定</span></div><div class="blogrank"><div style="overflow:hidden;"><div style="float:left;"></div><div><script>if( (typeof xuiteBlogPlugin_bookmark=="undefined") || (xuiteBlogPlugin_bookmark == null) || (xuiteBlogPlugin_bookmark == 'Y')){document.write("<div class='bookmark' style='clear:both'></div>");(new XUI.Widgets.Push($(".bookmark"))).render();}</script><div style="text-align:right;"><span class="counter" style="margin-top:0px;"><div id="article_counter"><li>12846</li></div></span><span class="category" style="margin-top:0px;"><li style="margin:0;padding:0;"><a href="http://blog.xuite.net/jon6773/blog/?st=c&amp;w=2043219&amp;p=1">網頁語法</a></li></span></div></div></div><div id="tabs11"><ul><div id="clouddiv"></div></ul></div></div><form name="map_near_main" action="http://blog.xuite.net/_theme/item/item_jsonp_near.php" method="GET" target="BlogArticleNearMap" onsubmit="javascript:void window.open(&#39;about:blank&#39;,&#39;BlogArticleNearMap&#39;,&#39;width=800,height=600,menubar=no,scrollbars=yes&#39;);" style="margin:0;padding:0"><input type="hidden" name="lat" value=""><input type="hidden" name="lng" value=""></form><div class="blogbody"><div id="content_all" style="padding : 1px 0 15px; *height : 1%"><p>做網頁時需針對內容的語系與編碼做正確的設定，才能讓搜尋引擎與瀏覽器做正確的辨識。</p>
+<p>&nbsp;</p>
+<p>語系設定：</p>
+<pre style="color:#06F;">&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"&gt;</pre>
+<p>中文：zh、zh-cn、zh-hk、zh-sp、zh-tw</p>
+<p>英語：en、en-us、en-gb</p>
+<p>法語：fr</p>
+<p>德語：de</p>
+<p>日語：ja</p>
+<p>葡萄牙語：pt</p>
+<p>西班牙語：es</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>字元編碼：</p>
+<pre style="color:#06F;">&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;</pre>
+<p>&nbsp;</p>
+<p>萬國碼Unicode：UTF-8</p>
+<p>繁體中文：BIG5</p>
+<p>簡體中文：GB2312</p>
+<p>&nbsp;</p>
+<p>參考資料：</p>
+<p><a href="http://www.w3.org/TR/xhtml1/#normative">http://www.w3.org/TR/xhtml1/#normative</a></p>
+<p><a href="http://www.loc.gov/standards/iso639-2/php/code_list.php">http://www.loc.gov/standards/iso639-2/php/code_list.php</a></p>
+<p><a href="http://en.wikipedia.org/wiki/ISO_639">http://en.wikipedia.org/wiki/ISO_639</a></p>
+<p>&nbsp;</p>
+<p>
+<script type="text/javascript"><!--
+google_ad_client = "pub-3198157561636075";
+/* 300x250, 已建立 2009/5/5 */
+google_ad_slot = "1790431282";
+google_ad_width = 300;
+google_ad_height = 250;
+--></script>
+<script type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/show_ads.js.下載"><!----></script><ins id="aswift_2_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><ins id="aswift_2_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent"><iframe width="300" height="250" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/saved_resource(4).html"></iframe></ins></ins>
+</p><ins class="rmax" data-rmax-space-id="b17bee72a84b468a" data-rmax-space-type="NATIVE" data-target-id="#content_all" data-target-pos="ADD" data-rmax-space-picked="true" data-rmax-space-result="bid success" data-request-id="0eda12f0-e2cb-11e6-8d3b-5b27c03d9f88" data-viewtrackers="[&quot;//rtb-asiamax.tenmax.io/bid/viewable/1485327243687/0eda12f0-e2cb-11e6-8d3b-5b27c03d9f88/4747/7024/null/&quot;]" data-visiblerate="0" data-time-cost="892"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/pixel" style="display: none;"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/pixel(1)" style="display: none;"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/saved_resource" style="display: none;"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/saved_resource(1)" style="display: none;"></ins><script async="async" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/adsbytenmax.js.下載"></script><div style="width:100%;  height:15px; border-top:#ccc solid 1px;"></div>
+<div style="width:600px;height: 400px;margin-top:25px;margin-left:25px;">
+<a href="http://rtb-asiamax.tenmax.io/bid/click/1485327243687/0eda12f0-e2cb-11e6-8d3b-5b27c03d9f88/4747/7024/?sUrl=http%3A%2F%2Fssp.tenmax.io%2Fauction%2Fwinner%2Ftracking%2Fclk%3Fb%3D0eda12f0-e2cb-11e6-8d3b-5b27c03d9f88%26i%3D0%26adurl%3D%26id%3Ddb0efe1b-8522-45f8-a460-86bf42e3e3b8&amp;rUrl=http%3A%2F%2Fr.ad-hub.net%2FGu6eg" target="_blank" style="width:600px;height: 300px;text-decoration: blink;">
+<img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/74740075_m.png" style="width: inherit;">
+<div class="s2" style="    word-wrap: break-word;
+    color: #888888;
+    font-size: 16pt;
+    top: 6px;
+    margin: 10px 0px;
+    text-align: center;">提升IT作業效能水準，首選Cisco超融合基礎架構</div>
+<div class="s2" style="
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #ccc;
+  font-size: 10pt;
+  top: 6px;
+  margin: 10px 6px 0px 6px;
+  text-align: center;">CISCO - 提供</div>
+
+</a>   
+</div></div><script language="javascript">(function(){$('#content_all img').map((function(){var skip_count = 2;return function(){var $this = $(this);if(this.src.indexOf('.gif') == -1) {var data = {title: this.title || this.alt || '',description: '',src: this.src,size: 'o',href: $this.parent('a')};if(data.href.length != 0)  {data.href = data.href[0].href;} else {data.href = '#';}if(skip_count <= 0) {var src = this.src;$(this).addClass('lazyload').attr({'src': 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7','data-original': src});} else {skip_count--;}}return this;};})());$(function(){$('#content_all img.lazyload').lazyload({threshold: 600,load: function() {$(this).removeClass('lazyload');if( BlogPlugins && BlogPlugins.auto_resize &&(typeof xuiteBlogPlugin_auto_resize=="undefined") || (xuiteBlogPlugin_auto_resize == null) || (xuiteBlogPlugin_auto_resize == 'Y') ) {BlogPlugins.auto_resize(this, null, {delay:1000});}}});});})();var itemArticleDetailType = "";if(getCookie("MemberInformation") != null && itemArticleDetailType != "article_preview"){$.ajax({type: "GET",url: "/_theme/AuthorButtonExp.php?aid=30632711&bid=543979&mid=11909591&author_id=11909591&article_type=blog&ga="+(new Date()).getTime(),async: false,dataType: 'json',success: getButton});}function getButton(json){document.write("<div id='owner_button'>"+json+"</div>");}if ((typeof xuiteBlogPlugin_auto_yo=="undefined") || (xuiteBlogPlugin_auto_yo == null) || (xuiteBlogPlugin_auto_yo == 'Y'))  {$.ajax({type: "GET",url: "//s.blog.xuite.net/_public/js/BlogPlugins.auto_yo.js",success: function(){BlogPlugins.auto_yo.fetchItem(30632711);},dataType: "script",cache: true});}</script><div class="articleExt" style="display:block;"><div id="facebook-like-bottom" class="like-face"><iframe src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowtransparency="true"></iframe></div><script language="javascript">if ((typeof xuiteBlogPlugin_facebook_like_down=="undefined") || (xuiteBlogPlugin_facebook_like_down == null) || (xuiteBlogPlugin_facebook_like_down == 'Y')){$(document).ready(function(){(new XUI.Widgets.Like(document.getElementById('facebook-like-bottom'), { mode : 'face' , URL : 'http://blog.xuite.net/jon6773/blog/30632711' })).render();});}if ((typeof xuiteBlogPlugin_facebook_comment=="undefined") || (xuiteBlogPlugin_facebook_comment == null) || (xuiteBlogPlugin_facebook_comment == 'Y')){var myBlogThemeWidth = $(".title").width()-38;if ((typeof xuiteBlogPlugin_facebook_comment_color=="undefined") || (xuiteBlogPlugin_facebook_comment_color == null) || (xuiteBlogPlugin_facebook_comment_color == 'Y')){document.write('<div id="fb-root"></div>'+'<div class="fb-comments" data-href="http://blog.xuite.net/jon6773/blog/30632711" data-width="'+myBlogThemeWidth+'" data-numposts="5" data-colorscheme="light"></div>');}else    {document.write('<div id="fb-root"></div>'+'<div class="fb-comments" data-href="http://blog.xuite.net/jon6773/blog/30632711" data-width="'+myBlogThemeWidth+'" data-numposts="5" data-colorscheme="dark"></div>');}(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.0";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));}</script><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/WFAdUidhDBg.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/WFAdUidhDBg(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><div class="fb-comments fb_iframe_widget" data-href="http://blog.xuite.net/jon6773/blog/30632711" data-width="723" data-numposts="5" data-colorscheme="light" fb-xfbml-state="rendered"><span style="height: 187px; width: 723px;"><iframe id="f381a44d20c30e" name="f3a6870697a930c" scrolling="no" title="Facebook Social Plugin" class="fb_ltr" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/comments.html" style="border: none; overflow: hidden; height: 187px; width: 723px;"></iframe></span></div><div class="articleExtAd" style="display:block;"><script language="javascript">var notVIP = '<div id="articleExtad_title"><div id="ypaAdWrapper-xuite_3"></div></div>';$(".articleExtAd").append(notVIP);$('.top-toolbar').data('top-toolbar').setAD({title: "html lang\u8a9e\u7cfb\u8207\u5b57\u5143\u7de8\u78bc\u8a2d\u5b9a",label_id: 164,label_name: "\u8edf\u9ad4\u60c5\u5831"});</script><div id="articleExtad_title"><div id="ypaAdWrapper-xuite_3"><iframe id="ypaAdWrapper-xuite_3-iframe" name="ypaAdWrapper-xuite_3-iframe" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/saved_resource(5).html" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="100%" height="254"></iframe></div></div></div><div class="ArticleRelateSide"><div id="articleExt_relate_title">相關文章 : </div><ul id="articleExt_relate_content"><li><a target="_blank" href="http://blog.xuite.net/mickai243ho0/blog/321028319?ref=rel">如何開始學英文 學英文的方法 如何開始學英文 學英文的方法</a></li><li><a target="_blank" href="http://blog.xuite.net/twipm/twipm/308768302?ref=rel">字幕機工作原理說明 </a></li><li><a target="_blank" href="http://blog.xuite.net/jiazhou/blog/331698965?ref=rel">「認養推」花蓮收容所民眾棄養眼部似受傷的黃金獵犬弟弟～誠徵會照顧他一輩子的新家～謝謝您！20150813</a></li><li><a target="_blank" href="http://blog.xuite.net/rubymarciaran/blog/319783003?ref=rel">車牌重號多 當心罰單變你繳</a></li><li><a target="_blank" href="http://blog.xuite.net/ghjdfgjdf/gfdhfgh/308981600?ref=rel">Sorenson Squeeze Desktop Pro v10 視頻壓縮工具 英文版</a></li></ul></div><div class="ArticleRelateSide"><div id="articleExt_today_title">歷史上的今天:</div></div><ul id="ArticleTodaySide"><li><a href="http://blog.xuite.net/jon6773/blog/22124792">[推薦] Duffy ROCKFERRY 專輯</a>(2009-02-04)</li></ul></div><script language="javascript">if( (typeof xuiteBlogPlugin_relate_article=="undefined") || (xuiteBlogPlugin_relate_article == null) || (xuiteBlogPlugin_relate_article == 'Y')){$(".articleExt").append('<div class="ArticleRelateSide"><div id="articleExt_relate_title"></div><ul id="articleExt_relate_content"></ul>');$.ajax({ type: "POST", url: "/_theme/ArticleIdRelateExp.php", data: "id="+ 30632711, dataType: "json",success: function(json){var relateString = '';if(json != null && json.length != 0){jQuery.each( json, function(index,poi){relateString += '<li><a target="_blank" href="' + poi['url'] + '">' + poi['title'] + '</a></li>'; });$("#articleExt_relate_content").append(relateString);$("#articleExt_relate_title").append("相關文章 : ");}else{$("#articleExt_relate_content").append("沒有相關文章");}}});}if( (typeof xuiteBlogPlugin_random_article=="undefined") || (xuiteBlogPlugin_random_article == null) || (xuiteBlogPlugin_random_article == 'Y') || (xuiteBlogPlugin_random_article == 'YY')){$(".articleExt").append('<div class="ArticleRelateSide" style="padding-top:10px;"><div id="articleExt_random_title"></div>');var random_content = '<ul id="articleExt_random_content"></ul>';$(".articleExt").append(random_content);$.get("/_theme/ArticleRandomExp.php?bid=543979", function(data){$("#articleExt_random_content").append(data);if(data != null && data != ""){$("#articleExt_random_title").append("隨機文章 : ");}});}if( (typeof xuiteBlogPlugin_history_today=="undefined") || (xuiteBlogPlugin_history_today == null) || (xuiteBlogPlugin_history_today == 'Y')){$(".articleExt").append("<div class=\"ArticleRelateSide\"><div id=\"articleExt_today_title\">歷史上的今天:</div></div><ul id=\"ArticleTodaySide\"><li><a href=\"http://blog.xuite.net/jon6773/blog/22124792\">[推薦] Duffy ROCKFERRY 專輯</a>(2009-02-04)</li></ul>");}</script><div class="posted"><a href="http://xuite.net/jon6773">Jon</a> / <a href="http://blog.xuite.net/">Xuite日誌</a> / <a href="http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A#message">回應(0)</a> / <a href="http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A#trackback">引用(0)</a> / <a href="javascript:;" onclick="sendMail(&#39;%BAK%ADn%3A%B0%B5%BA%F4%AD%B6%AE%C9%BB%DD%B0w%B9%EF%A4%BA%AEe%AA%BA%BBy%A8t%BBP%BDs%BDX%B0%B5%A5%BF%BDT%AA%BA%B3%5D%A9w%A1A%A4%7E%AF%E0%C5%FD%B7j%B4M%A4%DE%C0%BA%BBP%C2s%C4%FD%BE%B9%B0%B5%A5%BF%BDT%AA%BA%BF%EB%C3%D1%A1C%20%20%20%20%20%BBy%A8t%B3%5D%A9w%A1G%20%20%3Chtml%20xmlns%3D%5C%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxhtml%5C%22%20xml%3Alang%3D%5C%22en%5C%22%20lang%3D%5C%22en%5C%22%3E%20%20%A4%A4%A4%E5%A1Gzh%A1Bzh-cn%A1Bzh-hk%A1Bzh-sp%A1Bzh-tw%20%20%AD%5E%BBy%A1Gen%A1Ben-us%A1Ben-gb%20%20%AAk%BBy%A1Gfr%20%20%BCw%BBy%A1Gde%20%20%A4%E9%BBy%A1Gja%20%20%B8%B2%B5%E5%A4%FA%BBy%A1Gpt%20%20%A6%E8%AFZ%A4%FA%BBy%A1Ges%20%20%20%20%20%20%20%20%A6r%A4%B8%BDs%BDX%A1G%20%20%3Cmeta%20http-equiv%3D%5C%22Content-Type%5C%22%20content%3D%5C%22text%2Fhtml%3B%20charset%3DUTF-8%5C%22%20%2F%3E%20%20%20%20%20%B8U%B0%EA%BDXUnicode%A1GUTF-8%20%20%C1c%C5%E9....&#39;,&#39;http://blog.xuite.net/jon6773/blog/30632711&#39;,&#39;Xuite-Blog%A6n%A4%E5%C2%E0%B1H---html%20lang%BBy%A8t%BBP%A6r%A4%B8%BDs%BDX%B3%5D%A9w&#39;,&#39;%A7%40%AA%CC%3AJon&#39;,&#39;%A4%E5%B3%B9%3Ahtml%20lang%BBy%A8t%BBP%A6r%A4%B8%BDs%BDX%B3%5D%A9w&#39;);">好文轉寄</a></div><div class="selectbar"><a href="http://blog.xuite.net/jon6773/blog/30721157">Wacom推出Intuos4 ...</a>|<a href="http://blog.xuite.net/jon6773/blog/">日誌首頁</a>|<a href="http://blog.xuite.net/jon6773/blog/30802975">Motorola北美發表Devour</a><a class="article-navi article-navi-prev" href="http://blog.xuite.net/jon6773/blog/30721157" title="Wacom推出Intuos4 Wireless無線數位板" style="opacity: 0"><span class="article-navi-label">上一篇</span><img class="article-navi-thumb" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/cover600.jpg"><span class="article-navi-title">Wacom推出Intuos4 Wireless無線數位板</span><span class="article-navi-arrow"></span></a><a class="article-navi article-navi-next" href="http://blog.xuite.net/jon6773/blog/30802975" title="Motorola北美發表Devour" style="opacity: 0"><span class="article-navi-label">下一篇</span><img class="article-navi-thumb" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/cover600(1).jpg"><span class="article-navi-title">Motorola北美發表Devour</span><span class="article-navi-arrow"></span></a><script>$(function() {var is_fallback_quirk = ($('.article-navi:first').css('position') == 'fixed') ? false: true;if(!is_fallback_quirk) return;$('.article-navi').css({position: 'absolute'}).appendTo('body');});</script></div></div><a name="trackBack_header"></a><div class="item_trackBack">
+<div id="summarySwitch" style="position:absolute;z-index:1;visibility:hidden;"></div>
+
+<div id="summaryDisplay" style="position:absolute;z-index:1;visibility:hidden;">	
+<div class="trackbacktitle"><a href="javascript:;" onclick="javascript:doSummary(&#39;show&#39;);return false;"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon31.gif" width="18" height="18" border="0" align="middle">引用</a><a name="#trackback"></a></div>
+</div>
+<div id="summaryContent">
+	<div class="trackbacktitle"><a href="http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A#" onclick="doSummary(&#39;hide&#39;);return false;"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon31a.gif" width="18" height="18" border="0" align="middle">引用</a><a name="#trackback"></a></div>
+	<div class="trackbackurl">本文的引用網址　
+        //blog.xuite.net/jon6773/blog/30632711/track
+    <a href="javascript:;" onclick="return copy_clip(&#39;//blog.xuite.net/jon6773/blog/30632711/track&#39;);"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/copy-icon.gif" width="35" height="20" border="0"></a>
+    <a href="javascript:;" onclick="wopen();"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/trackback-icon.gif" width="60" height="20" border="0"></a>
+     
+  </div>
+  	 					
+	 </div>
+  <!--回應分頁Start-->
+<div class="page" align="center">
+       <img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon21_4_a.gif" alt="第一頁" title="第一頁" align="middle" border="0" height="22" width="28">&nbsp; 
+    <img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon21_2_a.gif" alt="上一頁" title="上一頁" align="middle" border="0" height="22" width="28">&nbsp; 
+       
+                                                  1
+          
+                                              
+     <a href="javascript:TrackBack(30632711,&#39;jon6773&#39;,&#39;blog&#39;,11909591,543979,11909591,&#39;Y&#39;,1)"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon21_3_a.gif" alt="下一頁" title="下一頁" width="28" height="22" align="middle" border="0"></a>&nbsp; 
+     <a href="javascript:TrackBack(30632711,&#39;jon6773&#39;,&#39;blog&#39;,11909591,543979,11909591,&#39;Y&#39;,1)"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon21_5_a.gif" alt="最後頁" title="最後頁" width="28" height="22" align="middle" border="0"></a>&nbsp; 
+   </div>
+<!--回應分頁End-->
+ 
+	
+</div><a name="message_header"></a><div class="comment"><span class="commenttitle">回應</span><span class="commentbutton-menu"><a class="commentbutton" href="javascript:;" onclick="window.open(&#39;http://blog.xuite.net/_theme/message/message_post.php?bid=543979&amp;aid=30632711&#39;,&#39;_blank&#39;,&#39;width=660,height=700,scrollbars=1&#39;)" title="回應"></a></span></div><div class="item_message"> <div class="allMessage">
+ 
+<!--回應分頁Start-->
+<div class="page" align="center">
+       <img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon21_4_a.gif" alt="第一頁" title="第一頁" align="middle" border="0" height="22" width="28">&nbsp; 
+    <img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon21_2_a.gif" alt="上一頁" title="上一頁" align="middle" border="0" height="22" width="28">&nbsp; 
+       
+         
+     <a href="http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon21_3_a.gif" alt="下一頁" title="下一頁" width="28" height="22" align="middle" border="0"></a>&nbsp; 
+     <a href="http://blog.xuite.net/jon6773/blog/30632711-html+lang%E8%AA%9E%E7%B3%BB%E8%88%87%E5%AD%97%E5%85%83%E7%B7%A8%E7%A2%BC%E8%A8%AD%E5%AE%9A"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/blogIcon21_5_a.gif" alt="最後頁" title="最後頁" width="28" height="22" align="middle" border="0"></a>&nbsp; 
+   </div>
+<!--回應分頁End-->
+</div><!--allMessage--></div><div class="alertLoad" style="display:none;width:50px;height:50px;z-index:30;"><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/7.gif"></div><div class="jqmWindow" id="dialog"></div></div>
+<script language="javascript">
+    function doMsgDelete(mid,page){
+      if(confirm("是否確定要刪除")){
+         $("div.jqmWindow").html("<iframe style='display:none;' src='/_theme/message/message_delete.php?act=delete&mid="+mid+"&page="+page+"'></iframe>"); 
+      }
+    }
+		
+    function doTrackDelete(tid,lid,url,page){
+			if(confirm("是否確定要刪除")){ 
+       $("div.jqmWindow").html("<iframe style='display:none;' src='/_theme/trackback/track_delete.php?act=delete&tid="+tid+"&lid="+lid+"&url="+url+"&page="+page+"&track_flag=Y'></iframe>"); 
+		  }
+    }
+		
+		function doMsgEdit(mid,page){
+			var l="/_theme/message/message_post.php?act=edit&mid="+mid+"&aid=30632711&bid=543979&page="+page;
+			window.open(l,'post_win','width=660,height=700,scrollbars=1');
+		}
+		
+		function doMsgReplyAdd(rel_id,page,owner_sn,owner_login_id){
+			var l="/_theme/message/message_post.php?act=reply&rel_id="+rel_id+"&aid=30632711&bid=543979&page="+page+"&owner_sn="+owner_sn+"&owner_login_id="+owner_login_id;
+			window.open(l,'post_win','width=660,height=700,scrollbars=1');
+		}
+		
+		function doMsgReplyEdit(mid,page){
+			var l="/_theme/message/message_post.php?act=reply_edit&mid="+mid+"&aid=30632711&bid=543979&page="+page;
+			window.open(l,'post_win','width=660,height=700,scrollbars=1');
+		}
+		
+		function doSummary(arg)		{
+           $("#summarySwitch").html($("#summaryContent").html());	
+           $("#summaryContent").html($("#summaryDisplay").html());
+           $("#summaryDisplay").html($("#summarySwitch").html());
+        }
+    
+    function sendMail(content,link,title,author,e_title)
+    {	 
+      window.location.href = "mailto:?subject="+title+"&body=%B3o%ACO%A6n%AAB%A4%CD%C2%E0%B1H%AA%BAXuite%A6n%A4%E5%B3%B9%B3%E1%A1A%A7%D6%C2I%BF%EF%A4U%AD%B1%B3s%B5%B2%A1A%C0%B0%A5L%BCW%A5%5B%A4H%AE%F0%B3%E1%21%21"+escape('\n')+escape('\n')+e_title+escape('\n')+author+escape('\n')+content+escape('\n')+escape('\n')+link;			
+    }
+    
+    
+	</script>
+<script language="javascript">
+	var myBlogThemeWidth;
+	var ori_width; 
+	var ori_height; 
+	var imgJar = new Array();
+ $(document).ready(function(){
+   	$.ajax({
+     type: "GET",
+     url: '/_theme/ArticleDetailCounterExp.php?aid=30632711&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     success: getArticleDetailCounter
+    });
+     
+    var index="";
+    Message(30632711,543979,11909591,11909591,index);  
+    TrackBack('30632711','jon6773','blog','11909591','543979','11909591','Y',index);  
+  
+    if ((typeof xuiteBlogPlugin_auto_resize=="undefined") || (xuiteBlogPlugin_auto_resize == null) || (xuiteBlogPlugin_auto_resize == 'Y'))  {
+        $.ajax({
+                type: "GET",
+                url: "//s.blog.xuite.net/_public/js/BlogPlugins.auto_resize.js",
+                success: function(){
+		            BlogPlugins.auto_resize("#content_all img", null, {delay:1000});
+                },
+                dataType: "script",
+                cache: true
+        });
+    }
+ });
+   
+   function getArticleDetailCounter(json){  
+    $("div#article_counter").html("<li>"+json[0].counter+"</li>");
+    
+   }
+   
+   function TrackBack(aid,b_login,b_url,mid,bid,a_author_id,track_flag,index){
+     $.ajax({
+     type: "GET",
+     url: '/_theme/TrackBackShowExp.php?aid='+aid+'&b_login='+b_login+'&b_url='+b_url+'&mid='+mid+'&bid='+bid+'&a_author_id='+a_author_id+'&track_flag='+track_flag+'&index='+index+'&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     async: false,
+     success: getTrackBackShow
+    });
+   }
+   
+   function Message(aid,bid,uid,a_author_id,index){
+     $("div.item_message").html("");
+     $("div.alertLoad").ajaxStart(function(){
+       $(this).show();
+     });
+     $("div.alertLoad").ajaxStop(function(){
+                $(this).hide();
+                $(this).unbind("ajaxStart");
+     });
+     var mid = "";
+     if (index == "" && location.hash != '#message_header')   {
+         mid = location.hash.replace("#","");
+     }
+     $.ajax({
+     type: "GET",
+     url: '/_theme/MessageShowExp.php?aid='+aid+'&uid='+uid+'&bid='+bid+'&a_author_id='+a_author_id+'&index='+index+'&mid='+mid+'&ga='+(new Date()).getTime(),
+     dataType: 'json',
+     async: false,
+     success: getMessageShow
+    });
+   }
+   
+   function getMessageShow(json){
+      $("div.item_message").html(json['message'].content);
+       $("div.alertLoad").hide();
+      if(json['aside'].check != 0){
+        for( i =0; i < json['aside'].length; i++){		
+         $("div#authorname_"+json['aside'][i].id).html("<div class='commenttext'>(這則留言是<font color='#FF9933'>悄悄話</font>)</div>");
+         $("div#commenttext_"+json['aside'][i].id).html(json['aside'][i].content); 
+        }
+      }
+      
+      if(json['button'].check != 0){
+        for( i =0; i < json['button'].length; i++) {
+         if(json['button'][i].level == 'all'){ 
+         /*是回覆*/  
+           if(json['button'][i].relation_id != null && json['button'][i].relation_id != undefined){
+                $("div#commentbutton_"+json['button'][i].relation_id).html("<a href='#' onClick='doMsgReplyEdit("+json['button'][i].relation_id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改回覆' title='修改回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].relation_id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='回覆刪除' title='回覆刪除' width='40' height='18' border='0' align='absbottom'></a>");
+         /*是回應*/
+           }else{
+                 /*有回覆*/
+                 if($("div#reply_"+json['button'][i].id).html() != null){
+                    $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                 /*沒回覆*/
+                 }else{
+                    if(json['button'][i].self_write != 'y'){
+                      $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }else{
+                      $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgReplyAdd("+json['button'][i].id+","+json['page'].index+","+json['button'][i].owner_sn+",\""+json['button'][i].owner_login_id+"\");return false;'> <img src='/_image/blog043.gif' alt='新增回覆' title='新增回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }
+                 }   
+           }
+          }else if(json['button'][i].level == 'one'){
+             /*是回覆*/
+             if(json['button'][i].relation_id != null && json['button'][i].relation_id != "undefined"){
+                $("div#commentbutton_"+json['button'][i].relation_id).html("<a href='#' onClick='doMsgReplyEdit("+json['button'][i].relation_id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改回覆' title='修改回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].relation_id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='回覆刪除' title='回覆刪除' width='40' height='18' border='0' align='absbottom'></a>");
+              /*是回應*/
+             }else{ 
+                 /*有回覆*/
+                 if($("div#reply_"+json['button'][i].id).html() != null){
+                    $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                  /*沒回覆*/
+                 }else{
+                    if(json['button'][i].self_write != 'y'){
+                       $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    }else{
+                       $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgReplyAdd("+json['button'][i].id+","+json['page'].index+","+json['button'][i].owner_sn+",\""+json['button'][i].owner_login_id+"\");return false;'> <img src='/_image/blog043.gif' alt='新增回覆' title='新增回覆' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+                    } 
+                 }   
+             }
+			 
+			 //放上ip
+          }else{
+            $("div#commentbutton_"+json['button'][i].id).html("<a href='#' onClick='doMsgEdit("+json['button'][i].id+","+json['page'].index+");return false;'> <img src='/_image/blog041.gif' alt='修改' title='修改' width='40' height='18' border='0' align='absbottom'></a>&nbsp;&nbsp;&nbsp;<a href='#' onClick='doMsgDelete("+json['button'][i].id+","+json['page'].index+");return false;')><img src='/_image/blog042.gif' alt='刪除' title='刪除' width='40' height='18' border='0' align='absbottom'></a>");
+          }
+			  }
+			 }
+			 if(json['reload'].flage != "true"){
+         ff= location.href;
+         tt = ff.indexOf("#");
+          if(tt != -1){
+            o_index =ff.substring(0,tt);
+            location.href=o_index+"#message_header";
+          }else{
+            location.href=ff+"#message_header";
+          }
+
+       }
+        bindBubbles();
+		}
+    
+    function getTrackBackShow(json){
+      $("div.item_trackBack").html(json['trackBack'].content);
+      if(json['button'].check != 1){
+       $("div.track_button").hide();
+      }
+      if(json['reload'].flage != "true"){
+         ff= location.href;
+         tt = ff.indexOf("#");
+          if(tt != -1){
+            o_index =ff.substring(0,tt);
+            location.href=o_index+"#trackBack_header";
+          }else{
+            location.href=ff+"#trackBack_header";
+          }
+
+       }
+      
+    }
+    var pinnedSite = new XUI.Widgets.PinnedSite(
+        { 
+          title:  "html lang語系與字元編碼設定",                //文章標題
+          author: "jon6773",                //Content作者id 目前統一為memberid
+          url: "http://blog.xuite.net/jon6773/blog/30632711"                   //Content的URL
+        }  
+    );
+    pinnedSite.render();    
+    $(function(){
+        TemplateJS.ad_bottom.preload({
+            blog_id: null,
+            blog_url: "http:\/\/blog.xuite.net\/jon6773\/blog\/",
+            article_id: 30632711,
+            label: 2043219,
+            vip: 0
+        });
+    });
+</script></div></div></div>
+<div id="footer" class="footer"><p class="footer-copyright">Copyright © 2005 - 2017 Internet Service by Xuite.</p><ul class="footer-menu">  <li class="footer-menu-item footer-menu-copyright"><a class="footer-menu-link" href="http://www.hinet.net/copyright.html" target="_blank">著作權保護</a></li>  <li class="footer-menu-item footer-menu-marketing"><a class="footer-menu-link" href="http://blog.xuite.net/hinet_marketing/blog" target="_blank">刊登廣告</a></li>  <li class="footer-menu-item footer-menu-rule"><a class="footer-menu-link" href="https://member.cht.com.tw/html/MemberCenter2/service.html" target="_blank">會員條款</a></li>  <li class="footer-menu-item footer-menu-kid"><a class="footer-menu-link" href="http://www.hinet.net/kid.html" target="_blank">兒童網路安全</a></li>  <li class="footer-menu-item footer-menu-classify"><a class="footer-menu-link" href="http://www.hinet.net/classify2.html" target="_blank">網站及平臺內容管理措施</a></li>  <li class="footer-menu-item footer-menu-abuse"><a class="footer-menu-link" href="http://blog.xuite.net/xuite.net/xuite/62101465" target="_blank">檢舉公告</a></li>  <li class="footer-menu-item footer-menu-feedback"><a class="footer-menu-link" href="http://qa.xuite.net/" target="_blank">反應問題</a></li>  <li class="footer-menu-item footer-menu-mobile"><a class="footer-menu-link" href="http://m.xuite.net/blog/jon6773/blog/30632711">行動版</a></li></ul></div>
+<!-- ===配合首頁"誰拜訪我",變數來自header=== -->
+<script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/visit.php" type="text/javascript"></script>
+<!-- ======================================= -->
+<script>
+    var footer = new XUI.Widgets.Footer(document.getElementById('footer'), {
+            copyright : 'xuite',		// copyright, copyright : 'xuite' or 'hamicloud', 不填預設'xuite'(optional)
+        mobileURL : '//m.xuite.net/blog/jon6773/blog/30632711',		// 行動版連結 (自行帶入, 若hideMobile != 1, 預設給"//m.xuite.net/")(optional)
+
+        showAbuse : 1,		// 檢舉公告, 個人前台才要showAbuse: 1 or 不填(optional)
+
+        hideMarketing : 0, 	// 刊登廣告, hideMarketing: 1 or 不填(optional)
+        hideDeveloper : 1,	// 開發者專區(API), 個人前台(personal)才要hideDeveloper:1 or 不填(optional)
+        hidePolicy : 0,	// 網站分級, hidePolicy:1 or 不填(optional)
+        hideMobile : 0		// 行動版, hideMobile:1 or 不填(optional)
+    });
+		
+    footer.render();
+	if(document.all) {
+		(function() {
+			if($('.blogbody').get(0)){
+				var oObjs = $('.blogbody').get(0).getElementsByTagName('object'),
+					n = oObjs.length;
+				for(var i = 0; i < n; ++i)
+					oObjs[i].removeAttribute('data');
+			}
+		})();
+	}
+    if (!($("#content_all").length > 0))    {
+        var pinnedSite = new XUI.Widgets.PinnedSite();
+        pinnedSite.render();    
+    }
+
+<!-- 相關文章等articlePlugins 不能被移除 -->
+$(".articleExt").show();	
+</script>
+<script type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/gm.js.下載"></script>
+<div class="sitemaji_tab" model="300x250" data-position="right" data-delaytime="100000" data-autocount="3" style="background:#50575D"><div class="sitemaji_tab_bg"></div><div class="sitemaji_tab_close"></div><div class="sitemaji_tab_open"></div><div class="sitemaji_tab_ad" style="display: block;"><div class="sitemaji_tab_ad_close"></div><iframe allowtransparency="true" width="300" height="250" framespacing="0" frameborder="no" scrolling="no" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/saved_resource(6).html"></iframe></div><span class="sitemaji_tab_text"></span></div>
+<script>document.getElementsByTagName('head')[0].appendChild(document. createElement('script')).src="http://ad.sitemaji.com/ysm_xuite.js?u="+encodeURIComponent("http://p8u.hinet.net/js.ng/affiliate=xuiteblog&site=hinet&spacedesc=blogtabunit&keyword=default"); </script>
+<script>
+(function(){
+    var breakTime = new XUI.Widgets.BreakTime(document.body, {
+        break_time: 120000
+    });
+    breakTime.render();
+})();
+</script>
+</div></div><script>var xuite_ypaKw = 'html lang語系與字元編碼設定';var xuite_CateID = '164';var xuite_Cate = '軟體情報';</script><script src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/ypa.js.下載"></script><img src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/b734323b-0532-40a6-8d4e-782e1c96bd3a" class="acvzdmp" style="display: none;"><script type="text/javascript" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/fpid.js.下載" defer="true"></script>
+<script async="" src="./html lang語系與字元編碼設定 @ Panda&#39;s Blog __ 隨意窩 Xuite日誌_files/g-d-min.js.下載"></script></body></html>

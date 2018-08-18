@@ -1,0 +1,22 @@
+body .ypaAdBox div,body .ypaAdBox dl,body .ypaAdBox dt,body .ypaAdBox dd,body .ypaAdBox ul,body .ypaAdBox ol,body .ypaAdBox li,body .ypaAdBox h1,body .ypaAdBox h2,body .ypaAdBox h3,body .ypaAdBox h4,body .ypaAdBox h5,body .ypaAdBox h6,body .ypaAdBox pre,body .ypaAdBox p,body .ypaAdBox blockquote {margin:0;padding:0;}
+body .ypaAdBox img {border:0;}
+body .ypaAdBox {background:transparent;padding:0;border:none;}
+body .ypaAdBox address,body .ypaAdBox cite,body .ypaAdBox code,body .ypaAdBox dfn,body .ypaAdBox em,body .ypaAdBox strong,body .ypaAdBox var {font-style:normal;font-weight:normal;}
+body .ypaAdBox li {list-style:none;}
+body .ypaAdBox h1,body .ypaAdBox h2,body .ypaAdBox h3,body .ypaAdBox h4,body .ypaAdBox h5,body .ypaAdBox h6 {font-size:100%;font-weight:normal;}
+body .ypaAdBox * {font:13px/1.231 Helvetica,Arial,'微軟正黑體',sans-serif;*font-size:small;*font:x-small;text-align:left;}
+body .ypaAdBox {border:none !important;}
+body .ypaAdBox a {color:#fff;opacity:1;}
+body .ypaAdBox a:hover {opacity:1;}
+body .ypaAdBox a span strong {color:#ff0;}
+body .ypaAdBox .ypaAdTitleAndOfficialSiteBadge {display:inline-block !important;}
+body .ypaAdBox .ypaAdUnit .ypaAdElement:nth-of-type(1) .ypaAdTitleAndOfficialSiteBadge a {padding-top:0;}
+body .ypaAdBox .ypaAdUnit .ypaAdElement:nth-of-type(1) .ypaAdFavicon img {padding-top:0;}
+body .ypaAdBox .ypaAdTitleAndOfficialSiteBadge a .ypaAdTitleInner {font-size:100%;color:#fff;}
+body .ypaAdBox .ypaAdElement {display:inline-block !important;}
+body .ypaAdBox .ypaAdTextDiv {display:inline;}
+body .ypaAdBox .AdLine1 .ypaAdDesc {color:#fff !important;}
+body .ypaAdBox .AdLine1 .ypaAdDesc .ypaAdDescInner {font-size:100%;}
+body .ypaAdBox a .ypaAdURL span {color:#fff;}
+body .ypaAdBox .ypaAdElement {position:relative;z-index:0;}
+body .ypaAdBox .ypaAdLabel {position:absolute;right:0;bottom:0;display:none;}

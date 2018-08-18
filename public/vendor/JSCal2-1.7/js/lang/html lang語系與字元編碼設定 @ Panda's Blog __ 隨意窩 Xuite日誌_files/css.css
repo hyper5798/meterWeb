@@ -1,0 +1,233 @@
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	color: #000000;
+}
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.gText {
+	color: #999999;
+}
+.ggText {
+	color: #555555;
+}
+.gbText {
+	color: #999999;
+	font-weight: bold;
+}
+.bText {
+	font-weight: bold;
+}
+.wbtext {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 10pt;
+}
+.wText {
+	color: #ffffff;
+	line-height: 14pt;
+}
+.rbText {
+	font-size: 14pt;
+	color: #ff0000;
+	font-weight: bold;
+}
+.blueText {
+	font-size: 10pt;
+	color: #444184;
+}
+.color1Text {
+	font-size: 10pt;
+	color: #BA760B;
+}
+.color2Text {
+	font-size: 10pt;
+	color: #516377;
+}
+.redText {
+	font-size: 10pt;
+	color: #CF492E;
+}
+.nbredText {
+	font-size: 9pt;
+	color: #CF492E;
+	font-weight: bold;
+}
+.sredText {
+	font-size: 8pt;
+	color: #CF492E;
+}
+.button {  font-family: "Arial", "Helvetica", "sans-serif"; font-size: 11px; font-style: normal; line-height: normal; color: #000000; background-color: #FFE3D2; border: 1px solid; border-color: #000000; clip:   rect(   ); padding-top: 0px}.text-form_1 { border: 1px #993333 solid; font-family: "Arial", "Helvetica", "sans-serif"; font-size: 9pt; color: #000000; padding-top: 3px ; background-color: #FFFAF0}
+.text_list {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 8pt;
+	border: none;
+}
+.input {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 9pt;
+	border: 1px solid #000000;
+}
+.gtable {
+	font-family: "Arial", "Helvetica", "sans-serif";
+	font-size: 9pt;
+	border: 1px solid #cccccc;
+}
+a:link {  text-decoration: none;}
+a:visited { text-decoration: none;}
+a:hover {  text-decoration: underline; color: #0033CC}
+
+
+/* CSS Document */
+.xuiteLink{position:relative; z-index:1;}
+.xuiteLink span{display:none;position:absolute;top:1.2em;left:0;background:white;z-index:999;border:solid 1px #6DBCC9;}
+.xuiteLink span a{
+ display:block;
+ padding:2px 2px 2px 2px;
+ width:5em;
+ text-align: left;
+}
+.xuiteLink span a:hover{background:#BBE5F0;}
+span:hover.xuiteLink span{display:block;}
+/*ie_css_fix*/
+.xuiteLink span.block{display:block;z-index:9999999;}
+.xuiteLink{behavior:expression(void(ie_css_fix(this)) );}
+
+/*留言回覆邊框*/
+.reply_info{
+  width:70%;
+  border:1px dotted #333333;
+  padding:1.2em 1.2em ;
+  margin:1.2em ;
+}
+span.mail{
+	float:right;
+	margin-top:15px;
+}
+span.mail li{
+	list-style-image:url(http://s.blog.xuite.net/_image/skin/list/email_forward.gif);
+}
+/* 我的發燒文 */
+.hotArticleTitle li{
+    list-style-image:url(http://s.blog.xuite.net/_image/bulletPersonal.gif);
+}
+
+.hotArticleSide li{
+    list-style-image:url(http://s.blog.xuite.net/_image/blogIcon19.gif);
+}
+/* 我的親友團 */
+.myChannelTitle li{
+    list-style-image:url(http://s.blog.xuite.net/_image/bulletPersonal.gif);
+}
+#xuite_blog_feedControl{
+    font-size: 8pt;
+    OVERFLOW: auto;
+    overflow-x:hidden;
+    HEIGHT:300px
+}
+
+#xuite_blog_feedControl li{
+    list-style-image:url(http://s.blog.xuite.net/_image/blogIcon19.gif);
+}
+
+#xuite_blog_feedControl #feed_summary{
+    padding-left: 18px;
+}
+
+#xuite_blog_feedControl #feed_blog_name{
+    padding-left: 18px;
+}
+
+.gbookSide {
+        font-size: 11pt;
+        OVERFLOW: auto;
+        overflow-x:hidden;
+        HEIGHT:300px
+}
+.gbookSide .odd{
+        background:#DFE6EA;
+}
+.title h1 {
+	display:none;
+}
+
+/*服務切換tab*/
+.tab_service{
+        position: absolute;
+        width: 260px;
+        left: 25px;
+        top: 65px;
+}
+.tab_service ul{
+padding:0;
+margin:0;
+}
+.tab_service li{
+        margin:0 1px 0 0;
+        display:block;
+        float:left;
+        list-style-type:none;
+        padding:3px;
+        color:#936f4a;
+        cursor: pointer;
+        background-color:#efefef;
+}
+.blogrank{
+        overflow:hidden;
+}
+
+/* tag */
+#tabs11 {
+        /* float:left; */
+        line-height:normal;
+        margin-bottom: 5px;
+        white-space: nowrap;
+		clear:both;
+        font-family:Helvetica;
+}
+#tabs11 ul {
+        margin:0px;
+        list-style:none;
+        padding: 0px;
+}
+#tabs11 li {
+        margin:0;
+        padding:0;
+        display: inline;
+}
+#tabs11 a {
+        float:left;
+        background:url("http://img.xuite.net/portal/images/tag/tagleft.gif") no-repeat left top;
+        margin:0;
+        padding:0 0 0 9px;
+        text-decoration:none;
+}
+#tabs11 a span {
+        display:block;
+        background:url("http://img.xuite.net/portal/images/tag/tagright.gif") no-repeat right top;
+        padding:4px 5px 4px 0px;
+        color:#333333;
+
+}
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#tabs11 a span {float:none;}
+/* End IE5-Mac hack */
+#tabs11 a:hover span {
+  color:#FFF;
+}
+#tabs11 a:hover {
+  background-position:0% -22px;
+}
+#tabs11 a:hover span {
+	background-position:100% -22px;
+}
+
+span.titlename .TopArticle {
+    background:transparent url(http://s.blog.xuite.net/_image/images/is_top.gif) no-repeat scroll left top;
+	padding:2px 35px;
+	width:auto;
+}

@@ -1,0 +1,235 @@
+﻿<%- include page/header %>
+    <div v-if="showUpdate"class="col-lg-12 alert alert-success" role="alert">
+	  <strong>更新電表資訊!</strong> 收到更新資訊.
+	</div>
+    <div class="col-lg-12">
+		<div class="row">
+		    <div class="col-sm-6 col-md-2 pull-left">
+		  	    <label>選擇電表 :</label>
+				<select v-model="selectedSensor" @change="selectSensor">
+				  <option v-for="sensor in sensorList" v-bind:value="sensor.device_mac">
+				    {{ sensor.device_name }}
+				  </option>
+				</select>
+		    </div>
+		    <div class="col-sm-6 col-md-4 pull-left">
+		        <div  class="input-group input-daterange">
+			        <div class="input-group-addon">從</div>
+				    <input id="from" name="from" type="text" class="form-control">
+				    <div class="input-group-addon">到</div>
+				    <input id="to" name="endDate" type="text" class="form-control">
+		        </div>
+
+		    </div>
+		    <div class="col-sm-6 col-md-2 pull-left">
+		  	    <font color="red">{{alert}}</label></font>
+		    </div>
+		    <div class="col-md-4 col-sm-6">
+				<button  v-if="!isIndex" type="button" name="search" title="search" onClick="search()">
+				    <span class="fa fa-history fa-2x"></span>
+				    返回
+				</button>
+				<button  v-if="isIndex"type="button" @click="enableSetting">
+				    <span class="fa fa-pencil fa-2x"></span>
+					設定
+				</button>
+		    </div>
+
+		    <!--<div class="col-md-2 col-sm-6">
+			    <div id="buttons" title="Export CSV"></div>
+		    </div>-->
+
+		</div>
+        <hr>
+    </div>
+	<div class ="col-sm-12 col-md-12">
+	    <div v-show = "isIndex">
+	        <div v-show="isSetting">
+	            <div class="BG-Average-Setting">
+					<!-- Profile setting -->
+					<div class="row">
+						<div class="form-check form-check-inline col-sm-6 col-md-2">
+						  <input class="form-check-input" type="radio" value="show" v-model="profile.monthPower" checked >
+						  <label class="form-check-label" for="exampleRadios1">
+						    放大電表本月度數
+						  </label>
+						</div>
+						<div class="form-check form-check-inline col-sm-6 col-md-10">
+						  <input class="form-check-input" type="radio" value="hide" v-model="profile.monthPower" >
+						  <label class="form-check-label" for="exampleRadios2">
+						    縮小電表本月度數
+						  </label>
+						</div>
+						<hr>
+						<hr>
+						<div class="form-check form-check-inline col-sm-6 col-md-2">
+						  <input class="form-check-input" type="radio" value="show" v-model="profile.detail" checked >
+						  <label class="form-check-label" for="exampleRadios1">
+						    顯示電表細項
+						  </label>
+						</div>
+						<div class="form-check form-check-inline col-sm-6 col-md-10">
+						  <input class="form-check-input" type="radio" value="hide" v-model="profile.detail" >
+						  <label class="form-check-label" for="exampleRadios2">
+						    隱藏電表細項
+						  </label>
+						</div>
+						<hr>
+						<hr>
+						<hr>
+						<div class="col-sm-2 col-md-2"></div>
+						 <div class="col-sm-2 col-md-2">
+								<button  type="button" @click="cancelSetting">
+								    <span class="fa fa-times fa-2x"></span>
+								    取消
+								</button>
+						  </div>
+						  <div class="col-sm-2 col-md-2">
+							    <button  type="button" class="btn btn-primary" @click="saveSetting">
+								    <span class="fa fa-floppy-o fa-1x"></span>
+									  儲存
+								</button>
+						  </div>
+					</div>
+				</div>
+			</div>
+			<div >
+				<div v-for="sensor in sensorList" class="col-sm-12 col-md-6" @click="selectMac(sensor.device_mac)">
+			        <div class="BG-Average">
+			            <div v-show="profile.monthPower=='show'" class="Meter0">
+			              {{sensor.device_name}}
+			            </div>
+			            <div v-show="profile.monthPower=='hide'" class="Meter0_1">
+			              {{sensor.device_name}}
+			              <label class="Meter0_1_MonthPower">
+			                  本月度數 : {{sensor.monthPower}} 度
+			              </label>
+			            </div>
+			            <div v-show="profile.monthPower=='show'" class="Meter1">
+			                <div class="col-sm-12 col-md-12">
+			                	<label class="Meter-Power-Title">本月度數</label>
+			                </div>
+			            	<div v-if="sensor.event.information" class="col-sm-12 col-md-12 Meter-Power">
+			            		<label class="Meter-Power-Value">{{sensor.monthPower}}</label>
+	                            <label class="Meter-Power-Unit">度</label>
+			            	</div>
+						</div>
+						<div v-show="profile.detail=='show'" class="Meter2">
+							<div v-if="sensor.event.information" class="col-sm-6 col-md-6">
+							    本月起始度數: {{sensor.startPower}} 度<br>
+							    平均相電壓  : {{sensor.event.information.Ulpavg}} V<br>
+							    平均線電壓  : {{sensor.event.information.Ullavg}} V<br>
+							    平均功率因數: {{sensor.event.information.Pf}} <br>
+							    平均電流   : {{sensor.event.information.Iavg}} A <br>
+							    中性線電流 : {{sensor.event.information.In}} v <br>
+							    更新時間    : {{sensor.event.date}}<br>
+							</div>
+					    <div v-if="sensor.event.information" class="col-sm-6 col-md-6">
+					        總有效功率  : {{sensor.event.information.Psum}} W<br>
+							    總無效功率 : {{sensor.event.information.Qsum}} W<br>
+								  總視在功率 : {{sensor.event.information.Ssum}} W<br>
+							    有效電能   : {{sensor.event.information.Ea}} 度<br>
+							    無效電能   : {{sensor.event.information.Er}} 度<br>
+								  總二氧化碳量: {{sensor.event.information.CO2}} <br>
+							</div>
+						</div>
+			    </div>
+		    </div>
+			</div>
+	    </div>
+	    <div v-show = "!isIndex">
+	      <div class="col-sm-12 col-md-12">
+	        <div class="BG-Average-Copy">
+					<!-- Profile setting -->
+					<table id="table1"  class="display" cellspacing="0" width="100%">
+						<thead>
+							<tr style="color:#428bca">
+								<th>項目</th>
+								<th>時間</th>
+								<th>平均相電壓</th>
+								<th>平均線電壓</th>
+								<th>平均電流</th>
+								<th>中性線電流</th>
+								<th>總有效功率</th>
+								<th>總無效功率</th>
+								<th>總視在功率</th>
+								<th>平均功率因數</th>
+								<th>有效電能</th>
+								<th>無效電能</th>
+								<th>總二氧化碳量</th>
+							</tr>
+						</thead>
+					</table>
+
+					<div v-show="!isSetting">
+						    <div v-show="isChart">
+		                    <div style="width:90%;">
+							    <canvas id="canvas"></canvas>
+							</div>
+							<br>
+							<br>
+						</div>
+					</div>
+	        </div>
+	      </div>
+	    </div>
+		<input id="sensorList" name="sensorList" type="hidden" value="<%= JSON.stringify(sensorList) %>">
+		<input id="profile" name="profile" type="hidden" value="<%= JSON.stringify(profile) %>">
+		<input id="user_name" name="user_name" type="hidden" value="<%= user.name %>">
+		<!-- （Modal） -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content"  >
+					<div class="modal-header " style="background-color:#357ebd;">
+						<button type="button" class="close"
+						data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h3 class="modal-title" id="myModalLabel">
+							<p style="color:white">Option</p>
+						</h3>
+					</div>
+
+					<div class="modal-body">
+						<div class="col-md-12" >
+                            <!--<label>From :</label>
+							<input type="text" id="startDate" name="startDate" size="10"  readonly>
+							<input type="button" value="..." id="BTN" name="BTN"><br>
+                            <br>
+							<label>&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp; :</label>
+
+							<input type="text"  size="10"  readonly>
+							<input type="button" value="..." id="BTN2" name="BTN2">
+							<hr> -->
+							<label>IPCAM :</label>
+							<!--<select name="mac" class="selectpicker" id="mac">
+								<option value="1c497b48bb40">Search...</option>
+							</select>-->
+							<select v-model="selectedSensor" @change="selectSensor">
+							  <option v-for="sensor in sensorList" v-bind:value="sensor.device_mac">
+							    {{ sensor.device_name }}
+							  </option>
+							</select>
+							<!--<br>
+							<br>
+							<label>Sensor :</label>
+							<select v-model="selectedSensor" @change="selectSensor">
+							  <option v-for="sensor in sensorList" v-bind:value="sensor.device_mac">
+							     {{ sensor.device_name }} : {{ sensor.typeName }}
+							  </option>
+							</select>-->
+  		                </div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"
+						data-dismiss="modal">Close
+						</button>
+						<button type="button" @click="firstQuery" class="btn btn-primary">
+						Query
+						</button>
+					</div>
+				</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+
+<%- include page/footer %>
