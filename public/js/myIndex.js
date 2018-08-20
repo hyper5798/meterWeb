@@ -238,13 +238,17 @@ function loadDoc(url) {
 function updateStartPower(event) {
     let mac = event.macAddr;
     //This month start power
-    let power = event.information.Ea + event.information.Er;
-    // alert('mac: ' + mac + '-> power : ' + power);
+    let power = event.information.Esum;
+    if(power == undefined) {
+      power = event.information.Ea + event.information.Er;
+    }
+    console.log('updateStartPower mac: ' + mac + '-> power : ' + power);
+    // console.log('updateStartPower event  >> ' + JSON.stringify(event.information));
     for (let i in app.sensorList) {
       let sensor = app.sensorList[i];
       if(sensor.device_mac == mac) {
         sensor.startPower = power;
-        //alert(JSON.stringify(sensor));
+        // alert(power + ' >> ' + JSON.stringify(sensor.event.information));
         updateThisMonthPower(event);
         break;
       }
@@ -262,7 +266,7 @@ function updateThisMonthPower(event) {
         console.log('sensor.device_mac :' + sensor.device_mac );
         if(sensor.event.information) {
           //This month last power
-          var lastPower = sensor.event.information.Ea + sensor.event.information.Er;
+          var lastPower = sensor.event.information.Esum;
           sensor.monthPower = (lastPower - sensor.startPower).toFixed(1);
           console.log('lastPower :' + lastPower  +', startPower : ' + sensor.startPower );
         }

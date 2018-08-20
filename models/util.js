@@ -60,6 +60,9 @@ function parseMsgd(message, callback) {
         if (map) {
             var mInfo = getTypeData(mData,map);
             if(mInfo){
+                if(mExtra.fport == 1){
+                    mInfo.Esum = mInfo.Ea + mInfo.Er;
+                }
                 var msg = {macAddr: mMac, data: mData, timestamp: timestamp, recv: mRecv, date: mDate, gwid: mExtra.gwid};
                 console.log('**** '+msg.date +' mac:'+msg.macAddr+' => data:'+msg.data+'\ninfo:'+JSON.stringify(mInfo));
                 msg.information=mInfo;

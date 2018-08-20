@@ -337,7 +337,7 @@ module.exports = function(app) {
 					typeName: req.body.typeName,
 					fieldName: fieldNameObj,
 					map: mapObj,
-					createUser: user.userInfo.name
+					createUser: user.name
 				})
 			.then(function (response) {
 				console.log(response.data);

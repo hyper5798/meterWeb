@@ -117,20 +117,21 @@
 						<div v-show="profile.detail=='show'" class="Meter2">
 							<div v-if="sensor.event.information" class="col-sm-6 col-md-6">
 							    本月起始度數: {{sensor.startPower}} 度<br>
+							    目前度數    : {{sensor.event.information.Esum}} 度<br>
 							    平均相電壓  : {{sensor.event.information.Ulpavg}} V<br>
 							    平均線電壓  : {{sensor.event.information.Ullavg}} V<br>
 							    平均功率因數: {{sensor.event.information.Pf}} <br>
 							    平均電流   : {{sensor.event.information.Iavg}} A <br>
 							    中性線電流 : {{sensor.event.information.In}} v <br>
-							    更新時間    : {{sensor.event.date}}<br>
 							</div>
 					    <div v-if="sensor.event.information" class="col-sm-6 col-md-6">
-					        總有效功率  : {{sensor.event.information.Psum}} W<br>
+					            總有效功率  : {{sensor.event.information.Psum}} W<br>
 							    總無效功率 : {{sensor.event.information.Qsum}} W<br>
-								  總視在功率 : {{sensor.event.information.Ssum}} W<br>
+								總視在功率 : {{sensor.event.information.Ssum}} W<br>
 							    有效電能   : {{sensor.event.information.Ea}} 度<br>
 							    無效電能   : {{sensor.event.information.Er}} 度<br>
-								  總二氧化碳量: {{sensor.event.information.CO2}} <br>
+							    總二氧化碳 : {{sensor.event.information.CO2}} <br>
+							    更新時間    : {{sensor.event.date}}<br>
 							</div>
 						</div>
 			    </div>
