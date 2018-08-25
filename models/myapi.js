@@ -6,8 +6,8 @@ var sessionPath = './public/data/mysession.json';
 var crypto = require('crypto');
 var moment = require('moment');
 var settings =  require('../settings.js');
-var isS5 = false;
-var server = isS5 ? settings.s5_server : settings.service_server;
+var axios = require('axios');
+
 var tmp = [{
             "length":6,
             "TYPE_ID":"10",
@@ -24,9 +24,12 @@ module.exports = {
     getToken,
     getDeviceList,
     getEventList,
-    getPlayList,
     getMapList,
-    isExpired
+    isExpired,
+    getUserList,
+    updateUser,
+    newUser,
+    deleteUser
 }
 
 function getToken(api_name, api_pw, callback) {
@@ -175,75 +178,114 @@ function getMapList(name, callback) {
 
 function sendMapListRequest(session, callback) {
     var token = session.token;
-    var encodeToken = encodeURIComponent(token);
     var url = settings.api_server + settings.api_get_map_list;
-    url = url + '?token=' + encodeToken;
-    console.log(url);
-    var options = {
-        'url': url
-    };
 
-    request.get(options, function(error, response, body){
-        if (!error && response.statusCode == 200){
-            //console.log('body : ' + body+ ', type : '+typeof(body));
-            var json = JSON.parse(body);
-            var code = json.responseCode;
-            var msg = json.responseMsg;
-            if (code == '000') {
-                return callback(error, json.data);
-            } else {
-                return callback(msg, null);
-            }
+    sendGetRequest(url, token, function(err, result){
+        if(err){
+            return callback(err, null);
         }
-        else{
-            var json = JSON.parse(body);
-            var code = json.responseCode;
-            var msg = json.responseMsg;
-            console.log('Code : ' + code);
-            console.log('error : ' + error);
-            console.log('body : ' + body);
-            return callback(error, null);
-        }
+        return callback(null, result.data);
     });
 }
 
 function sendDeviceListRequest(session, callback) {
     var token = session.token;
-    var encodeToken = encodeURIComponent(token);
     var url = settings.api_server + settings.api_get_device_list;
     if(session.role == 'generalUser') {
         url = url + '/3';
     }
-    url = url + '?token=' + encodeToken;
-    var options = {
-        'url': url
-    };
+    sendGetRequest(url, token, function(err, result){
+        if(err){
+            return callback(err, null);
+        }
+        return callback(null, result.mList);
+    });
+}
 
-    request.get(options, function(error, response, body){
-        if (!error && response.statusCode == 200){
-            //console.log('body : ' + body+ ', type : '+typeof(body));
-            var json = JSON.parse(body);
-            var code = json.responseCode;
-            var msg = json.responseMsg;
-            if (code == '000') {
-                return callback(error, json.mList);
-            } else {
-                return callback(msg, null);
-            }
+
+function sendGetRequest(url, token, callback) {
+    var encodeToken = encodeURIComponent(token);
+    if (url.indexOf('?') > -1) {
+        url = url + '&token=' + encodeToken;
+    } else {
+        url = url + '?token=' + encodeToken;
+    }
+    
+    console.log('sendGetRequest url : ' + url);
+    axios.get(url)
+    .then(function (response) {
+        console.log(response);
+        var json = response.data;
+        var code = json.responseCode;
+        var msg = json.responseMsg;
+        if (code == '000') {
+            return callback(null, json);
+        } else {
+            return callback(msg, null);
         }
-        else{
-            if (body) {
-                var json = JSON.parse(body);
-                var code = json.responseCode;
-                var msg = json.responseMsg;
-                console.log('Code : ' + code);
-                console.log('error : ' + error);
-                console.log('body : ' + body);
-                return callback(error, null);
-            } else {
-                return callback( 'no response', null);
-            }
+    }) 
+    .catch(function (error) {
+        return callback(error.message, null);
+    });
+}
+
+function sendPostRequest(url, form, callback) {
+    console.log('sendPostRequest url : ' + url);
+    console.log('sendPostRequest form : ' + JSON.stringify(form));
+    axios.post(url, form)
+    .then(function (response) {
+        console.log(response);
+        var json = response.data;
+        var code = json.responseCode;
+        var msg = json.responseMsg;
+        if (code == '000') {
+            return callback(null, json);
+        } else {
+            return callback(msg, null);
         }
+    }) 
+    .catch(function (error) {
+        return callback(error.message, null);
+    });
+}
+
+function sendPutRequest(url, form, callback) {
+    console.log('sendPostRequest url : ' + url);
+    console.log('sendPostRequest form : ' + JSON.stringify(form));
+    axios.put(url, form)
+    .then(function (response) {
+        console.log(response);
+        var json = response.data;
+        var code = json.responseCode;
+        var msg = json.responseMsg;
+        if (code == '000') {
+            return callback(null, json);
+        } else {
+            return callback(msg, null);
+        }
+    }) 
+    .catch(function (error) {
+        return callback(error.message, null);
+    });
+}
+
+function sendDeleteRequest(url, form, callback) {
+    console.log('sendDeleteRequest url : ' + url);
+    console.log('sendDeleteRequest form : ' + JSON.stringify(form));
+    axios.delete(url,  { params: form })
+    .then(function (response) {
+        console.log(response);
+        var json = response.data;
+        var code = json.responseCode;
+        var msg = json.responseMsg;
+        if (code == '000') {
+            return callback(null, json);
+        } else {
+            return callback(msg, null);
+        }
+    }) 
+    .catch(function (error) {
+        return callback(error.message, null);
     });
 }
 
@@ -305,44 +347,19 @@ function getEventList(name, mac, startDate, endDate, callback) {
 function sendEventListRequest(form, callback) {
     var url = settings.api_server + settings.api_get_event_list;
 
-    console.log(JSON.stringify(form));
+    console.log('sendEventListRequest : ' + JSON.stringify(form));
     var token = form.token;
-    var encodeToken = encodeURIComponent(token);
-    url = url + '?token=' + encodeToken + '&paginate=false&limit=1000&sort=desc';
+    url = url + '?paginate=false&limit=1000&sort=desc';
     url = url + '&macAddr=' + form.macAddr;
     url = url + '&from=' + form.from;
     url = url + '&to=' + form.to;
     // url = url + '&sort=asc';
-    console.log(url);
-    var options = {
-        'url': url
-    };
 
-    request.get(options, function(error, response, body){
-        if (!error && response.statusCode == 200){
-            //console.log('body : ' + body+ ', type : '+typeof(body));
-            var json = JSON.parse(body);
-            var code = json.responseCode;
-            var msg = json.responseMsg;
-            if (code == '000') {
-                callback(error, json);
-            } else {
-                callback(msg, null);
-            }
+    sendGetRequest(url, token, function(err, result){
+        if(err){
+            return callback(err, null);
         }
-        else{
-            if(body) {
-                var json = JSON.parse(body);
-                var code = json.responseCode;
-                var msg = json.responseMsg;
-                console.log('Code : ' + code);
-                console.log('error : ' + error);
-                console.log('body : ' + body);
-                callback(msg, null);
-            } else {
-                callback('no message', null);
-            }
-        }
+        return callback(null, result);
     });
 }
 
@@ -364,27 +381,6 @@ function toStr(value) {
     }
     // node.warn(str);
     return str;
-}
-
-function getPlayList(gid, endDate, callback) {
-    var folderPath = './public/data/'+gid;
-    JsonFileTools.mkdir(folderPath);
-
-    getEventList(gid, endDate, function(err,list){
-        if (err) {
-            callback(err, null);
-        } else {
-            for (let i=0; i < list.length; ++i) {
-                let obj = list[i];
-                let clip = obj.clips;
-                let name = getTimeName(obj.time);
-                console.log(clip[0]);
-                name = folderPath + '/'+ name + '.jpg';
-                download(clip[0], name);
-            }
-            callback(null, list);
-        }
-    });
 }
 
 function dateConverter(UNIX_timestamp){
@@ -448,3 +444,57 @@ function getData(json){
     arr.push(data.DATA_1);
     return arr;
 }
+
+//For user API ---------------------------------------------------- start
+function newUser (name, form, callback) {
+    var url = settings.api_server + settings.api_users_register;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    form.token = mySession.token;
+    sendPostRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
+function getUserList(session, callback) {
+    var token = session.token;
+    var url = settings.api_server + settings.api_users;
+
+    sendGetRequest(url, token, function(err, result){
+        if(err){
+            return callback(err, null);
+        }
+        return callback(null, result.users);
+    });
+}
+
+function updateUser (name, form, callback) {
+    var url = settings.api_server + settings.api_users;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    var json = {mUserId: form.userId, catId:form.cpId, roleId: form.roleId,userBlock: form.userBlock,pic: form.pic};
+    json.token = mySession.token;
+    sendPutRequest(url, json, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
+function deleteUser (name, form, callback) {
+    var url = settings.api_server + settings.api_users;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    form.token = mySession.token;
+    sendDeleteRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+//For user API ---------------------------------------------------- end

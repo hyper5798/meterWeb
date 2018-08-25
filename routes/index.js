@@ -118,6 +118,15 @@ module.exports = function(app) {
   });
 
   app.get('/logout', function (req, res) {
+	var name = req.session.user.name;
+	var sessionObj;
+	try {
+		sessionObj = JsonFileTools.getJsonFromFile(mysessionPath);
+	    delete obj[name];
+	} catch (error) {
+		sessionObj = {};
+	}
+	JsonFileTools.saveJsonToFile(mysessionPath, sessionObj);
     req.session.user = null;
     req.flash('success', '');
     res.redirect('/login');
@@ -132,9 +141,34 @@ module.exports = function(app) {
 		var myusers = req.session.userS;
 		var successMessae,errorMessae;
 		var post_name = req.flash('name').toString();
+		
+		if(refresh == 'delete'){
+			successMessae = 'Delete account ['+post_name+'] is finished!';
+		}else if(refresh == 'edit'){
+			successMessae = 'Edit account ['+post_name+'] is finished!';
+		}
 
 		console.log('Debug account get -> refresh :'+refresh);
-		UserDbTools.findAllUsers(function (err,users){
+		myapi.getUserList(myuser, function(err, users){
+			if(err){
+				errorMessae = err;
+			}
+			req.session.userS = users;
+			var newUsers = [];
+			for(var i=0;i<  users.length;i++){
+				//console.log('name : '+users[i]['name']);
+				if( users[i]['userName'] !== 'sysAdmin'){
+					newUsers.push(users[i]);
+				}
+			}
+			res.render('user/account', { title: 'Account', // user/account
+				user:myuser,//current user : administrator
+				users:newUsers,//All users
+				error: errorMessae,
+				success: successMessae
+			});
+		});
+		/*UserDbTools.findAllUsers(function (err,users){
 			if(err){
 				errorMessae = err;
 			}
@@ -160,7 +194,7 @@ module.exports = function(app) {
 				error: errorMessae,
 				success: successMessae
 			});
-		});
+		});*/
     });
 
   	app.post('/account', checkLogin);
@@ -173,23 +207,10 @@ module.exports = function(app) {
 		req.flash('name',post_name);//For refresh users data
 
 		if(postSelect == ""){//Delete mode
-			UserDbTools.removeUserByName(post_name,function(err,result){
-				if(err){
-					console.log('removeUserByName :'+post_name+ " fail! \n" + err);
-					errorMessae = err;
-				}else{
-					console.log('removeUserByName :'+post_name + 'success');
-					successMessae = successMessae;
-				}
-				UserDbTools.findAllUsers(function (err,users){
-					console.log('Search account count :'+users.length);
-				});
-				req.flash('refresh','delete');//For refresh users data
-				return res.redirect('/account');
-			});
+			return res.redirect('/account');
 		}else if(postSelect == "new"){//New account
 			var	password = req.body.password;
-			UserDbTools.findUserByName(post_name,function(err,user){
+			/*UserDbTools.findUserByName(post_name,function(err,user){
 				if(err){
 					errorMessae = err;
 					res.render('user/register', { title: '註冊',
@@ -218,7 +239,7 @@ module.exports = function(app) {
 						return res.redirect('/account');
 					});
 				}
-			});
+			});*/
 
 		}else{//Edit modej
 			console.log('postSelect :'+typeof(postSelect) );
@@ -227,7 +248,7 @@ module.exports = function(app) {
 
 			console.log('updateUser json:'+json );
 
-			UserDbTools.updateUser(post_name,json,function(err,result){
+			/*UserDbTools.updateUser(post_name,json,function(err,result){
 				if(err){
 					console.log('updateUser :'+post_name + err);
 					errorMessae = err;
@@ -237,7 +258,7 @@ module.exports = function(app) {
 				}
 				req.flash('refresh','edit');//For refresh users data
 				return res.redirect('/account');
-			});
+			});*/
 		}
 	  });
 

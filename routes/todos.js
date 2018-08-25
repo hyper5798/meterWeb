@@ -23,13 +23,13 @@ router.route('/query')
 		mac = mac.toLowerCase();
 		myapi.getEventList(userName, mac, from, to, function(err,result){
 			if (err)
-				return res.send(err);
+				return res.send({queryType: queryType, reponseCode:999, responseMsg:err});
 			var data = result.data;
 			var events;
 			//Sort the event list
 			if(queryType == 'queryEvent') {
 				//events = data.sort(dynamicSort('-date')); //desc
-				events = data.sort(dynamicSort('date'));//asc
+				events = data.sort(dynamicSort('-date'));//asc
 			} else if(queryType == 'queryThisMonthEvent') {
 				events = data.sort(dynamicSort('date'));
 			}
@@ -62,6 +62,43 @@ router.route('/setting')
 			profileObj = {};
 		}
 		return res.json(profileObj);
+	});
+
+router.route('/user')
+
+	// get all the bears (accessed at GET http://localhost:8080/api/bears)
+	.get(function(req, res) {
+		var userName = req.query.userName;
+		var newUser = JSON.parse(req.query.newUser);
+		var queryType = req.query.queryType;
+		if (queryType == 'addUser') {
+			myapi.newUser(userName, newUser, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		} else if (queryType == 'delUser') {
+			var form = {delUserId: newUser.userId};
+			myapi.deleteUser(userName, form, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		} else if (queryType == 'updateUser') {
+			// var form = {delUserId: newUser.userId};
+			myapi.updateUser(userName, newUser, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		}
+ 
 	});
 
 module.exports = router;

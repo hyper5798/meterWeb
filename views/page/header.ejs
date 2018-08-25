@@ -24,12 +24,6 @@
 								<% } %>
 							<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-
-							    <li><a href="/account"><span class="fa fa-user"></span>  Account</a></li>
-							    <% if(user.name == 'sysAdmin'){ %>
-									<li><a href="/map"><span class="fa fa-user"></span>
-									Map</a></li>
-								<% } %>
 								<li><a href="/logout"><span class="fa fa-hand-paper-o"></span> Logout</a></li>
 							</ul>
 						</li>
@@ -47,15 +41,49 @@
 		<% }else{ %>
 			<li>
 		<% } %>
-			<a href="/"><span class="fa fa-home"></span>  電表資訊</a></li>
+			<a href="/"><span class="fa fa-info-circle"></span>  電表資訊</a></li>
 		<% if(title ==='Report'){ %>
 			<li class="active">
 		<% }else{ %>
 			<li>
 		<% } %>
 			<a href="/report"><span class="fa fa-binoculars"></span>  報表查詢</a></li>
+		<% if(title ==='Zone'){ %>
+			<li class="active">
+		<% }else{ %>
+			<li>
+		<% } %>
+		<% if(user.role == 'superAdmin'){ %>
+			<% if(user.name == 'sysAdmin'){ %>
+				<% if(title =='Map'){ %>
+				    <li class="active">
+				<% }else{ %>
+					<li>
+				<% } %>
+					<a href="/map"><span class="fa fa-eye"></span>  裝置類型管理</a></li>
+			<% } %>
+
+			<% if(title =='Account'){ %>
+			    <li class="active">
+			<% }else{ %>
+				<li>
+			<% } %>
+				<a href="/account"><span class="fa fa-user"></span>  帳號管理</a></li>
+			<% if(title =='Device'){ %>
+			    <li class="active">
+			<% }else{ %>
+				<li>
+			<% } %>
+				<a href="/device"><span class="fa fa-tachometer"></span>  裝置管理</a></li>
+			<% if(title =='Zone'){ %>
+			    <li class="active">
+			<% }else{ %>
+				<li>
+			<% } %>
+			<a href="/zone"><span class="fa fa-clone"></span>  分區管理</a></li>
+		<% } %>
 		</ul>
-		
+
 	</div>
 
 <!-- main start -->

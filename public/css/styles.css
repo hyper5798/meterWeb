@@ -946,6 +946,9 @@ input[type=checkbox] {
     opacity: 0;
     filter: alpha(opacity=0);
 }
+.Page-Title {
+	margin-top: 100px;
+}
 
 .BG-Average {
 	width: auto;
@@ -953,6 +956,7 @@ input[type=checkbox] {
 	border-radius: 10px;
 	background-color: #ffffffd8;
 	padding: 11px 16px 12px 12px;
+	margin-top: 10px;
 }
 .BG-Average-Copy {
 	width: auto;

@@ -194,8 +194,8 @@ function loadDoc(url) {
         // 判斷回應類型，這裡使用 JSON
         if (type.indexOf("application/json") === 0) {
             var json = JSON.parse(this.responseText);
-            // console.log('json  : '+JSON.stringify(json));
-            console.log(json.total + ' : ' + json.data.length);
+            console.log('json  : '+JSON.stringify(json));
+            // console.log(json.total + ' : ' + json.data.length);
             var queryType = json.queryType;
             if(queryType === 'queryEvent'){
                 console.log('Show query list');
@@ -213,7 +213,7 @@ function loadDoc(url) {
                 var result;
                 var list;
                 var total = json.total;
-                if (total > 0) {
+                if (total && total > 0) {
                   alertMessage = '找到'+total+'筆資料';
                   // makeChartData(list);
                 } else {
@@ -226,7 +226,7 @@ function loadDoc(url) {
               console.log('setting profile :\n' + JSON.stringify(profile));
             } else if(queryType === 'queryThisMonthEvent'){
               var list = json.data;
-              updateStartPower(list[0]);
+              // updateStartPower(list[0]);
             }
         }
     }
@@ -289,10 +289,11 @@ function getData(mIndex, event){
     arr.push(mIndex);
     arr.push(event.date);
     var keys = Object.keys(event.information);
-    //alert(JSON.stringify(keys));
+    // alert(JSON.stringify(keys));
     for (let i in keys) {
       let param = event.information[keys[i]];
       // alert(keys[i] + ' : ' + param);
+      if(keys[i] && keys[i] != 'Cost')
       arr.push(param);
     }
     console.log(JSON.stringify(arr))
