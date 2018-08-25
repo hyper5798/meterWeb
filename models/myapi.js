@@ -23,6 +23,9 @@ module.exports = {
     toLogin,
     getToken,
     getDeviceList,
+    updateDevice,
+    newDevice,
+    deleteDevice,
     getEventList,
     getMapList,
     isExpired,
@@ -188,6 +191,20 @@ function sendMapListRequest(session, callback) {
     });
 }
 
+//For user API ---------------------------------------------------- start
+function newDevice (name, form, callback) {
+    var url = settings.api_server + settings.api_device;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    form.token = mySession.token;
+    sendPostRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
 function sendDeviceListRequest(session, callback) {
     var token = session.token;
     var url = settings.api_server + settings.api_get_device_list;
@@ -201,6 +218,35 @@ function sendDeviceListRequest(session, callback) {
         return callback(null, result.mList);
     });
 }
+
+function updateDevice (name, form, callback) {
+    var url = settings.api_server + settings.api_device;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    var json = {d: form.device_mac, name:form.device_name, status:form.device_status};
+    json.token = mySession.token;
+    sendPutRequest(url, json, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
+function deleteDevice (name, form, callback) {
+    var url = settings.api_server + settings.api_device;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    form.token = mySession.token;
+    sendDeleteRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
+//For user API ---------------------------------------------------- end
 
 
 function sendGetRequest(url, token, callback) {
@@ -475,9 +521,9 @@ function updateUser (name, form, callback) {
     var url = settings.api_server + settings.api_users;
     var obj = JsonFileTools.getJsonFromFile(sessionPath);
     var mySession = obj[name];
-    var json = {mUserId: form.userId, catId:form.cpId, roleId: form.roleId,userBlock: form.userBlock,pic: form.pic};
-    json.token = mySession.token;
-    sendPutRequest(url, json, function(err, result) {
+    form.token = mySession.token;
+    
+    sendPutRequest(url, form, function(err, result) {
         if(err) {
             return callback(err, null);
         }

@@ -1,14 +1,10 @@
-var users = JSON.parse(document.getElementById("users").value);
+var devices = JSON.parse(document.getElementById("devices").value);
 var userName = document.getElementById("userName").value;
 var host ,port;
 var empty = {
-          name: 'test',
-          pwd: '12345678',
-          pwd2: '12345678',
-          gender: 'M',
-          email: 'test@gmail.com',
-          cp: 'gemtek',
-          type: 0
+          d: '05010CC5',//mac
+          type: 'LoRaM',
+          fport: '1',
         };
 
 var app = new Vue({
@@ -19,50 +15,38 @@ var app = new Vue({
     editPoint: -1,
     delPoint: -1,
     isTest: false,
-    userList: users,
+    deviceList: devices,
     isNew: false,
-    newUser: empty,
+    newTarget: empty,
     alertMsg: '',
     options: [
-          { text: '管理者', value: 1 },
-          { text: '一般用戶', value: 8 }
-        ],
-    options2: [
-    { text: '啟用', value: 0 },
-      { text: '禁用', value: 1 }
-    ],
-    options3: [
-    { text: 'ndhu', value: 'ndhu' },
-      { text: 'test', value: 'test'}
-    ],
-    options4: [
-    { text: '男性', value: 'M' },
-      { text: '女性', value: 'F'}
+    { text: '啟用', value: 3 },
+      { text: '禁用', value: 0 }
     ]
   },
   methods: {
-    switchCreatUser: function () {
+    switchCreatDevice: function () {
         this.isNew = true;
         this.editPoint =  -1;
-        this.newUser = empty;
+        this.newTarget = empty;
     },
-    switchEditUser: function () {
+    switchEditDevice: function () {
         this.isNew = false;
     },
     editCheck: function (index) {
         this.editPoint = index;
     },
-    delCheck: function (index, name) {
-        console.log(name);
+    delCheck: function (index, mac) {
+        console.log(mac);
         this.delPoint = index;
         $('#myModal').modal('show');
     },
     saveEdit: function(index) {
       toUpdate(index);
     },
-    testUser: function () {
+    checkDevice: function () {
       this.alertMsg = '';
-      toCheckUser(this.newUser);
+      toCheckDevicve(this.newTarget);
     }
   }
 })
@@ -72,16 +56,14 @@ $(document).ready(function () {
     port = window.location.port;
 });
 
-function toCheckUser(user) {
-  console.log('toCheckUser : ' + JSON.stringify(user));
-  if(user.name.length == 0) {
-    app.alertMsg = '尚未輸入帳戶名稱';
-  } else if(user.pwd.length == 0) {
-    app.alertMsg = '尚未輸入帳戶密碼';
-  } else if(user.name.pwd !== user.name.pwd2) {
-    app.alertMsg = '帳戶密碼與確認密碼不同';
-  }　else if(user.email.length == 0) {
-    app.alertMsg = '尚未輸入帳戶信箱';
+function toCheckDevicve(target) {
+  console.log('toCheckTarget : ' + JSON.stringify(target));
+  if(target.d.length == 0) {
+    app.alertMsg = '尚未輸入裝置識別碼';
+  } else if(target.d.length != 8) {
+    app.alertMsg = '裝置類型碼字元長度不等於8';
+  }else if(target.fport.length == 0) {
+    app.alertMsg = '尚未輸入裝置類型碼';
   }
   if(app.alertMsg.length > 0) {
     setTimeout(function () {
@@ -89,29 +71,29 @@ function toCheckUser(user) {
         }, 3000);
     return;
   }
-  toModifyUser('addUser', user);
+  toModifyTarget('addDevice', target);
 }
 
 function toDelete() {
     $('#myModal').modal('hide');
-    var mUser = app.userList[app.delPoint];
-    toModifyUser('delUser', mUser)
+    var mTarget = app.deviceList[app.delPoint];
+    toModifyTarget('delDevice', mTarget);
 }
 
 
 function toUpdate() {
     $('#myModal').modal('hide');
-    var target = app.userList[app.editPoint];
-    toModifyUser('updateUser', target)
+    var mTarget = app.deviceList[app.editPoint];
+    toModifyTarget('updateDevice', mTarget)
 }
 
-function toModifyUser(type, user){
+function toModifyTarget(type, target){
   // alert(gid + ' : ' + mac);
   //alert($("#startDate").val());
   $.LoadingOverlay("show");
   app.isSetting = false;
   // console.log(selectMac.toString());
-  var url = 'http://'+host+":"+port+'/todos/user?newUser=' + JSON.stringify(user) + '&userName=' + userName;
+  var url = 'http://'+host+":"+port+'/todos/device?target=' + JSON.stringify(target) + '&userName=' + userName;
   url = url + '&queryType=' + type;
   console.log(url);
   loadDoc(url);
@@ -137,7 +119,7 @@ function loadDoc(url) {
             var json = JSON.parse(this.responseText);
             var queryType = json.queryType;
             console.log(queryType + ' response ' + this.responseText);
-            if(queryType === 'addUser'){
+            if(queryType === 'addDevice'){
                 console.log('json.responseCode : ' + json.responseCode);
                 if(json.responseCode == '999'){
                     app.alertMsg = json.responseMsg;
@@ -145,14 +127,14 @@ function loadDoc(url) {
                   // alert('reload');
                   window.location.reload();
                 }
-            } else if(queryType === 'delUser'){
+            } else if(queryType === 'delDevice'){
               if(json.responseCode == '999'){
                     app.alertMsg = json.responseMsg;
                 } if (json.responseCode == '000') {
-                  app.userList.splice(app.delPoint, 1);
+                  app.deviceList.splice(app.delPoint, 1);
                   app.delPoint = -1;
                 }
-            } else if(queryType === 'updateUser'){
+            } else if(queryType === 'updateDevice'){
               app.editPoint = -1;
               if(json.responseCode == '999'){
                   app.alertMsg = json.responseMsg;

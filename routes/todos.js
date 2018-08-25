@@ -72,6 +72,7 @@ router.route('/user')
 		var newUser = JSON.parse(req.query.newUser);
 		var queryType = req.query.queryType;
 		if (queryType == 'addUser') {
+			newUser.createUser = userName;
 			myapi.newUser(userName, newUser, function(err, result){
 				if(err) {
 					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
@@ -80,7 +81,7 @@ router.route('/user')
 				return res.json(result);
 			});
 		} else if (queryType == 'delUser') {
-			var form = {delUserId: newUser.userId};
+			var form = {delUserId: newUser.userId, userName:newUser.userName, createUser: userName};
 			myapi.deleteUser(userName, form, function(err, result){
 				if(err) {
 					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
@@ -90,7 +91,48 @@ router.route('/user')
 			});
 		} else if (queryType == 'updateUser') {
 			// var form = {delUserId: newUser.userId};
-			myapi.updateUser(userName, newUser, function(err, result){
+			var form = {mUserId: newUser.userId, catId:newUser.cpId, roleId: newUser.roleId,userBlock: newUser.userBlock,pic: newUser.pic};
+			form.createUser = userName;
+            form.userName = newUser.userName;
+			myapi.updateUser(userName, form, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		}
+ 
+	});
+
+router.route('/device')
+
+	// get all the bears (accessed at GET http://localhost:8080/api/bears)
+	.get(function(req, res) {
+		var userName = req.query.userName;
+		var target = JSON.parse(req.query.target);
+		var queryType = req.query.queryType;
+		if (queryType == 'addDevice') {
+			target.d =  '00000000' + target.d.toLowerCase();
+			myapi.newDevice(userName, target, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		} else if (queryType == 'delDevice') {
+			var form = {delDeviceId: target.deviceId, mac: target.device_mac, name: target.device_name};
+			myapi.deleteDevice(userName, form, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		} else if (queryType == 'updateDevice') {
+			// var form = {delUserId: newUser.userId};
+			myapi.updateDevice(userName, target, function(err, result){
 				if(err) {
 					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
 				}

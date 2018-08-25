@@ -132,7 +132,7 @@ module.exports = function(app) {
     res.redirect('/login');
   });
 
-  app.get('/account', checkLogin);
+    app.get('/account', checkLogin);
     app.get('/account', function (req, res) {
 
 		console.log('render to account.ejs');
@@ -316,7 +316,34 @@ module.exports = function(app) {
 			req.flash('error', '');
 			return res.redirect('/map');
 		}
-  	});
+	  });
+	
+	app.get('/device', checkLogin);
+	app.get('/device', function (req, res) {
+
+		console.log('render to account.ejs');
+		var refresh = req.flash('refresh').toString();
+		var myuser = req.session.user;
+		var successMessae,errorMessae;
+
+		myapi.getDeviceList(myuser.name, function(err, devices){
+			if(err){
+				errorMessae = err;
+			}
+			
+			res.render('device', { title: 'Device', // user/account
+				user:myuser,//current user : administrator
+				devices: devices,//All users
+				error: errorMessae,
+				success: successMessae
+			});
+		});
+	});
+	
+	app.post('/device', checkNotLogin);
+	app.post('/device', function (req, res) {
+		res.redirect('/device');
+	});
 };
 
 function checkLogin(req, res, next) {
