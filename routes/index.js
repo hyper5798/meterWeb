@@ -168,6 +168,11 @@ module.exports = function(app) {
 				success: successMessae
 			});
 		});
+	});
+	
+	app.post('/account', checkNotLogin);
+    app.post('/account', function (req, res) {
+		res.redirect('/account');
     });
 
 	app.get('/map', checkLogin);
