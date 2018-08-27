@@ -141,7 +141,7 @@ module.exports = function(app) {
 		var myusers = req.session.userS;
 		var successMessae,errorMessae;
 		var post_name = req.flash('name').toString();
-		
+
 		if(refresh == 'delete'){
 			successMessae = 'Delete account ['+post_name+'] is finished!';
 		}else if(refresh == 'edit'){
@@ -169,7 +169,7 @@ module.exports = function(app) {
 			});
 		});
 	});
-	
+
 	app.post('/account', checkNotLogin);
     app.post('/account', function (req, res) {
 		res.redirect('/account');
@@ -217,12 +217,12 @@ module.exports = function(app) {
 						mapObj[field] = [Number(start), Number(end), method];
 						fieldNameObj[field] = fieldName;
 					} else {
-						for (let i=0; i<field.length; ++i) {	
+						for (let i=0; i<field.length; ++i) {
 							//New map if exist has same data
 							if(mapObj[field]) {
 								req.flash('error', '輸入感測類型重複');
 								return res.redirect('/map');
-							}	
+							}
 							mapObj[field[i]] = [Number(start[i]), Number(end[i]), method[i]];
 							fieldNameObj[field[i]] = fieldName[i];
 						}
@@ -234,13 +234,13 @@ module.exports = function(app) {
 				return res.redirect('/map');
 				return;
 			}
-			
+
 		}
-		
+
 		console.log('postType:' + postType);
 		console.log('postSelect:' + postSelect);
 		var url = settings.api_server + settings.api_get_map_list;
-		
+
 		if(postSelect == "del"){//Delete mode
 			//Del map
 			axios.delete(url, {
@@ -262,7 +262,7 @@ module.exports = function(app) {
 				req.flash('error', error);
 				return res.redirect('/map');
 			});
-			
+
 		}else if(postSelect == "new"){//New account
 			//new map
 			axios.post(url, {
@@ -289,7 +289,7 @@ module.exports = function(app) {
 			});
 
 	    }else if(postSelect == "edit"){
-			//Edit 
+			//Edit
 			axios.put(url, {
 					token:token,
 					deviceType: postType,
@@ -317,7 +317,7 @@ module.exports = function(app) {
 			return res.redirect('/map');
 		}
 	  });
-	
+
 	app.get('/device', checkLogin);
 	app.get('/device', function (req, res) {
 
@@ -330,7 +330,7 @@ module.exports = function(app) {
 			if(err){
 				errorMessae = err;
 			}
-			
+
 			res.render('device', { title: 'Device', // user/account
 				user:myuser,//current user : administrator
 				devices: devices,//All users
@@ -339,9 +339,50 @@ module.exports = function(app) {
 			});
 		});
 	});
-	
+
 	app.post('/device', checkNotLogin);
 	app.post('/device', function (req, res) {
+		res.redirect('/device');
+	});
+
+	app.get('/zone', checkLogin);
+	app.get('/zone', function (req, res) {
+
+		console.log('render to account.ejs');
+		var refresh = req.flash('refresh').toString();
+		var myuser = req.session.user;
+		var successMessae,errorMessae;
+		async.series([
+			function(next){
+				myapi.getDeviceList(myuser.name, function(err2, result2){
+					next(err2, result2);
+				});
+			},
+			function(next){
+				myapi.getZoneList(myuser, function(err3, result3){
+					next(err3, result3);
+				});
+			}
+		], function(errs, results){
+			if(errs) {
+				return callback(errs, null);
+			} else {
+				// console.log(results);   // results = [result1, result2, result3]
+				var sensorList = results[0];
+				var zoneList = results[1];//map list
+				res.render('zone', { title: 'Zone', // user/account
+					user:myuser,//current user : administrator
+					devices: sensorList,//All devices
+					zones: zoneList,
+					error: errorMessae,
+					success: successMessae
+				});
+			}
+		});
+	});
+
+	app.post('/zone', checkNotLogin);
+	app.post('/zone', function (req, res) {
 		res.redirect('/device');
 	});
 };
@@ -395,7 +436,7 @@ function getCloudData(name, callback) {
 		if(errs) {
 			return callback(errs, null);
 		} else {
-			console.log(results);   // results = [result1, result2, result3]
+			// console.log(results);   // results = [result1, result2, result3]
 			var sensorList = results[0];
 			for (let m in sensorList) {
 				let sensor = sensorList[m];

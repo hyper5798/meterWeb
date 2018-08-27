@@ -1,10 +1,10 @@
 var devices = JSON.parse(document.getElementById("devices").value);
+var zones = JSON.parse(document.getElementById("zones").value);
 var userName = document.getElementById("userName").value;
 var host ,port;
 var empty = {
-          d: '',//mac
-          type: 'LoRaM',
-          fport: '1',
+          name: '',
+          deviceList: []
         };
 
 var app = new Vue({
@@ -16,13 +16,15 @@ var app = new Vue({
     delPoint: -1,
     isTest: false,
     deviceList: devices,
+    zoneList: zones,
     isNew: false,
     newTarget: empty,
     alertMsg: '',
-    options: [
-    { text: '啟用', value: 3 },
-      { text: '禁用', value: 0 }
-    ]
+    selected: null,
+    data: getMockData(),
+    targetKeys: [],
+    modal1: false,
+    editMode: 'edit'
   },
   methods: {
     switchCreatDevice: function () {
@@ -36,20 +38,68 @@ var app = new Vue({
     editCheck: function (index) {
         this.editPoint = index;
     },
-    delCheck: function (index, mac) {
-        console.log(mac);
+    delCheck: function (index, name) {
+        console.log('delCheck : ' + name);
         this.delPoint = index;
         $('#myModal').modal('show');
     },
     saveEdit: function(index) {
-      toUpdate(index);
+        toUpdate(index);
     },
     checkDevice: function () {
-      this.alertMsg = '';
-      toCheckDevicve(this.newTarget);
+        this.alertMsg = '';
+        toCheckDevicve(this.newTarget);
+    },
+    render: function(item) {
+        return item.label;
+    },
+    handleChange: function (newTargetKeys) {
+        this.targetKeys = newTargetKeys;
+    },
+    ok: function() {
+        this.$Message.info('Clicked ok');
+        if(this.editMode == 'new') {
+          this.newTarget.deviceList = JSON.parse(JSON.stringify(this.targetKeys));
+        } else {
+          this.zoneList[this.editPoint].deviceList = JSON.parse(JSON.stringify(this.targetKeys));
+        }
+    },
+    cancel: function() {
+      this.$Message.info('Clicked cancel');
+    },
+    addDevice(mode) {
+      this.editMode = mode;
+      if(this.editMode == 'new') {
+          this.targetKeys = [];
+      } else {
+        let zone = this.zoneList[this.editPoint];
+        console.log('addDevice : ' + mode + ', editPoint :' + this.editPoint);
+        console.log('zone : ' + JSON.stringify(zone));
+        this.targetKeys = JSON.parse(JSON.stringify(zone.deviceList));
+      }
+      this.modal1 = true;
     }
   }
 })
+
+function getMockData() {
+let mockData = [];
+  for (let i = 0; i < devices.length; i++) {
+    mockData.push({
+      key: devices[i].device_mac,
+      label: devices[i].device_name,
+      description: '',
+      disabled: false
+    });
+  }
+  return mockData;
+}
+
+function getTargetKeys () {
+    return getMockData()
+       .filter(() => Math.random() * 2 > 1)
+       .map(item => item.key);
+}
 
 $(document).ready(function () {
     host = window.location.hostname;
@@ -58,12 +108,10 @@ $(document).ready(function () {
 
 function toCheckDevicve(target) {
   console.log('toCheckTarget : ' + JSON.stringify(target));
-  if(target.d.length == 0) {
-    app.alertMsg = '尚未輸入裝置識別碼';
-  } else if(target.d.length != 8) {
-    app.alertMsg = '裝置類型碼字元長度不等於8';
-  }else if(target.fport.length == 0) {
-    app.alertMsg = '尚未輸入裝置類型碼';
+  if(target.name.length == 0) {
+    app.alertMsg = '尚未輸入分區名稱';
+  } else if(target.deviceList.length == 0) {
+    app.alertMsg = '尚未選擇裝置';
   }
   if(app.alertMsg.length > 0) {
     setTimeout(function () {
@@ -71,20 +119,20 @@ function toCheckDevicve(target) {
         }, 3000);
     return;
   }
-  toModifyTarget('addDevice', target);
+  toModifyTarget('addZone', target);
 }
 
 function toDelete() {
     $('#myModal').modal('hide');
-    var mTarget = app.deviceList[app.delPoint];
-    toModifyTarget('delDevice', mTarget);
+    var mTarget = app.zoneList[app.delPoint];
+    toModifyTarget('delZone', mTarget);
 }
 
 
 function toUpdate() {
     $('#myModal').modal('hide');
-    var mTarget = app.deviceList[app.editPoint];
-    toModifyTarget('updateDevice', mTarget)
+    var mTarget = app.zoneList[app.editPoint];
+    toModifyTarget('updateZone', mTarget)
 }
 
 function toModifyTarget(type, target){
@@ -93,7 +141,7 @@ function toModifyTarget(type, target){
   $.LoadingOverlay("show");
   app.isSetting = false;
   // console.log(selectMac.toString());
-  var url = 'http://'+host+":"+port+'/todos/device?target=' + JSON.stringify(target) + '&userName=' + userName;
+  var url = 'http://'+host+":"+port+'/todos/zone?target=' + JSON.stringify(target) + '&userName=' + userName;
   url = url + '&queryType=' + type;
   console.log(url);
   loadDoc(url);
@@ -119,7 +167,7 @@ function loadDoc(url) {
             var json = JSON.parse(this.responseText);
             var queryType = json.queryType;
             console.log(queryType + ' response ' + this.responseText);
-            if(queryType === 'addDevice'){
+            if(queryType === 'addZone'){
                 console.log('json.responseCode : ' + json.responseCode);
                 if(json.responseCode == '999'){
                     app.alertMsg = json.responseMsg;
@@ -127,14 +175,16 @@ function loadDoc(url) {
                   // alert('reload');
                   window.location.reload();
                 }
-            } else if(queryType === 'delDevice'){
+            } else if(queryType === 'delZone'){
               if(json.responseCode == '999'){
                     app.alertMsg = json.responseMsg;
                 } if (json.responseCode == '000') {
-                  app.deviceList.splice(app.delPoint, 1);
+                  if(app.zoneList && app.zoneList.length > 0) {
+                    app.zoneList.splice(app.delPoint, 1);
+                  }
                   app.delPoint = -1;
                 }
-            } else if(queryType === 'updateDevice'){
+            } else if(queryType === 'updateZone'){
               app.editPoint = -1;
               if(json.responseCode == '999'){
                   app.alertMsg = json.responseMsg;

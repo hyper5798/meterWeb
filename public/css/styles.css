@@ -981,7 +981,7 @@ input[type=checkbox] {
 .Meter0{
 	width: auto;
     height: 40px;
-    background-color: #0000ff;
+    background-color: #b3b3ff;
     color: #ffffff;
     font-size: 25px;
     text-align: center;
@@ -989,7 +989,7 @@ input[type=checkbox] {
  .Meter0_1{
 	width: auto;
     height: 40px;
-    background-color: #0000ff;
+    background-color: #b3b3ff;
     color: #ffffff;
     font-size: 25px;
     padding: 0px 10px

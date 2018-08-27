@@ -438,10 +438,10 @@ $(document).ready(function(){
       console.log('update_sensor_status -------------------');
       console.log(typeof data);
       console.log(data);
-      app.showUpdate = true;
+      /*app.showUpdate = true;
       setTimeout(function () {
         app.showUpdate = false;
-      }, 3000);
+      }, 3000);*/
       changMeterData( data);
     });
 

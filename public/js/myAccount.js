@@ -2,11 +2,11 @@ var users = JSON.parse(document.getElementById("users").value);
 var userName = document.getElementById("userName").value;
 var host ,port;
 var empty = {
-          name: 'test',
-          pwd: '12345678',
-          pwd2: '12345678',
+          name: '',
+          pwd: '',
+          pwd2: '',
           gender: 'M',
-          email: 'test@gmail.com',
+          email: '',
           cp: 'gemtek',
           type: 0
         };

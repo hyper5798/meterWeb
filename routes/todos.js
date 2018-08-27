@@ -143,6 +143,43 @@ router.route('/device')
  
 	});
 
+router.route('/zone')
+
+	// get all the bears (accessed at GET http://localhost:8080/api/bears)
+	.get(function(req, res) {
+		var userName = req.query.userName;
+		var target = JSON.parse(req.query.target);
+		var queryType = req.query.queryType;
+		if (queryType == 'addZone') {
+			target.zoneId =  new Date().getTime().toString();
+			myapi.newZone(userName, target, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		} else if (queryType == 'delZone') {
+			
+			myapi.deleteZone(userName, target, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		} else if (queryType == 'updateZone') {
+			// var form = {delUserId: newUser.userId};
+			myapi.updateZone(userName, target, function(err, result){
+				if(err) {
+					return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+				}
+				result.queryType = queryType;
+				return res.json(result);
+			});
+		}
+	});
+
 module.exports = router;
 
 function dynamicSort(property) {

@@ -32,7 +32,11 @@ module.exports = {
     getUserList,
     updateUser,
     newUser,
-    deleteUser
+    deleteUser,
+    getZoneList,
+    updateZone,
+    newZone,
+    deleteZone,
 }
 
 function getToken(api_name, api_pw, callback) {
@@ -187,7 +191,7 @@ function sendMapListRequest(session, callback) {
         if(err){
             return callback(err, null);
         }
-        return callback(null, result.data);
+        return callback(null, result.data.data);
     });
 }
 
@@ -215,7 +219,7 @@ function sendDeviceListRequest(session, callback) {
         if(err){
             return callback(err, null);
         }
-        return callback(null, result.mList);
+        return callback(null, result.data.mList);
     });
 }
 
@@ -260,15 +264,8 @@ function sendGetRequest(url, token, callback) {
     console.log('sendGetRequest url : ' + url);
     axios.get(url)
     .then(function (response) {
-        console.log(response);
-        var json = response.data;
-        var code = json.responseCode;
-        var msg = json.responseMsg;
-        if (code == '000') {
-            return callback(null, json);
-        } else {
-            return callback(msg, null);
-        }
+        // console.log(response);
+        return callback(null, response);
     }) 
     .catch(function (error) {
         return callback(error.message, null);
@@ -280,7 +277,7 @@ function sendPostRequest(url, form, callback) {
     console.log('sendPostRequest form : ' + JSON.stringify(form));
     axios.post(url, form)
     .then(function (response) {
-        console.log(response);
+        // console.log(response);
         var json = response.data;
         var code = json.responseCode;
         var msg = json.responseMsg;
@@ -300,7 +297,7 @@ function sendPutRequest(url, form, callback) {
     console.log('sendPostRequest form : ' + JSON.stringify(form));
     axios.put(url, form)
     .then(function (response) {
-        console.log(response);
+        // console.log(response);
         var json = response.data;
         var code = json.responseCode;
         var msg = json.responseMsg;
@@ -320,7 +317,7 @@ function sendDeleteRequest(url, form, callback) {
     console.log('sendDeleteRequest form : ' + JSON.stringify(form));
     axios.delete(url,  { params: form })
     .then(function (response) {
-        console.log(response);
+        // console.log(response);
         var json = response.data;
         var code = json.responseCode;
         var msg = json.responseMsg;
@@ -405,7 +402,7 @@ function sendEventListRequest(form, callback) {
         if(err){
             return callback(err, null);
         }
-        return callback(null, result);
+        return callback(null, result.data);
     });
 }
 
@@ -513,7 +510,7 @@ function getUserList(session, callback) {
         if(err){
             return callback(err, null);
         }
-        return callback(null, result.users);
+        return callback(null, result.data.users);
     });
 }
 
@@ -544,3 +541,59 @@ function deleteUser (name, form, callback) {
     });
 }
 //For user API ---------------------------------------------------- end
+
+//For Zone API ---------------------------------------------------- start
+function newZone (name, form, callback) {
+    var url = settings.api_server + settings.api_zones;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    form.createUser = name;
+    form.token = mySession.token;
+    sendPostRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
+function getZoneList(session, callback) {
+    var token = session.token;
+    var url = settings.api_server + settings.api_zones;
+
+    sendGetRequest(url, token, function(err, result){
+        if(err){
+            return callback(err, null);
+        }
+        return callback(null, result.data.data);
+    });
+}
+
+function updateZone (name, form, callback) {
+    var url = settings.api_server + settings.api_zones;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    form.token = mySession.token;
+    form.updateUser = name;
+    
+    sendPutRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
+function deleteZone (name, form, callback) {
+    var url = settings.api_server + settings.api_zones;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    form.token = mySession.token;
+    sendDeleteRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+//For Zone API ---------------------------------------------------- end

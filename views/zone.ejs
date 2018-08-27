@@ -1,52 +1,43 @@
 <%- include page/header %>
-         <div v-if="alertMsg.length>0" class="alert alert-danger" role="alert">
-		  <strong>{{alertMsg}}</strong>
-		</div>
+		<br>
+		<br>
 		<div v-show="isNew" class="col-md-12 column">
             <div class="BG-Average">
                 <div>
 	                <button class="btn btn-primary pull-right" type="button " @click="switchEditDevice">
 					    <span class="fa fa-pencil fa-2x"></span>
-						編輯裝置
+						編輯分區
 				    </button>
-                 	<h3>新增裝置</h3>
+                 	<h3>新增分區</h3>
 	            </div>
+	            <br>
+	            <br>
 	            <form class="" method="post" action="#">
 						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">裝置識別碼</label>
+							<label for="name" class="cols-sm-2 control-label">分區識別碼</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" v-model="newTarget.d"  placeholder="輸入裝置識別碼(8個字元)"/>
+									<input type="text" class="form-control" v-model="newTarget.name"  placeholder="輸入分區名稱"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">裝置型別</label>
+							<label for="password" class="cols-sm-2 control-label">可選裝置</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" v-model="newTarget.type"  placeholder="預設" disabled/>
+                                    <input type="text" class="form-control" v-model="newTarget.deviceList"  placeholder="按此選擇加入裝置" @click="addDevice('new')"/>
 								</div>
 							</div>
 						</div>
-
-						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label">裝置類碼</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" v-model="newTarget.fport"  placeholder="" disabled/>
-								</div>
-							</div>
-						</div>
-
 						<div class="form-group ">
 							<button class="btn btn-primary btn-lg btn-block" type="button" @click="checkDevice">
-						    按此新增裝置
+						    按此新增分區
 					    　　</button>
 						</div>
+						<Alert v-if="alertMsg.length>0" type="error" show-icon>{{alertMsg}}</Alert>
 				</form>
 
 			</div>
@@ -56,43 +47,30 @@
 	        　　<div>
 	                <button class="btn btn-primary pull-right" type="button " @click="switchCreatDevice">
 					    <span class="fa fa-plus fa-2x"></span>
-						新增裝置
+						新增分區
 				    </button>
-	             	<h3>裝置管理</h3>
+	             	<h3>分區管理</h3>
 	            </div>
 				<table id ="table1" class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th>
-								裝置識別碼
+								分區名稱
 							</th>
 							<th>
-								裝置名稱
-							</th>
-							<th>
-								是否啟用
+								已加入裝置
 							</th>
 							<th>
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-							<tr v-for="(device, index) in deviceList">
+							<tr v-for="(zone, index) in zoneList">
 								<td>
-									{{device.device_mac}}
+									{{zone.name}}
 								</td>
 								<td>
-									<input  type="text" v-model="device.device_name" :disabled="editPoint!=index">
-								</td>
-								<td>
-								    <select v-model="device.device_status" :disabled="editPoint!=index">
-							            <option v-for="option in options" v-bind:value="option.value" :key="option.value">
-							              {{ option.text }}
-							            </option>
-							         </select>
-								</td>
-								<td>
-									{{device.updateTime}}
+									<input  type="text" v-model="zone.deviceList" size="100" @click="addDevice('edit')" :disabled="editPoint!=index">
 								</td>
 								<td>
 									<button v-if="editPoint!=index" type="button" name="edit" class="btn btn-primary btn-sm" @click="editCheck(index)">
@@ -101,19 +79,34 @@
 									<button v-else type="button" name="edit" class="btn btn-success btn-sm" @click="saveEdit(index)">
 										 儲存
 									</button>
-									<button type="button" name="del" class="btn btn-danger btn-sm" @click="delCheck(index, device.device_mac)">
+									<button type="button" name="del" class="btn btn-danger btn-sm" @click="delCheck(index, zone.name)">
 										 刪除
 									</button>
 								</td>
 							</tr>
 					</tbody>
 				</table>
-             </div>
+            </div>
+            <div>
+			<div class="select BG-Average">
+		</div>
+
 		</div> <!-- column-->
 		<input id="devices" name="devices" type="hidden" value="<%= JSON.stringify(devices) %>">
+		<input id="zones" name="zones" type="hidden" value="<%= JSON.stringify(zones) %>">
 		<input id="userName" name="userName" type="hidden" value="<%= user.name %>">
-
-		<!-- （Modal） -->
+    <Modal
+        v-model="modal1"
+        title="加入分區裝置"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <Transfer
+                :data="data"
+                :target-keys="targetKeys"
+                :render-format="render"
+                @on-change="handleChange"></Transfer>
+    </Modal>
+		<!-- （Modal ） -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		   aria-labelledby="myModalLabel" aria-hidden="true">
 		   <div class="modal-dialog">
@@ -128,7 +121,7 @@
 		            </h4>
 		         </div>
 		         <div id="account" class="modal-body">
-		            你確認要刪除此裝置?
+		            你確認要刪除此分區?
 		         </div>
 		         <div class="modal-footer">
 		            <button type="button" class="btn btn-default"
