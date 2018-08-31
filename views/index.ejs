@@ -1,11 +1,17 @@
 ﻿<%- include page/header %>
+<!--<%= JSON.stringify(user) %>-->
+    <div v-if="alertMsg.length>0" class="alert alert-danger" role="alert">
+	  <strong>{{alertMsg}}</strong>
+	</div>
     <div v-if="showUpdate"class="col-lg-12 alert alert-success" role="alert">
 	  <strong>更新電表資訊!</strong> 收到更新資訊.
 	</div>
-    <div class="col-lg-12">
+	<div v-show = "!isIndex" class="col-lg-12">
+		<label>選擇電表 :</label>
+	</div>
+    <div v-if="user.role" class="col-lg-12">
 		<div class="row">
-		    <div class="col-sm-6 col-md-2 pull-left">
-		  	    <label>選擇電表 :</label>
+		    <div v-show = "!isIndex" class="col-sm-6 col-md-2 pull-left">
 				<select v-model="selectedSensor" @change="selectSensor">
 				  <option v-for="sensor in sensorList" v-bind:value="sensor.device_mac">
 				    {{ sensor.device_name }}
@@ -22,15 +28,19 @@
 
 		    </div>
 		    <div class="col-sm-6 col-md-2 pull-left">
-		  	    <font color="red">{{alert}}</label></font>
+		  	    <font color="red">{{result}}</label></font>
 		    </div>
 		    <div class="col-md-4 col-sm-6">
-				<button  v-if="!isIndex" type="button" name="search" title="search" onClick="search()">
-				    <span class="fa fa-history fa-2x"></span>
+				<button  v-if="!isIndex" type="button" class= "btn" onClick="search()">
+				    <span class="fa fa-history fa-1x"></span>
 				    返回
 				</button>
-				<button  v-if="isIndex"type="button" @click="enableSetting">
-				    <span class="fa fa-pencil fa-2x"></span>
+				<button  v-if="isIndex" type="button" class= "btn btn-info" @click="pressQuery">
+				    <span class="fa fa-search fa-1x"></span>
+					查詢
+				</button>
+				<button  v-if="isIndex" type="button" class= "btn btn-success" @click="enableSetting">
+				    <span class="fa fa-pencil fa-1x"></span>
 					設定
 				</button>
 		    </div>
@@ -41,6 +51,16 @@
 
 		</div>
         <hr>
+    </div>
+    <div v-show = "isIndex" class="col-sm-12 col-md-12">
+        <div v-if = "zoneList.length>1" class="col-sm-12 col-md-12">
+	  	    <label>選擇分區 :</label>
+			<select v-model="selectedZone" @change="changeZone(selectedZone)">
+			  <option v-for="zone in zoneList" v-bind:value="zone.name">
+			    {{ zone.name }}
+			  </option>
+			</select>
+		</div>
     </div>
 	<div class ="col-sm-12 col-md-12">
 	    <div v-show = "isIndex">
@@ -94,7 +114,7 @@
 				</div>
 			</div>
 			<div >
-				<div v-for="sensor in sensorList" class="col-sm-12 col-md-6" @click="selectMac(sensor.device_mac)">
+				<div v-for="sensor in sensorList" class="col-sm-12 col-md-6 col-lg-6" @click="selectMac(sensor.device_mac)">
 			        <div class="BG-Average">
 			            <div v-show="profile.monthPower=='show'" class="Meter0">
 			              {{sensor.device_name}}
@@ -124,7 +144,7 @@
 							    平均電流   : {{sensor.event.information.Iavg}} A <br>
 							    中性線電流 : {{sensor.event.information.In}} v <br>
 							</div>
-					    <div v-if="sensor.event.information" class="col-sm-6 col-md-6">
+					        <div v-if="sensor.event.information" class="col-sm-6 col-md-6">
 					            總有效功率  : {{sensor.event.information.Psum}} W<br>
 							    總無效功率 : {{sensor.event.information.Qsum}} W<br>
 								總視在功率 : {{sensor.event.information.Ssum}} W<br>
@@ -176,8 +196,9 @@
 	      </div>
 	    </div>
 		<input id="sensorList" name="sensorList" type="hidden" value="<%= JSON.stringify(sensorList) %>">
+		<input id="zoneList" name="zoneList" type="hidden" value="<%= JSON.stringify(zoneList) %>">
 		<input id="profile" name="profile" type="hidden" value="<%= JSON.stringify(profile) %>">
-		<input id="user_name" name="user_name" type="hidden" value="<%= user.name %>">
+		<input id="user" name="user" type="hidden" value="<%= JSON.stringify(user) %>">
 		<!-- （Modal） -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -227,7 +248,7 @@
 						<button type="button" class="btn btn-default"
 						data-dismiss="modal">Close
 						</button>
-						<button type="button" @click="firstQuery" class="btn btn-primary">
+						<button type="button" class="btn btn-primary">
 						Query
 						</button>
 					</div>

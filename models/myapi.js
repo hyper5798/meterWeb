@@ -78,18 +78,22 @@ function toLogin(api_name, api_pw, callback) {
             else {
                 //console.log('flag : '+flag);
                 //console.log('body type : '+typeof(result.body));
-                var body= JSON.parse(result.body);
-                //console.log(JSON.stringify(body));
-                var code = body.responseCode;
-                var authToken = body.authToken;
-                var time = moment();
-                time = time.add(1, 'days');
-                time = time.toDate();
-                var session = {name:api_name,"token": authToken, "expiration": time, role:body.role};
-                if(code !== '000'){
-                    callback(body.responseMsg, null);
-                } else {
-                    callback(null, session);
+                try {
+                    var body= JSON.parse(result.body);
+                    //console.log(JSON.stringify(body));
+                    var code = body.responseCode;
+                    var authToken = body.authToken;
+                    var time = moment();
+                    time = time.add(1, 'days');
+                    time = time.toDate();
+                    var session = {name:api_name,"token": authToken, "expiration": time, role:body.role, zone: body.userInfo.pic};
+                    if(code !== '000'){
+                        callback(body.responseMsg, null);
+                    } else {
+                        callback(null, session);
+                    }
+                } catch (error) {
+                    callback(error, null);
                 }
             }
     });
@@ -502,10 +506,17 @@ function newUser (name, form, callback) {
     });
 }
 
-function getUserList(session, callback) {
-    var token = session.token;
+function getUserList(name, callback) {
     var url = settings.api_server + settings.api_users;
-
+    var token;
+    try {
+        var obj = JsonFileTools.getJsonFromFile(sessionPath);
+        var mySession = obj[name];
+        token = mySession.token;
+    } catch (error) {
+        return callback(error, null);
+    }
+    
     sendGetRequest(url, token, function(err, result){
         if(err){
             return callback(err, null);
@@ -557,8 +568,10 @@ function newZone (name, form, callback) {
     });
 }
 
-function getZoneList(session, callback) {
-    var token = session.token;
+function getZoneList(name, callback) {
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    var token = mySession.token;
     var url = settings.api_server + settings.api_zones;
 
     sendGetRequest(url, token, function(err, result){

@@ -3,6 +3,7 @@ var router = express.Router();
 var myapi =  require('../models/myapi.js');
 var settings = require('../settings');
 var JsonFileTools =  require('../models/jsonFileTools.js');
+var util =  require('../models/util.js');
 var sessionPath = './public/data/session.json';
 var mysessionPath = './public/data/mysession.json';
 var profilePath = './public/data/profile.json';
@@ -32,14 +33,15 @@ module.exports = function(app) {
 		if(err) {
 			res.render('index', { title: 'Index',
 				user:req.session.user,
-				camList: [],
 				sensorList: [],
+				zoneList: [],
 				profile: profileObj
 			});
 		} else {
             res.render('index', { title: 'Index',
 				user:req.session.user,
 				sensorList: data.sensorList,
+				zoneList: data.zoneList,
 				profile: profileObj
 			});
 		}
@@ -71,6 +73,7 @@ module.exports = function(app) {
 	res.render('report', { title: 'Report',
 		user:req.session.user,
 		sensorList: data.sensorList,
+		zoneList: data.zoneList,
 		profile: profileObj
 	});
   });
@@ -118,11 +121,15 @@ module.exports = function(app) {
   });
 
   app.get('/logout', function (req, res) {
-	var name = req.session.user.name;
-	var sessionObj;
+	var name = '', sessionObj = {};
 	try {
+		if(req.session.user) {
+			name = req.session.user.name;
+		}
 		sessionObj = JsonFileTools.getJsonFromFile(mysessionPath);
-	    delete obj[name];
+		if(name.length > 0) {
+			delete obj[name];
+		}
 	} catch (error) {
 		sessionObj = {};
 	}
@@ -135,38 +142,44 @@ module.exports = function(app) {
     app.get('/account', checkLogin);
     app.get('/account', function (req, res) {
 
-		console.log('render to account.ejs');
-		var refresh = req.flash('refresh').toString();
+		console.log(util.getCurrentTime() + ' render to account.ejs');
 		var myuser = req.session.user;
-		var myusers = req.session.userS;
 		var successMessae,errorMessae;
-		var post_name = req.flash('name').toString();
-
-		if(refresh == 'delete'){
-			successMessae = 'Delete account ['+post_name+'] is finished!';
-		}else if(refresh == 'edit'){
-			successMessae = 'Edit account ['+post_name+'] is finished!';
-		}
-
-		console.log('Debug account get -> refresh :'+refresh);
-		myapi.getUserList(myuser, function(err, users){
-			if(err){
-				errorMessae = err;
+		
+		async.series([
+			function(next){
+				myapi.getUserList(myuser.name, function(err2, result2){
+					next(err2, result2);
+				});
+			},
+			function(next){
+				myapi.getZoneList(myuser.name, function(err3, result3){
+					next(err3, result3);
+				});
 			}
-			req.session.userS = users;
-			var newUsers = [];
-			for(var i=0;i<  users.length;i++){
-				//console.log('name : '+users[i]['name']);
-				if( users[i]['userName'] !== 'sysAdmin'){
+		], function(errs, results){
+			if(errs) {
+				return callback(errs, null);
+			} else {
+				// console.log(results);   // results = [result1, result2, result3]
+				var users = results[0];
+				var zoneList = results[1];//map list
+				var newUsers = [];
+				for(var i=0;i<  users.length;i++){
+					//console.log('name : '+users[i]['name']);
+					if( users[i]['userName'] == 'sysAdmin' || users[i]['userName'] == 'ndhuAdmin'){
+						continue;
+					}
 					newUsers.push(users[i]);
 				}
+				res.render('user/account', { title: 'Account', // user/account
+					user: myuser,//current user : administrator
+					users: newUsers,//All users
+					zones: zoneList,
+					error: errorMessae,
+					success: successMessae
+				});
 			}
-			res.render('user/account', { title: 'Account', // user/account
-				user:myuser,//current user : administrator
-				users:newUsers,//All users
-				error: errorMessae,
-				success: successMessae
-			});
 		});
 	});
 
@@ -359,7 +372,7 @@ module.exports = function(app) {
 				});
 			},
 			function(next){
-				myapi.getZoneList(myuser, function(err3, result3){
+				myapi.getZoneList(myuser.name, function(err3, result3){
 					next(err3, result3);
 				});
 			}
@@ -390,7 +403,7 @@ module.exports = function(app) {
 function checkLogin(req, res, next) {
 	if(myapi.isExpired(req.session.user)) {
 		//Expired is true
-		res.redirect('/login');//返回登入頁
+		res.redirect('/logout');//返回登入頁
 	} else {
 		next();
 	}
@@ -423,12 +436,17 @@ function getData(username, callback) {
 function getCloudData(name, callback) {
     async.series([
 		function(next){
-			myapi.getDeviceList(name, function(err2, result2){
+			myapi.getDeviceList(name, function(err1, result1){
+				next(err1, result1);
+			});
+		},
+		function(next){
+			myapi.getMapList(name, function(err2, result2){
 				next(err2, result2);
 			});
 		},
 		function(next){
-			myapi.getMapList(name, function(err3, result3){
+			myapi.getZoneList(name, function(err3, result3){
 				next(err3, result3);
 			});
 		}
@@ -457,8 +475,11 @@ function getCloudData(name, callback) {
 					sensor['typeName'] = mapObj[sensor['fport']];
 				}
 			}
+			var zoneList = results[2];//zone list
 			var data = {sensorList: sensorList,
-						mapList: mapList };
+						mapList: mapList, 
+						zoneList: zoneList
+					};
 			try {
 				JsonFileTools.saveJsonToFile(dataPath, data);
 			} catch (error) {

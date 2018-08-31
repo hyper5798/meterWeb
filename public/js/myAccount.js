@@ -1,6 +1,12 @@
 var users = JSON.parse(document.getElementById("users").value);
+var zones = JSON.parse(document.getElementById("zones").value);
 var userName = document.getElementById("userName").value;
 var host ,port;
+var zoneOptions = [];
+for(let m in zones) {
+  let zone = zones[m];
+  zoneOptions.push({ text: zone.name, value: zone.name })
+}
 var empty = {
           name: '',
           pwd: '',
@@ -25,16 +31,14 @@ var app = new Vue({
     alertMsg: '',
     options: [
           { text: '管理者', value: 1 },
-          { text: '一般用戶', value: 8 }
+          { text: '一般用戶', value: 8 },
+          { text: '停權', value: 29 }
         ],
     options2: [
     { text: '啟用', value: 0 },
       { text: '禁用', value: 1 }
     ],
-    options3: [
-    { text: 'ndhu', value: 'ndhu' },
-      { text: 'test', value: 'test'}
-    ],
+    options3: zoneOptions,
     options4: [
     { text: '男性', value: 'M' },
       { text: '女性', value: 'F'}

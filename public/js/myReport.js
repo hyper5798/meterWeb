@@ -9,9 +9,18 @@ var index = 0;limit = 1000;
 var isNeedTotal = true;
 var date1 ,date2 , deviceList;
 var range;
-var sensorList = JSON.parse(document.getElementById("sensorList").value);
+var sensorList = [];
+if (document.getElementById("sensorList").value !== '') {
+  sensorList =  JSON.parse(document.getElementById("sensorList").value);
+}
+var allZoneList = [];
+if (document.getElementById("zoneList").value !== '') {
+  allZoneList =  JSON.parse(document.getElementById("zoneList").value);
+}
 var profileObj = JSON.parse(document.getElementById("profile").value);
-var userName = document.getElementById("user_name").value;
+var user = JSON.parse(document.getElementById("user").value);
+var userName = user.name;
+var userZone = user.zone;
 var defaultProfile = {
       monthPower: 'show',
       detail: "show"
@@ -22,12 +31,29 @@ if(profileObj[userName]) {
 } else {
   userProfile = defaultProfile;
 }
-var sensor1, sensor_name;
+var zone1Name, sensor1, sensor_name;
 var allMacList = getMacList();
 var allMacName = getAllMacName();
 if (allMacList.length > 0) {
   sensor1 = allMacList[0];
 }
+
+//For get current selected zone name on 2018.08.29
+console.log('userName : ' + userName + ' , userZone : ' + userZone);
+var zoneList = [];
+if(allZoneList.length > 0 && (userName == 'sysAdmin' || userName == 'ndhuAdmin')) {
+    zoneList = allZoneList;
+    zone1Name = zoneList[0].name;
+} else {
+      for(let n in allZoneList) {
+        let zone = allZoneList[n];
+        if(zone.name === userZone) {
+          zoneList.push(zone);
+        }
+      }
+      zone1Name = userZone;
+}
+console.log('zone1Name: ' + zone1Name + '\ncurrent zoneList : ' + JSON.stringify(zoneList));
 
 //Slider
 var min = 0;
@@ -54,7 +80,10 @@ var socket = io.connect('http://localhost:8080');
 var app = new Vue({
   el: '#app',
   data: {
-    sensorList: sensorList,
+    user: user,
+    zoneList: zoneList,
+    selectedZone: zone1Name,
+    sensorList: getSensorList(zone1Name),
     selectedSensor: sensor1,
     selectedSensorName: sensor_name,
     isIndex: false,
@@ -62,8 +91,10 @@ var app = new Vue({
     isChart: false,
     isShowCSV: false,
     hasTab: false,
+    showUpdate: false,
     pageTimer: {},
-    alert: '',
+    result: '',
+    alertMsg: '',
     items: [],
     profile: JSON.parse(JSON.stringify(userProfile))
   },
@@ -71,16 +102,16 @@ var app = new Vue({
     selectMac: function (mac) {
       // alert(mac);
       this.selectedSensor = mac;
-      toQuery(this.selectedSensor);
+      toQuery();
     },
-    firstQuery: function () {
-      toQuery(this.selectedSensor);
+    pressQuery: function () {
+      toQuery();
     },
     selectSensor: function(ele) {
       // alert(ele.target.value);
       this.selectedSensor = ele.target.value;
       this.selectedSensorName = getSensorNameByMac(ele.target.value);
-      toQuery(this.selectedSensor);
+      toQuery();
     },
     enableSetting: function() {
       // this.isSetting = true;
@@ -94,9 +125,35 @@ var app = new Vue({
     saveSetting: function() {
       // alert('setting');
       toSetting(this.profile);
+    },
+    changeZone: function(zName) {
+      // alert('setting');
+      this.selectedZone = zName;
+      this.sensorList = getSensorList(zName);
+      this.selectedSensor = this.sensorList[0].device_mac;
     }
   }
 })
+
+function getSensorList (zone1Name) {
+  //alert(zone1Name);
+  var list=[];
+  var arr = [];
+  for (let i in zoneList) {
+    let zone = zoneList[i];
+    if(zone.name == zone1Name) {
+      list = zone.deviceList;
+    }
+  }
+  //alert(JSON.stringify(list));
+  for (let j in sensorList) {
+    let sensor = sensorList[j];
+    if(list.includes(sensor.device_mac) == true) {
+      arr.push(sensor);
+    }
+  }
+  return arr;
+}
 
 
 var opt2={
@@ -144,7 +201,8 @@ function search(){
   app.isIndex = true;
 }
 
-function toQuery(mac){
+function toQuery(){
+  var mac = app.selectedSensor;
   // alert('mac : ' + mac);
   // removeDataset();
   app.isIndex = false;
@@ -153,7 +211,7 @@ function toQuery(mac){
   var from = $('#from').val();
   var to = $('#to').val();
   var url = 'http://'+host+":"+port+'/todos/query?mac='+mac+'&from='+from+'&to='+to;
-  url = url + '&queryType=queryEvent';
+  url = url + '&queryType=queryEvent&userName=' + userName;
   console.log(url);
   loadDoc(url);
 }
@@ -163,7 +221,7 @@ function toQuerThisMonth(mac){
   var from = moment().format('YYYY-MM-01');
   var to = moment().format('YYYY-MM-DD');
   var url = 'http://'+host+":"+port+'/todos/query?mac='+mac+'&from='+from+'&to='+to;
-  url = url + '&queryType=queryThisMonthEvent';
+  url = url + '&queryType=queryThisMonthEvent&userName=' + userName;
   console.log(url);
   loadDoc(url);
 }
@@ -188,13 +246,13 @@ function loadDoc(url) {
        $.LoadingOverlay("hide");
 
        var type = this.getResponseHeader("Content-Type");   // 取得回應類型
-       console.log('type  : '+type);
+       // console.log('type  : '+type);
 
         // 判斷回應類型，這裡使用 JSON
         if (type.indexOf("application/json") === 0) {
             var json = JSON.parse(this.responseText);
             // console.log('json  : '+JSON.stringify(json));
-            console.log(json.total + ' : ' + json.data.length);
+            console.log('data length : ' + json.data.length);
             var queryType = json.queryType;
             if(queryType === 'queryEvent'){
                 console.log('Show query list');
@@ -202,28 +260,27 @@ function loadDoc(url) {
                     table.fnClearTable();
                     var data = getDataList(json.data)
                     table.fnAddData(data);
+                } else {
+                  table.fnClearTable();
                 }
 
-                var keys = Object.keys(json);
                 // alert(JSON.stringify(keys))
-                var alertMessage = '';
-                var result;
-                var list;
-                var total = json.total;
-                if (total > 0) {
-                  alertMessage = '找到'+total+'筆資料';
+                // alert(json.total);
+                if (json.total > 0) {
+                  app.result = '找到'+total+'筆資料';
                   // makeChartData(list);
                 } else {
-                  alertMessage = '找不到資料';
+                  app.result = '找不到資料';
                 }
-                app.alert = alertMessage;
             } else if(queryType === 'setting'){
               console.log('Settiong profile');
               profile = json;
               console.log('setting profile :\n' + JSON.stringify(profile));
             } else if(queryType === 'queryThisMonthEvent'){
               var list = json.data;
-              updateStartPower(list[0]);
+              if(list.length > 0) {
+                  updateStartPower(list[0]);
+              }
             }
         }
     }
@@ -234,15 +291,43 @@ function loadDoc(url) {
 
 function updateStartPower(event) {
     let mac = event.macAddr;
-    let power = event.information.power;
-    // alert('mac: ' + mac + '-> power : ' + power);
+    //This month start power
+    let power = event.information.Esum;
+    if(power == undefined) {
+      power = event.information.Ea + event.information.Er;
+    }
+    console.log('updateStartPower mac: ' + mac + '-> power : ' + power);
+    // console.log('updateStartPower event  >> ' + JSON.stringify(event.information));
     for (let i in app.sensorList) {
       let sensor = app.sensorList[i];
       if(sensor.device_mac == mac) {
         sensor.startPower = power;
+        // alert(power + ' >> ' + JSON.stringify(sensor.event.information));
+        updateThisMonthPower(event);
         break;
       }
     }
+}
+
+function updateThisMonthPower(event) {
+  console.log('updateThisMonthPower event---------------------------');
+  console.log(event);
+  let mac = event.macAddr;
+  for (let i in app.sensorList) {
+      let sensor = app.sensorList[i];
+      if(sensor.device_mac == mac) {
+        console.log('sensor.device_mac :' + sensor.device_mac );
+        console.log('sensor.device_mac :' + sensor.device_mac );
+        if(sensor.event.information) {
+          //This month last power
+          var lastPower = sensor.event.information.Esum;
+          sensor.monthPower = (lastPower - sensor.startPower).toFixed(1);
+          console.log('lastPower :' + lastPower  +', startPower : ' + sensor.startPower );
+        }
+      }
+    }
+    console.log('updateThisMonthPower----------------------------------');
+    console.log(app.sensorList);
 }
 
 function getDataList(list){
@@ -258,9 +343,11 @@ function getData(mIndex, event){
     arr.push(mIndex);
     arr.push(event.date);
     var keys = Object.keys(event.information);
+    // alert(JSON.stringify(keys));
     for (let i in keys) {
       let param = event.information[keys[i]];
       // alert(keys[i] + ' : ' + param);
+      if(keys[i] && keys[i] != 'Cost')
       arr.push(param);
     }
     console.log(JSON.stringify(arr))
@@ -333,6 +420,11 @@ function getMac(item){
 }
 
 $(document).ready(function(){
+    /* setTimeout(function(){
+        //do what you need here
+        var mUrl = 'http://'+host+":"+port+'/todos/device_list';
+        loadDoc("device_list",mUrl)
+    }, 3000);  */
     host = window.location.hostname;
     port = window.location.port;
     $('.input-daterange input').each(function() {
@@ -386,7 +478,60 @@ $(document).ready(function(){
       console.log(data);
       socket.emit('my other event', { my: 'data' });
     });
+
+    socket.on('command_response', function (data) {
+      console.log('command_response -------------------');
+      console.log(data);
+    }); // update_status
+
+    socket.on('update_status', function (data) {
+      console.log('update_sensor_status -------------------');
+      console.log(typeof data);
+      console.log(data);
+      /*app.showUpdate = true;
+      setTimeout(function () {
+        app.showUpdate = false;
+      }, 3000);*/
+      changMeterData( data);
+    });
+
+    if (sensorList.length > 0) {
+      $.LoadingOverlay("show");
+      setTimeout(function () {
+        $.LoadingOverlay("hide");
+      }, 3000);
+       sensorList.forEach(ShowResults);
+    }
+    if(user.role == null) {
+      app.alertMsg = '你沒有觀看權限,請與系統管理員連絡!';
+    } else if(app.sensorList.length == 0) {
+      app.alertMsg = '你尚未被分配裝置資料,請與系統管理員連絡!';
+    }
 });
+
+function ShowResults(value, index, ar) {
+    toQuerThisMonth(value.device_mac);
+}
+
+function changMeterData( data) {
+  // alert(JSON.stringify(data));
+  let mac = data.macAddr;
+  for (let i in app.sensorList) {
+      let sensor = app.sensorList[i];
+      if(sensor.device_mac == mac) {
+        if(data.information.Ea == undefined) {
+          app.alertMsg ='電表更新錯誤,通知系統人員處理 !!';
+        } else {
+          sensor.event = data;
+          updateThisMonthPower(data);
+        }
+        break;
+        //alert(JSON.stringify(sensor));
+      }
+  }
+  // alert(JSON.stringify(app.sensorList));
+
+}
 
 function getMacList() {
   var list = [];
