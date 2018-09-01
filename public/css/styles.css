@@ -953,7 +953,7 @@ input[type=checkbox] {
 .BG-Average {
 	width: auto;
 	height: auto;
-	border-radius: 10px;
+	border-radius: 6px;
 	background-color: #ffffffd8;
 	padding: 11px 16px 12px 12px;
 	margin-top: 10px;
@@ -961,21 +961,21 @@ input[type=checkbox] {
 .BG-Average-Copy {
 	width: auto;
 	height: auto;
-	border-radius: 10px;
+	border-radius: 6px;
 	background-color: #ffffffd8;
 	padding: 11px 16px 12px 17px;
+	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
 .BG-Average-Setting {
 	width: auto;
-	height: auto;
-	border-radius: 10px;
+	height: 200px;
+	border-radius: 6px;
 	background-color: #ffffffd8;
 	padding: 11px 16px 12px 17px;
 	margin-bottom: 10px;
-	margin-right: 18px;
-	margin-left: 18px;
+	margin-top: 10px;
 }
 
 .Meter0{

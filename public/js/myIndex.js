@@ -285,6 +285,7 @@ function loadDoc(url) {
               profile = json;
               console.log('setting profile :\n' + JSON.stringify(profile));
             } else if(queryType === 'queryThisMonthEvent'){
+              console.log('queryThisMonthEvent : ' +  json.data.length);
               var list = json.data;
               if(list.length > 0) {
                   updateStartPower(list[0]);
@@ -321,10 +322,9 @@ function updateThisMonthPower(event) {
   console.log('updateThisMonthPower event---------------------------');
   console.log(event);
   let mac = event.macAddr;
-  for (let i in app.sensorList) {
-      let sensor = app.sensorList[i];
+  for (let i in app.allSensors) {
+      let sensor = app.allSensors[i];
       if(sensor.device_mac == mac) {
-        console.log('sensor.device_mac :' + sensor.device_mac );
         console.log('sensor.device_mac :' + sensor.device_mac );
         if(sensor.event.information) {
           //This month last power
@@ -518,6 +518,7 @@ $(document).ready(function(){
 });
 
 function ShowResults(value, index, ar) {
+    console.log('ShowResults : '  + value.device_mac);
     toQuerThisMonth(value.device_mac);
 }
 

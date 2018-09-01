@@ -4,114 +4,110 @@
     <div v-if="alertMsg.length>0" class="alert alert-danger" role="alert">
 	  <strong>{{alertMsg}}</strong>
 	</div>
-    <div v-if="showUpdate"class="col-lg-12 alert alert-success" role="alert">
-	  <strong>更新電表資訊!</strong> 收到更新資訊.
-	</div>
-	<div v-show = "!isIndex" class="col-lg-12">
-		<label>選擇電表 :</label>
-	</div>
-    <div v-if="user.role" class="col-lg-12">
-		<div class="row">
-		    <div v-show = "!isIndex" class="col-sm-6 col-md-2 pull-left">
-				<select v-model="selectedSensor" @change="selectSensor">
-				  <option v-for="sensor in sensorList" v-bind:value="sensor.device_mac">
-				    {{ sensor.device_name }}
-				  </option>
-				</select>
-		    </div>
-		    <div class="col-sm-6 col-md-4 pull-left">
-		        <div  class="input-group input-daterange">
-			        <div class="input-group-addon">從</div>
-				    <input id="from" name="from" type="text" class="form-control">
-				    <div class="input-group-addon">到</div>
-				    <input id="to" name="endDate" type="text" class="form-control">
-		        </div>
-
-		    </div>
-		    <div class="col-sm-6 col-md-2 pull-left">
-		  	    <font color="red">{{result}}</label></font>
-		    </div>
-		    <div class="col-md-4 col-sm-6">
-				<button  v-if="!isIndex" type="button" class= "btn" onClick="search()">
-				    <span class="fa fa-history fa-1x"></span>
-				    返回
-				</button>
-				<button type="button" class= "btn btn-info" @click="pressQuery">
-				    <span class="fa fa-search fa-1x"></span>
-					查詢
-				</button>
-				<button  v-if="isIndex" type="button" class= "btn btn-success" @click="enableSetting">
-				    <span class="fa fa-pencil fa-1x"></span>
-					設定
-				</button>
-		    </div>
-
-		    <!--<div class="col-md-2 col-sm-6">
-			    <div id="buttons" title="Export CSV"></div>
-		    </div>-->
-
-		</div>
-        <hr>
+	<div class="BG-Average">
+    	<table style="width:100%">
+			<tr>
+				<td style="width:15%;height:30px;">選擇分區</th>
+				<td style="width:15%">選擇電表</th>
+				<td style="width:30%">選擇日期</th>
+				<td style="width:20%"></th>
+				<td style="width:20%"></th>
+			</tr>
+			<tr>
+				<td>
+					<select v-model="selectedZone" @change="changeZone(selectedZone)">
+					  <option v-for="zone in zoneList" v-bind:value="zone.name">
+					    {{ zone.name }}
+					  </option>
+					</select>
+				</td>
+				<td>
+					<select v-model="selectedSensor" @change="selectSensor">
+					  <option v-for="sensor in sensorList" v-bind:value="sensor.device_mac">
+					    {{ sensor.device_name }}
+					  </option>
+					</select>
+				</td>
+				<td>
+					<div  class="input-group input-daterange">
+				        <div class="input-group-addon">從</div>
+					    <input id="from" name="from" type="text" class="form-control">
+					    <div class="input-group-addon">到</div>
+					    <input id="to" name="endDate" type="text" class="form-control">
+			        </div>
+				</td>
+				<td align='center' valign="middle">
+				    <button type="button" class= "btn btn-info" @click="pressQuery">
+					    <span class="fa fa-search fa-1x"></span>
+						查詢
+					</button>
+					<button  v-if="!isIndex" type="button" class= "btn" onClick="search()">
+					    <span class="fa fa-history fa-1x"></span>
+					    返回
+					</button>
+					<button  v-if="isIndex" type="button" class= "btn btn-success" @click="enableSetting">
+					    <span class="fa fa-pencil fa-1x"></span>
+						設定
+					</button>
+				</td>
+				<td>
+					<font color="red">{{result}}</label></font>
+				</th>
+			</tr>
+	    </table>
     </div>
     <div  class="col-sm-12 col-md-12">
-        <div v-if = "zoneList.length>1" class="col-sm-12 col-md-12">
-	  	    <label>選擇分區 :</label>
-			<select v-model="selectedZone" @change="changeZone(selectedZone)">
-			  <option v-for="zone in zoneList" v-bind:value="zone.name">
-			    {{ zone.name }}
-			  </option>
-			</select>
-		</div>
+    	<br>
     </div>
-	<div class ="col-sm-12 col-md-12">
+	<div>
 	    <div v-show = "isIndex">
 	        <div v-show="isSetting">
 	            <div class="BG-Average-Setting">
 					<!-- Profile setting -->
-					<div class="row">
-						<div class="form-check form-check-inline col-sm-6 col-md-2">
-						  <input class="form-check-input" type="radio" value="show" v-model="profile.monthPower" checked >
-						  <label class="form-check-label" for="exampleRadios1">
-						    放大電表本月度數
-						  </label>
-						</div>
-						<div class="form-check form-check-inline col-sm-6 col-md-10">
-						  <input class="form-check-input" type="radio" value="hide" v-model="profile.monthPower" >
-						  <label class="form-check-label" for="exampleRadios2">
-						    縮小電表本月度數
-						  </label>
-						</div>
-						<hr>
-						<hr>
-						<div class="form-check form-check-inline col-sm-6 col-md-2">
-						  <input class="form-check-input" type="radio" value="show" v-model="profile.detail" checked >
-						  <label class="form-check-label" for="exampleRadios1">
-						    顯示電表細項
-						  </label>
-						</div>
-						<div class="form-check form-check-inline col-sm-6 col-md-10">
-						  <input class="form-check-input" type="radio" value="hide" v-model="profile.detail" >
-						  <label class="form-check-label" for="exampleRadios2">
-						    隱藏電表細項
-						  </label>
-						</div>
-						<hr>
-						<hr>
-						<hr>
-						<div class="col-sm-2 col-md-2"></div>
-						 <div class="col-sm-2 col-md-2">
-								<button  type="button" @click="cancelSetting">
-								    <span class="fa fa-times fa-2x"></span>
-								    取消
-								</button>
-						  </div>
-						  <div class="col-sm-2 col-md-2">
-							    <button  type="button" class="btn btn-primary" @click="saveSetting">
-								    <span class="fa fa-floppy-o fa-1x"></span>
-									  儲存
-								</button>
-						  </div>
+
+					<div class="form-check form-check-inline col-sm-6 col-md-2">
+					  <input class="form-check-input" type="radio" value="show" v-model="profile.monthPower" checked >
+					  <label class="form-check-label" for="exampleRadios1">
+					    放大電表本月度數
+					  </label>
 					</div>
+					<div class="form-check form-check-inline col-sm-6 col-md-10">
+					  <input class="form-check-input" type="radio" value="hide" v-model="profile.monthPower" >
+					  <label class="form-check-label" for="exampleRadios2">
+					    縮小電表本月度數
+					  </label>
+					</div>
+					<hr>
+					<hr>
+					<div class="form-check form-check-inline col-sm-6 col-md-2">
+					  <input class="form-check-input" type="radio" value="show" v-model="profile.detail" checked >
+					  <label class="form-check-label" for="exampleRadios1">
+					    顯示電表細項
+					  </label>
+					</div>
+					<div class="form-check form-check-inline col-sm-6 col-md-10">
+					  <input class="form-check-input" type="radio" value="hide" v-model="profile.detail" >
+					  <label class="form-check-label" for="exampleRadios2">
+					    隱藏電表細項
+					  </label>
+					</div>
+					<hr>
+					<hr>
+					<hr>
+					<div class="col-sm-2 col-md-2"></div>
+					 <div class="col-sm-2 col-md-2">
+							<button  type="button" @click="cancelSetting">
+							    <span class="fa fa-times fa-2x"></span>
+							    取消
+							</button>
+					  </div>
+					  <div class="col-sm-2 col-md-2">
+						    <button  type="button" class="btn btn-primary" @click="saveSetting">
+							    <span class="fa fa-floppy-o fa-1x"></span>
+								  儲存
+							</button>
+					  </div>
+
 				</div>
 			</div>
 			<div >
@@ -207,7 +203,7 @@
 			</div>
 	    </div>
 	    <div v-show = "!isIndex">
-	      <div class="col-sm-12 col-md-12">
+	      <div>
 	        <div class="BG-Average-Copy">
 					<!-- Profile setting -->
 					<table id="table1"  class="display" cellspacing="0" width="100%">

@@ -4,95 +4,87 @@
     <div v-if="alertMsg.length>0" class="alert alert-danger" role="alert">
 	  <strong>{{alertMsg}}</strong>
 	</div>
-    <div v-if="showUpdate"class="col-lg-12 alert alert-success" role="alert">
-	  <strong>更新電表資訊!</strong> 收到更新資訊.
-	</div>
-	<div v-show = "zoneList.length>1" class="col-sm-6 col-md-2">
-		<label>選擇分區 :</label>
-	</div>
-	<div v-show = "!isIndex" class="col-sm-6 col-md-10">
-		<label>選擇電表 :</label>
-	</div>
-    <div v-if="user.role" class="col-lg-12">
-		<div class="row">
-		    <div v-show = "zoneList.length>1" class="col-sm-6 col-md-2 pull-left">
-				<select v-model="selectedZone" @change="changeZone(selectedZone)">
-				  <option v-for="zone in zoneList" v-bind:value="zone.name">
-				    {{ zone.name }}
-				  </option>
-				</select>
-		    </div>
-		    <div class="col-sm-6 col-md-2 pull-left">
-				<select v-model="selectedSensor" @change="selectSensor">
-				  <option v-for="sensor in sensorList" v-bind:value="sensor.device_mac">
-				    {{ sensor.device_name }}
-				  </option>
-				</select>
-		    </div>
-		    <div class="col-sm-6 col-md-4 pull-left">
-		        <div  class="input-group input-daterange">
-			        <div class="input-group-addon">從</div>
-				    <input id="from" name="from" type="text" class="form-control">
-				    <div class="input-group-addon">到</div>
-				    <input id="to" name="endDate" type="text" class="form-control">
-		        </div>
-
-		    </div>
-		    <div class="col-sm-6 col-md-2 pull-left">
-		  	    <font color="red">{{result}}</label></font>
-		    </div>
-		    <div class="col-md-4 col-sm-6">
-				<button type="button" class= "btn btn-info" @click="pressQuery">
-				    <span class="fa fa-search fa-1x"></span>
-					查詢
-				</button>
-		    </div>
-
-		    <!--<div class="col-md-2 col-sm-6">
-			    <div id="buttons" title="Export CSV"></div>
-		    </div>-->
-
-		</div>
-        <hr>
+	<div class="BG-Average">
+    	<table style="width:100%">
+			<tr>
+				<td style="width:15%;height:30px;">選擇分區</th>
+				<td style="width:15%">選擇電表</th>
+				<td style="width:30%">選擇日期</th>
+				<td style="width:20%"></th>
+				<td style="width:20%"></th>
+			</tr>
+			<tr>
+				<td>
+					<select v-model="selectedZone" @change="changeZone(selectedZone)">
+					  <option v-for="zone in zoneList" v-bind:value="zone.name">
+					    {{ zone.name }}
+					  </option>
+					</select>
+				</td>
+				<td>
+					<select v-model="selectedSensor" @change="selectSensor">
+					  <option v-for="sensor in sensorList" v-bind:value="sensor.device_mac">
+					    {{ sensor.device_name }}
+					  </option>
+					</select>
+				</td>
+				<td>
+					<div  class="input-group input-daterange">
+				        <div class="input-group-addon">從</div>
+					    <input id="from" name="from" type="text" class="form-control">
+					    <div class="input-group-addon">到</div>
+					    <input id="to" name="endDate" type="text" class="form-control">
+			        </div>
+				</td>
+				<td align='center' valign="middle">
+				    <button type="button" class= "btn btn-info" @click="pressQuery">
+					    <span class="fa fa-search fa-1x"></span>
+						查詢
+					</button>
+				</td>
+				<td>
+					<font color="red">{{result}}</label></font>
+				</th>
+			</tr>
+	    </table>
     </div>
-	<div class ="col-sm-12 col-md-12">
-	    <div v-show = "!isIndex">
-	      <div class="col-sm-12 col-md-12">
-	        <div class="BG-Average-Copy">
-					<!-- Profile setting -->
-					<table id="table1"  class="display" cellspacing="0" width="100%">
-						<thead>
-							<tr style="color:#428bca">
-								<th>項目</th>
-								<th>時間</th>
-								<th>平均相電壓</th>
-								<th>平均線電壓</th>
-								<th>平均電流</th>
-								<th>中性線電流</th>
-								<th>總有效功率</th>
-								<th>總無效功率</th>
-								<th>總視在功率</th>
-								<th>平均功率因數</th>
-								<th>有效電能</th>
-								<th>無效電能</th>
-								<th>總二氧化碳量</th>
-								<th>總度數</th>
-							</tr>
-						</thead>
-					</table>
+    <div  class="col-sm-12 col-md-12">
+    	<br>
+    </div>
+	<div>
+        <div class="BG-Average-Copy">
+				<!-- Profile setting -->
+				<table id="table1"  class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr style="color:#428bca">
+							<th>項目</th>
+							<th>時間</th>
+							<th>平均相電壓</th>
+							<th>平均線電壓</th>
+							<th>平均電流</th>
+							<th>中性線電流</th>
+							<th>總有效功率</th>
+							<th>總無效功率</th>
+							<th>總視在功率</th>
+							<th>平均功率因數</th>
+							<th>有效電能</th>
+							<th>無效電能</th>
+							<th>總二氧化碳量</th>
+							<th>總度數</th>
+						</tr>
+					</thead>
+				</table>
 
-					<div v-show="!isSetting">
-						    <div v-show="isChart">
-		                    <div style="width:90%;">
-							    <canvas id="canvas"></canvas>
-							</div>
-							<br>
-							<br>
+				<div v-show="!isSetting">
+					    <div v-show="isChart">
+	                    <div style="width:90%;">
+						    <canvas id="canvas"></canvas>
 						</div>
+						<br>
+						<br>
 					</div>
-	        </div>
-	      </div>
-	    </div>
+				</div>
+        </div>
 		<input id="sensorList" name="sensorList" type="hidden" value="<%= JSON.stringify(sensorList) %>">
 		<input id="zoneList" name="zoneList" type="hidden" value="<%= JSON.stringify(zoneList) %>">
 		<input id="profile" name="profile" type="hidden" value="<%= JSON.stringify(profile) %>">

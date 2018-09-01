@@ -284,58 +284,12 @@ function loadDoc(url) {
               console.log('Settiong profile');
               profile = json;
               console.log('setting profile :\n' + JSON.stringify(profile));
-            } else if(queryType === 'queryThisMonthEvent'){
-              var list = json.data;
-              if(list.length > 0) {
-                  updateStartPower(list[0]);
-              }
             }
         }
     }
   };
   xhttp.open("GET", url, true);
   xhttp.send();
-}
-
-function updateStartPower(event) {
-    let mac = event.macAddr;
-    //This month start power
-    let power = event.information.Esum;
-    if(power == undefined) {
-      power = event.information.Ea + event.information.Er;
-    }
-    console.log('updateStartPower mac: ' + mac + '-> power : ' + power);
-    // console.log('updateStartPower event  >> ' + JSON.stringify(event.information));
-    for (let i in app.allSensors) {
-      let sensor = app.allSensors[i];
-      if(sensor.device_mac == mac) {
-        sensor.startPower = power;
-        // alert(power + ' >> ' + JSON.stringify(sensor.event.information));
-        updateThisMonthPower(event);
-        break;
-      }
-    }
-}
-
-function updateThisMonthPower(event) {
-  console.log('updateThisMonthPower event---------------------------');
-  console.log(event);
-  let mac = event.macAddr;
-  for (let i in app.sensorList) {
-      let sensor = app.sensorList[i];
-      if(sensor.device_mac == mac) {
-        console.log('sensor.device_mac :' + sensor.device_mac );
-        console.log('sensor.device_mac :' + sensor.device_mac );
-        if(sensor.event.information) {
-          //This month last power
-          var lastPower = sensor.event.information.Esum;
-          sensor.monthPower = (lastPower - sensor.startPower).toFixed(1);
-          console.log('lastPower :' + lastPower  +', startPower : ' + sensor.startPower );
-        }
-      }
-    }
-    console.log('updateThisMonthPower----------------------------------');
-    console.log(app.sensorList);
 }
 
 function getDataList(list){
@@ -474,23 +428,12 @@ $(document).ready(function(){
         ]
     }).container().appendTo($('#buttons'));
 
-    if (allSensors.length > 0) {
-        $.LoadingOverlay("show");
-        setTimeout(function () {
-          $.LoadingOverlay("hide");
-        }, 3000);
-        allSensors.forEach(ShowResults);
-    }
     if(user.role == null) {
       app.alertMsg = '你沒有觀看權限,請與系統管理員連絡!';
     } else if(app.sensorList.length == 0) {
       app.alertMsg = '你尚未被分配電表資料,請與系統管理員連絡!';
     }
 });
-
-function ShowResults(value, index, ar) {
-    toQuerThisMonth(value.device_mac);
-}
 
 function changMeterData( data) {
   // alert(JSON.stringify(data));
