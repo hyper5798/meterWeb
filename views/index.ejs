@@ -1,4 +1,5 @@
-﻿<%- include page/header %>
+<%- include page/header %>
+<meta http-equiv="refresh" content="600" />
 <!--<%= JSON.stringify(user) %>-->
     <div v-if="alertMsg.length>0" class="alert alert-danger" role="alert">
 	  <strong>{{alertMsg}}</strong>
@@ -35,7 +36,7 @@
 				    <span class="fa fa-history fa-1x"></span>
 				    返回
 				</button>
-				<button  v-if="isIndex" type="button" class= "btn btn-info" @click="pressQuery">
+				<button type="button" class= "btn btn-info" @click="pressQuery">
 				    <span class="fa fa-search fa-1x"></span>
 					查詢
 				</button>
@@ -52,7 +53,7 @@
 		</div>
         <hr>
     </div>
-    <div v-show = "isIndex" class="col-sm-12 col-md-12">
+    <div  class="col-sm-12 col-md-12">
         <div v-if = "zoneList.length>1" class="col-sm-12 col-md-12">
 	  	    <label>選擇分區 :</label>
 			<select v-model="selectedZone" @change="changeZone(selectedZone)">
@@ -135,24 +136,71 @@
 			            	</div>
 						</div>
 						<div v-show="profile.detail=='show'" class="Meter2">
-							<div v-if="sensor.event.information" class="col-sm-6 col-md-6">
-							    本月起始度數: {{sensor.startPower}} 度<br>
-							    目前度數    : {{sensor.event.information.Esum}} 度<br>
-							    平均相電壓  : {{sensor.event.information.Ulpavg}} V<br>
-							    平均線電壓  : {{sensor.event.information.Ullavg}} V<br>
-							    平均功率因數: {{sensor.event.information.Pf}} <br>
-							    平均電流   : {{sensor.event.information.Iavg}} A <br>
-							    中性線電流 : {{sensor.event.information.In}} v <br>
-							</div>
-					        <div v-if="sensor.event.information" class="col-sm-6 col-md-6">
-					            總有效功率  : {{sensor.event.information.Psum}} W<br>
-							    總無效功率 : {{sensor.event.information.Qsum}} W<br>
-								總視在功率 : {{sensor.event.information.Ssum}} W<br>
-							    有效電能   : {{sensor.event.information.Ea}} 度<br>
-							    無效電能   : {{sensor.event.information.Er}} 度<br>
-							    總二氧化碳 : {{sensor.event.information.CO2}} <br>
-							    更新時間    : {{sensor.event.date}}<br>
-							</div>
+						    <table  style="width:100%">
+						    	<tr v-if="sensor.event.information">
+						    	    	<th style="width:22%">本月起始度數</th>
+									    <th style="width:28%">{{sensor.startPower}} 度</th>
+									    <th style="width:22%">總有效功率</th>
+									    <th style="width:28%">{{sensor.event.information.Psum}} W</th>
+								</tr>
+								<tr v-else>
+									<th>尚無上報資料</th>
+								</tr>
+								<tr v-if="sensor.event.information">
+									<th>目前度數</th>
+								    <th>{{sensor.event.information.Esum}} 度</th>
+								    <th>總無效功率</th>
+								    <th>{{sensor.event.information.Qsum}} W</th>
+								</tr>
+								<tr v-else>
+									<th>&nbsp;</th>
+								</tr>
+                                <tr v-if="sensor.event.information">
+								    <th>平均相電壓</th>
+								    <th>{{sensor.event.information.Ulpavg}} V</th>
+								    <th>總視在功率</th>
+								    <th>{{sensor.event.information.Psum}} W</th>
+								</tr>
+								<tr v-else>
+									<th>&nbsp;</th>
+								</tr>
+								<tr v-if="sensor.event.information">
+								    <th>平均線電壓</th>
+								    <th>{{sensor.event.information.Ullavg}} V</th>
+								    <th>有效電能</th>
+								    <th>{{sensor.event.information.Ea}} 度</th>
+								</tr>
+								<tr v-else>
+									<th>&nbsp;</th>
+								</tr>
+								<tr v-if="sensor.event.information">
+								    <th>平均功率因數</th>
+								    <th>{{sensor.event.information.Pf}}</th>
+								    <th>無效電能</th>
+								    <th>{{sensor.event.information.Er}} 度</th>
+								</tr>
+								<tr v-else>
+									<th>&nbsp;</th>
+								</tr>
+								<tr v-if="sensor.event.information">
+								    <th>平均電流</th>
+								    <th>{{sensor.event.information.Iavg}} A</th>
+								    <th>總二氧化碳</th>
+								    <th>{{sensor.event.information.CO2}}</th>
+								</tr>
+								<tr v-else>
+									<th>&nbsp;</th>
+								</tr>
+								<tr v-if="sensor.event.information">
+								    <th>中性線電流</th>
+								    <th>{{sensor.event.information.In}} A</th>
+								    <th>更新時間</th>
+								    <th>{{sensor.event.date}}</th>
+								</tr>
+								<tr v-else>
+									<th>&nbsp;</th>
+								</tr>
+						    </table>
 						</div>
 			    </div>
 		    </div>
