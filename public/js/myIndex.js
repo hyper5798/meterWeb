@@ -32,11 +32,6 @@ if(profileObj[userName]) {
   userProfile = defaultProfile;
 }
 var zone1Name, sensor1, sensor_name;
-var allMacList = getMacList();
-var allMacName = getAllMacName();
-if (allMacList.length > 0) {
-  sensor1 = allMacList[0];
-}
 
 //For get current selected zone name on 2018.08.29
 console.log('userName : ' + userName + ' , userZone : ' + userZone);
@@ -57,7 +52,10 @@ if(allZoneList.length > 0  && (userName == 'sysAdmin' || userName == 'ndhuAdmin'
       zone1Name = userZone;
 }
 console.log('zone1Name: ' + zone1Name + '\ncurrent zoneList : ' + zoneList.length);
-
+var zoneSensors = getSensorList(zone1Name);
+if (zoneSensors.length > 0) {
+  sensor1 = zoneSensors[0].device_mac;
+}
 //Slider
 var min = 0;
 var max = 1;
@@ -77,7 +75,7 @@ var selectedSet = '';
 //Datatables
 var table, buttons;
 //Socket
-var socket = io.connect('http://localhost:8080');
+// var socket = io.connect('http://localhost:8080');
 
 
 var app = new Vue({
@@ -87,7 +85,7 @@ var app = new Vue({
     zoneList: zoneList,
     selectedZone: zone1Name,
     allSensors: allSensors,
-    sensorList: getSensorList(zone1Name),
+    sensorList: zoneSensors,
     selectedSensor: sensor1,
     selectedSensorName: sensor_name,
     isIndex: false,
@@ -186,7 +184,10 @@ var opt2={
     buttons: [
         //'copyHtml5',
         //'excelHtml5',
-        'csvHtml5',
+        {
+          extend: 'csv',
+          text: 'CSV',
+          bom : true}
         //'pdfHtml5'
     ]
  };
@@ -475,7 +476,7 @@ $(document).ready(function(){
     }).container().appendTo($('#buttons'));
     app.isIndex = true;
 
-    socket.on('connect',function(){
+    /*socket.on('connect',function(){
     socketId = socket.id;
       console.log('connection socketId : ' + socketId);
     });
@@ -496,12 +497,8 @@ $(document).ready(function(){
       console.log('update_sensor_status -------------------');
       console.log(typeof data);
       console.log(data);
-      /*app.showUpdate = true;
-      setTimeout(function () {
-        app.showUpdate = false;
-      }, 3000);*/
       changMeterData( data);
-    });
+    });*/
 
     if (allSensors.length > 0) {
         $.LoadingOverlay("show");
@@ -540,27 +537,6 @@ function changMeterData( data) {
   }
   // alert(JSON.stringify(app.sensorList));
 
-}
-
-function getMacList() {
-  var list = [];
-  for (let i=0; i< sensorList.length; ++i) {
-      let sensor = sensorList[i];
-      list.push(sensor.device_mac.toLowerCase());
-  }
-  return list;
-}
-
-function getAllMacName() {
-  var obj = {};
-  for (let i=0; i< sensorList.length; ++i) {
-      let sensor = sensorList[i];
-      // alert(JSON.stringify(sensor));
-      obj[sensor.device_mac.toLowerCase()] = sensor.device_name;
-      // alert(JSON.stringify(obj));
-  }
-  console.log('getAllMacName() : ' + JSON.stringify(obj));
-  return obj;
 }
 
 var timeFormat = 'YYYY-MM-DD HH:mm';

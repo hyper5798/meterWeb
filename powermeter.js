@@ -52,7 +52,7 @@ var server = http.createServer(app);
 server.listen(port);
 
 
-var io = require('socket.io').listen(server.listen(port));
+/*var io = require('socket.io').listen(server.listen(port));
 
 io.sockets.on('connection', function (socket) {
   // mySocket = socket;
@@ -95,4 +95,4 @@ io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function () {
     console.log('???? socket disconnect id : ' + socket.id);
   });
-});
+});*/

@@ -32,11 +32,6 @@ if(profileObj[userName]) {
   userProfile = defaultProfile;
 }
 var zone1Name, sensor1, sensor_name;
-var allMacList = getMacList();
-var allMacName = getAllMacName();
-if (allMacList.length > 0) {
-  sensor1 = allMacList[0];
-}
 
 //For get current selected zone name on 2018.08.29
 console.log('userName : ' + userName + ' , userZone : ' + userZone);
@@ -57,15 +52,49 @@ if(allZoneList.length > 0  && (userName == 'sysAdmin' || userName == 'ndhuAdmin'
       zone1Name = userZone;
 }
 console.log('zone1Name: ' + zone1Name + '\ncurrent zoneList : ' + zoneList.length);
-
+var zoneSensors = getSensorList(zone1Name);
+if (zoneSensors.length > 0) {
+  sensor1 = zoneSensors[0].device_mac;
+}
 //Slider
 var min = 0;
 var max = 1;
 var value = 0;
 //For chart
 var colorNames = Object.keys(window.chartColors);
-var imgArr = ['2018071500.jpg'];
-var msgArr = ['2018071500.jpg'];
+var yearOption = {
+          format: "yyyy",
+          autoclose: true,
+          // startDate: "today",
+          clearBtn: true,
+          calendarWeeks: true,
+          todayHighlight: true,
+          language: 'zh-TW',
+          viewMode: "years",
+          minViewMode: "years"
+      };
+var monthOption = {
+          format: "yyyy-mm",
+          autoclose: true,
+          // startDate: "today",
+          clearBtn: true,
+          calendarWeeks: true,
+          todayHighlight: true,
+          language: 'zh-TW',
+          startView: "months",
+          minViewMode: "months"
+      };
+var dayOption = {
+          format: "yyyy-mm-dd",
+          autoclose: true,
+          // startDate: "today",
+          clearBtn: true,
+          calendarWeeks: true,
+          todayHighlight: true,
+          language: 'zh-TW',
+          startView: "days",
+          minViewMode: "days"
+      };
 
 var dataset = ['Test'];
 var datasetIndex = 0;
@@ -76,9 +105,6 @@ var allDataSet = [];
 var selectedSet = '';
 //Datatables
 var table, buttons;
-//Socket
-var socket = io.connect('http://localhost:8080');
-
 
 var app = new Vue({
   el: '#app',
@@ -87,7 +113,7 @@ var app = new Vue({
     zoneList: zoneList,
     selectedZone: zone1Name,
     allSensors: allSensors,
-    sensorList: getSensorList(zone1Name),
+    sensorList: zoneSensors,
     selectedSensor: sensor1,
     selectedSensorName: sensor_name,
     isIndex: false,
@@ -100,7 +126,16 @@ var app = new Vue({
     result: '',
     alertMsg: '',
     items: [],
-    profile: JSON.parse(JSON.stringify(userProfile))
+    profile: JSON.parse(JSON.stringify(userProfile)),
+    options: [
+          { text: '年報', value: 1 },
+          { text: '月報', value: 2 },
+          { text: '日報', value: 3 }
+        ],
+    report : {
+          type: 1,
+          date: ''
+    }
   },
   methods: {
     selectMac: function (mac) {
@@ -135,6 +170,31 @@ var app = new Vue({
       this.selectedZone = zName;
       this.sensorList = getSensorList(zName);
       this.selectedSensor = this.sensorList[0].device_mac;
+    },
+    changeType: function(type) {
+      if(type === 1) {
+        $('.input-daterange input').each(function() {
+          $(this).datepicker('destroy');
+        });
+        $('.input-daterange input').each(function() {
+          $(this).datepicker(yearOption);
+        });
+      } else if(type === 2) {
+         $('.input-daterange input').each(function() {
+          $(this).datepicker('destroy');
+        });
+        $('.input-daterange input').each(function() {
+          $(this).datepicker(monthOption);
+        });
+      } else if(type === 3) {
+         $('.input-daterange input').each(function() {
+          $(this).datepicker('destroy');
+        });
+        $('.input-daterange input').each(function() {
+          $(this).datepicker(dayOption);
+        });
+      }
+      document.getElementById("report").value = '';
     }
   }
 })
@@ -184,10 +244,21 @@ var opt2={
    "iDisplayLength": 100,
     scrollY: 400,
     buttons: [
-        //'copyHtml5',
-        //'excelHtml5',
-        'csvHtml5',
-        //'pdfHtml5'
+        'copyHtml5',
+        'excelHtml5',
+        {
+          extend: 'csvHtml5',
+          text: 'CSV',
+          bom : true},
+        {
+          text: 'PDF',
+          extend: 'pdfHtml5',
+          bom : true,
+          message: '',
+          exportOptions: {
+          columns: ':visible'}
+    }
+
     ]
  };
 
@@ -218,33 +289,50 @@ function toQuery(){
   app.isIndex = false;
   $.LoadingOverlay("show");
   $('#myModal').modal('hide');
-  var from = $('#from').val();
-  var to = $('#to').val();
-  var url = 'http://'+host+":"+port+'/todos/query?mac='+mac+'&from='+from+'&to='+to;
-  url = url + '&queryType=queryEvent&userName=' + userName;
+  var report = $('#report').val();
+  var queryType = '';
+  var url = 'http://'+host+":"+port+'/todos/query?mac='+mac+'&userName='+userName;
+  // alert(report);
+  if(report == undefined ||  report == null || report == '') {
+      // alert('test')
+      var currentTime = moment();
+      if(app.report.type == 1) {
+        report = currentTime.format("YYYY");
+      } else if(app.report.type == 2) {
+        report = currentTime.format("YYYY-MM");
+      } else if(app.report.type == 3) {
+        report = currentTime.format("YYYY-MM-DD");
+      }
+  }
+  if(app.report.type == 1) {
+    queryType = 'queryYearEvent';
+  } else if(app.report.type == 2) {
+    queryType = 'queryMonthEvent';
+  } else if(app.report.type == 3) {
+    queryType = 'queryDayEvent';
+  }
+  url = url +'&from=' + report + '&queryType='+ queryType ;
+  // var reportDate = getReportDate(app.report.type, report);
+  // alert(JSON.stringify(reportDate));
+  //var url = 'http://'+host+":"+port+'/todos/query?mac='+mac+'&from='+reportDate.from+'&to='+reportDate.to;
   console.log(url);
   loadDoc(url);
 }
 
-function toQuerThisMonth(mac){
-  console.log('toQuerThisMonth mac : ' + mac);
-  var from = moment().format('YYYY-MM-01');
-  var to = moment().format('YYYY-MM-DD');
-  var url = 'http://'+host+":"+port+'/todos/query?mac='+mac+'&from='+from+'&to='+to;
-  url = url + '&queryType=queryThisMonthEvent&userName=' + userName;
-  console.log(url);
-  loadDoc(url);
-}
-
-function toSetting(profile){
-  // alert(gid + ' : ' + mac);
-  //alert($("#startDate").val());
-  app.isSetting = false;
-  // console.log(selectMac.toString());
-  var url = 'http://'+host+":"+port+'/todos/setting?profile=' + JSON.stringify(profile) + '&userName=' + userName;
-  url = url + '&queryType=setting';
-  console.log(url);
-  loadDoc(url);
+function getReportDate(type, date) {
+  var time = moment();
+  var mDate = {};
+  if(type === 1) {
+    mDate.from = date + "-01-01";
+    mDate.to = date + "-12-31";
+  } else if(type === 2) {
+    mDate.from = date + "-01";
+    mDate.to = date+"-31";
+  } else if(type === 1) {
+    mDate.from = date;
+    mDate.to = date;
+  }
+  return mDate;
 }
 
 function loadDoc(url) {
@@ -262,28 +350,29 @@ function loadDoc(url) {
         if (type.indexOf("application/json") === 0) {
             var json = JSON.parse(this.responseText);
             // console.log('json  : '+JSON.stringify(json));
-            console.log('data length : ' + json.data.length);
+            console.log(json);
             var queryType = json.queryType;
-            if(queryType === 'queryEvent'){
+            if(queryType === 'queryYearEvent'){
+                console.log('Show query rlist');
+                if(json.data && json.data.length>0){
+                    table.fnClearTable();
+                    // var data = getDataList(json.data);
+                    console.log('queryYeaEvent : ' + JSON.stringify(json.data.length));
+                    table.fnAddData(json.data);
+                } else {
+                  table.fnClearTable();
+                }
+            } else if(queryType === 'queryMonthEvent'){
                 console.log('Show query list');
                 if(json.data && json.total>0){
                     table.fnClearTable();
-                    var data = getDataList(json.data)
+                    // var data = getDataList(json.data);
+                    var data = getMonthDataList(json.data);
+                    console.log('queryMonthEvent :' + JSON.stringify(data.length));
                     table.fnAddData(data);
                 } else {
                   table.fnClearTable();
                 }
-                // alert(json.total);
-                if (json.total > 0) {
-                  app.result = '找到'+json.total+'筆資料';
-                  // makeChartData(list);
-                } else {
-                  app.result = '找不到資料';
-                }
-            } else if(queryType === 'setting'){
-              console.log('Settiong profile');
-              profile = json;
-              console.log('setting profile :\n' + JSON.stringify(profile));
             }
         }
     }
@@ -291,6 +380,37 @@ function loadDoc(url) {
   xhttp.open("GET", url, true);
   xhttp.send();
 }
+
+function getMonthDataList(list){
+    var arr = [], obj = {};
+    //Kind of day
+    for(var i = 0;i<list.length;i++){
+        let event = list[i];
+        let date = event.date;
+        let key = date.substring(0,10);
+        // console.log('getMonthDataList key : ' + key);
+        if(obj[key] == undefined) {
+          obj[key] = [];
+        }
+        obj[key].push(event);
+    }
+
+    var keys = Object.keys(obj);
+    var allEsum = 0;
+
+    for(let j in keys) {
+      let eventList = obj[keys[j]];
+      let start = eventList[0];
+      let end = eventList[eventList.length - 1];
+      let diff = end.information.Esum- start.information.Esum;
+      allEsum = allEsum + diff;
+      arr.push( [ keys[j], start.date, start.information.Esum, end.date, end.information.Esum, diff] );
+    }
+    console.log('allEsum :' + allEsum);
+    arr.push(['總和', '', '', '', '', allEsum]);
+    return arr;
+}
+
 
 function getDataList(list){
     var arr = [];
@@ -390,15 +510,7 @@ $(document).ready(function(){
     host = window.location.hostname;
     port = window.location.port;
     $('.input-daterange input').each(function() {
-      $(this).datepicker({
-          format: "yyyy-mm-dd",
-          autoclose: true,
-          // startDate: "today",
-          clearBtn: true,
-          calendarWeeks: true,
-          todayHighlight: true,
-          language: 'zh-TW'
-      });
+      $(this).datepicker(yearOption);
     });
 
     var ctx = document.getElementById('canvas').getContext('2d');
@@ -435,53 +547,13 @@ $(document).ready(function(){
     }
 });
 
-function changMeterData( data) {
-  // alert(JSON.stringify(data));
-  let mac = data.macAddr;
-  for (let i in app.sensorList) {
-      let sensor = app.sensorList[i];
-      if(sensor.device_mac == mac) {
-        if(data.information.Ea == undefined) {
-          app.alertMsg ='電表更新錯誤,通知系統人員處理 !!';
-        } else {
-          sensor.event = data;
-          updateThisMonthPower(data);
-        }
-        break;
-        //alert(JSON.stringify(sensor));
-      }
-  }
-  // alert(JSON.stringify(app.sensorList));
 
-}
-
-function getMacList() {
-  var list = [];
-  for (let i=0; i< sensorList.length; ++i) {
-      let sensor = sensorList[i];
-      list.push(sensor.device_mac.toLowerCase());
-  }
-  return list;
-}
-
-function getAllMacName() {
-  var obj = {};
-  for (let i=0; i< sensorList.length; ++i) {
-      let sensor = sensorList[i];
-      // alert(JSON.stringify(sensor));
-      obj[sensor.device_mac.toLowerCase()] = sensor.device_name;
-      // alert(JSON.stringify(obj));
-  }
-  console.log('getAllMacName() : ' + JSON.stringify(obj));
-  return obj;
-}
-
-var timeFormat = 'YYYY-MM-DD HH:mm';
-
+//-------------------Chart-----------------------------------------------
 function getMonthData() {
   var now = new Date();
 }
 
+var timeFormat = 'YYYY-MM-DD HH:mm';
 
 function newDate(days) {
   return moment().add(days, 'hours').toDate();

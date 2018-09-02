@@ -7,6 +7,7 @@ var crypto = require('crypto');
 var moment = require('moment');
 var settings =  require('../settings.js');
 var axios = require('axios');
+var async = require('async');
 
 var tmp = [{
             "length":6,
@@ -37,6 +38,80 @@ module.exports = {
     updateZone,
     newZone,
     deleteZone,
+    getMonthEvent,
+    getYearEvent
+}
+
+function getYearEvent(name, mac, yearStr, callback) {
+    
+    var num = 1;
+    var rst = [];
+    var allEsum = 0;
+    async.forever(function(next){
+        let monthStr = yearStr + '-' + toStr(num);
+        let range= getMonthRangeTime(monthStr);
+        getEventList(name, mac, range.startdate, range.enddate, function(err, result){
+            if (!err) {
+                if(result.data.length > 0) {
+                    try {
+                        //Desc result
+                        let end = result.data[0];
+                        let start = result.data[result.data.length - 1];
+                        let diff = end.information.Esum- start.information.Esum;
+                        allEsum = allEsum + diff;
+                        rst.push( [monthStr, start.date, start.information.Esum, end.date, end.information.Esum, diff] );
+                    } catch (error) {
+                        console.log('getYearEvent(getEventList) : ' + error);
+                    }
+                }
+            }
+    
+            if (num === 12) {
+              err = 'finish';//If has err
+            }
+            ++num;
+            if(err === 'finish') {
+                rst.push(['總和', '', '', '', '', allEsum]);
+                return callback(err, rst);
+            } else if(err) {
+                return callback(err, null);
+            }
+            next(err);
+        });
+    }, function(err){
+        console.log('error!!!');
+        console.log(err);
+    });
+}
+
+function getMonthEvent(name, mac, monthStr, callback) {
+    var range= getMonthRangeTime(monthStr);
+    getEventList(name, mac, range.startdate, range.enddate, function(err,result){
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    })
+}
+
+function getMonthRangeTime (mStr) {
+    var range = {};
+    var startdate = new Date(mStr+'-01');
+    //設定日期為第一天
+    startdate.setDate(1);
+
+    //取當日
+    var enddate = new Date(mStr+'-01');
+
+    //將月份移至下個月份
+    enddate.setMonth(enddate.getMonth()+1);
+    //設定為下個月份的第一天
+    enddate.setDate(1);
+    //將日期-1為當月的最後一天
+    enddate.setDate(enddate.getDate()-1);
+    range.startdate = getDateString(startdate);
+    range.enddate = getDateString(enddate);
+    return range;
 }
 
 function getToken(api_name, api_pw, callback) {
@@ -396,7 +471,7 @@ function sendEventListRequest(form, callback) {
 
     console.log('sendEventListRequest : ' + JSON.stringify(form));
     var token = form.token;
-    url = url + '?paginate=false&limit=1000&sort=desc';
+    url = url + '?paginate=false&limit=5000&sort=desc';
     url = url + '&macAddr=' + form.macAddr;
     url = url + '&from=' + form.from;
     url = url + '&to=' + form.to;
@@ -432,12 +507,15 @@ function toStr(value) {
 
 function dateConverter(UNIX_timestamp){
   var a = new Date(UNIX_timestamp*1000);
-  //var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var year = a.getFullYear();
-  var month = a.getMonth()+1;
-  var date = a.getDate();
-  var date = year +'/'+month+'/'+date ;
-  return date;
+  return getDateString(a);
+}
+
+function getDateString (mDate) {
+    var year = mDate.getFullYear();
+    var month = mDate.getMonth()+1;
+    var date = mDate.getDate();
+    var date = year +'-'+ toStr(month)+'-'+ toStr(date);
+    return date;
 }
 
 function timeConverter(UNIX_timestamp){

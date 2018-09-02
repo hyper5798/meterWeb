@@ -11,33 +11,51 @@ var schedule = require('node-schedule');
 var jobs = {};
 var test = false;
 
+function returnEventData(res, queryType, err, result) {
+	if (err)
+		return res.send({queryType: queryType, reponseCode:999, responseMsg:err});
+	var data = result.data;
+	var events;
+	//Sort the event list
+	if(queryType == 'queryThisMonthEvent' || queryType == 'queryMonthEvent') {
+		events = data.sort(dynamicSort('date'));
+	} else {
+		//events = data.sort(dynamicSort('-date')); //desc
+		events = data.sort(dynamicSort('-date'));//asc
+	}  
+	result.data = events;
+	result.queryType = queryType;
+	// value[mac] = results;
+	return res.json(result);
+}
+
 router.route('/query')
 
 	// get all the bears (accessed at GET http://localhost:8080/api/bears)
 	.get(function(req, res) {
-		var mac = req.query.mac;
+		var mac = req.	query.mac;
 		var to  = req.query.to;
 		var from = req.query.from;
 		var userName = req.query.userName;
 		var queryType = req.query.queryType;
+		
 		mac = mac.toLowerCase();
-		myapi.getEventList(userName, mac, from, to, function(err,result){
-			if (err)
-				return res.send({queryType: queryType, reponseCode:999, responseMsg:err});
-			var data = result.data;
-			var events;
-			//Sort the event list
-			if(queryType == 'queryEvent') {
-				//events = data.sort(dynamicSort('-date')); //desc
-				events = data.sort(dynamicSort('-date'));//asc
-			} else if(queryType == 'queryThisMonthEvent') {
-				events = data.sort(dynamicSort('date'));
-			}
-			result.data = events;
-			result.queryType = queryType;
-			// value[mac] = results;
-			return res.json(result);
-		});
+
+		if(queryType == 'queryYearEvent') {
+			myapi.getYearEvent(userName, mac, from, function(err,result){
+				if (err & err != 'finish')
+					return res.send({queryType: queryType, reponseCode:999, responseMsg:err});
+				return res.json({queryType: queryType,reponseCode:000, data: result});
+			});
+		} else if(queryType == 'queryMonthEvent') {
+			myapi.getMonthEvent(userName, mac, from, function(err,result){
+				returnEventData(res, queryType, err, result);
+			});
+		} else {
+			myapi.getEventList(userName, mac, from, to, function(err,result){
+				returnEventData(res, queryType, err, result);
+			});
+		}
 	});
 
 router.route('/setting')
