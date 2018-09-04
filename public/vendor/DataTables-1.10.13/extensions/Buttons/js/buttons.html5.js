@@ -1275,7 +1275,7 @@ DataTable.ext.buttons.pdfHtml5 = {
 				message: {}
 			},
 			defaultStyle: {
-				fontSize: 10
+				font: '微软雅黑'
 			}
 		};
 
@@ -1298,6 +1298,22 @@ DataTable.ext.buttons.pdfHtml5 = {
 		if ( config.customize ) {
 			config.customize( doc, config );
 		}
+
+		_pdfMake().fonts = {
+			Roboto: {
+				normal: 'Roboto-Regular.ttf',
+				bold: 'Roboto-Medium.ttf',
+				italics: 'Roboto-Italic.ttf',
+				bolditalics: 'Roboto-Italic.ttf'
+			},
+			微软雅黑: {
+				normal: '微软雅黑.ttf',
+				bold: '微软雅黑.ttf',
+				italics: '微软雅黑.ttf',
+				bolditalics: '微软雅黑.ttf',
+			}
+		   };
+		   
 
 		var pdf = _pdfMake().createPdf( doc );
 
