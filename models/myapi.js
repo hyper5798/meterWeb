@@ -34,6 +34,8 @@ module.exports = {
     updateUser,
     newUser,
     deleteUser,
+    changeUserPwd,
+    changeSelfPwd,
     getZoneList,
     updateZone,
     newZone,
@@ -158,13 +160,14 @@ function toLogin(api_name, api_pw, callback) {
                     //console.log(JSON.stringify(body));
                     var code = body.responseCode;
                     var authToken = body.authToken;
-                    var time = moment();
-                    time = time.add(1, 'days');
-                    time = time.toDate();
-                    var session = {name:api_name,"token": authToken, "expiration": time, role:body.role, zone: body.userInfo.pic};
+                    
                     if(code !== '000'){
                         callback(body.responseMsg, null);
                     } else {
+                        var time = moment();
+                        time = time.add(1, 'days');
+                        time = time.toDate();
+                        var session = {name:api_name,"token": authToken, "expiration": time, role:body.role, zone: body.userInfo.pic};
                         callback(null, session);
                     }
                 } catch (error) {
@@ -372,8 +375,8 @@ function sendPostRequest(url, form, callback) {
 }
 
 function sendPutRequest(url, form, callback) {
-    console.log('sendPostRequest url : ' + url);
-    console.log('sendPostRequest form : ' + JSON.stringify(form));
+    console.log('sendPutRequest url : ' + url);
+    console.log('sendutRequest form : ' + JSON.stringify(form));
     axios.put(url, form)
     .then(function (response) {
         // console.log(response);
@@ -623,6 +626,34 @@ function deleteUser (name, form, callback) {
     var mySession = obj[name];
     form.token = mySession.token;
     sendDeleteRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
+function changeUserPwd (name, user, callback) {
+    var url = settings.api_server + settings.api_users+'/changePwd/'+user.userId;
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    var form = {};
+    form.pwd = user.pwd;
+    form.token = mySession.token;
+    sendPutRequest(url, form, function(err, result) {
+        if(err) {
+            return callback(err, null);
+        }
+        return callback(null, result);
+    });
+}
+
+function changeSelfPwd (name, form, callback) {
+    var url = settings.api_server + settings.api_users+'/changePwd';
+    var obj = JsonFileTools.getJsonFromFile(sessionPath);
+    var mySession = obj[name];
+    form.token = mySession.token;
+    sendPutRequest(url, form, function(err, result) {
         if(err) {
             return callback(err, null);
         }

@@ -186,7 +186,26 @@ module.exports = function(app) {
 	app.post('/account', checkNotLogin);
     app.post('/account', function (req, res) {
 		res.redirect('/account');
+	});
+	
+	app.get('/changeSelfPwd', checkLogin);
+    app.get('/changeSelfPwd', function (req, res) {
+
+		console.log(util.getCurrentTime() + ' render to account.ejs');
+		var successMessae,errorMessae;
+		
+		res.render('user/changeSelfPwd', { title: 'ChangeSelfPwd', // user/account
+			user: req.session.user,
+			error: errorMessae,
+			success: successMessae
+		});
+	});
+
+	app.post('/changeSelfPwd', checkNotLogin);
+    app.post('/changeSelfPwd', function (req, res) {
+		res.redirect('/changeSelfPwd');
     });
+
 
 	app.get('/map', checkLogin);
 	app.get('/map', function (req, res) {

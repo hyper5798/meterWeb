@@ -1,0 +1,66 @@
+<%- include ../page/header %>
+    <div v-if="alertMsg.length>0" class="alert alert-danger" role="alert">
+        <strong>{{alertMsg}}</strong>
+    </div>
+        
+		<div class="col-md-12 column">
+            
+            <div class="BG-Average">
+                <div>
+                    <h3>變更密碼</h3>
+                </div>
+                <hr>
+	            <form class="" method="post" action="#">
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">帳戶名稱</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" v-model="user.name"  placeholder="輸入帳戶名稱"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="confirm" class="cols-sm-2 control-label">更新帳戶密碼</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" v-model="user.pwd"  placeholder="輸入確認帳戶密碼"/>
+								</div>
+							</div>
+						</div>
+
+						<!--<div class="form-group">
+							<label for="email" class="cols-sm-2 control-label">電子信箱</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" v-model="newUser.email" placeholder="輸入帳戶電子信箱"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="username" class="cols-sm-2 control-label">性別</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" v-model="newUser.gender"  placeholder="輸入(M 或F)"/>
+								</div>
+							</div>
+						</div>-->
+
+						<div class="form-group ">
+							<button class="btn btn-primary btn-lg btn-block" type="button" @click="updateUser">
+						    按此更新
+					    　　</button>
+						</div>
+				</form>
+
+			</div>
+        </div> <!-- column-->
+        
+		<input id="user" name="user" type="hidden" value="<%= JSON.stringify(user) %>">
+
+<%- include ../page/footer %>

@@ -1,6 +1,54 @@
 <%- include ../page/header %>
-         <div v-if="alertMsg.length>0" class="alert alert-danger" role="alert">
+    <div v-if="alertMsg.length>0" class="alert alert-danger" role="alert">
 		  <strong>{{alertMsg}}</strong>
+		</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="pwdModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title" id="exampleModalLabel">更改密碼</h3>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">帳戶名稱</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" v-model="selectUser.userName"  placeholder="輸入帳戶名稱"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="password" class="cols-sm-2 control-label">帳戶密碼</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" v-model="selectUser.pwd"  placeholder="最少8個字元"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"
+							 data-dismiss="modal">取消
+						</button>
+						<button type="button" onClick="changePwd()" class="btn btn-danger">
+							 確定
+						</button>
+						<br>
+						<br>
+						<div v-if="alertMsg2.length>0" class="alert alert-danger" role="alert">
+							<strong>{{alertMsg2}}</strong>
+							</div>
+				 </div>
+				</div>
+			</div>
 		</div>
 		<div v-show="isNew" class="col-md-12 column">
             <div class="BG-Average">
@@ -27,7 +75,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" v-model="newUser.pwd"  placeholder="最少8個字元"/>
+									<input type="text" class="form-control" v-model="newUser.pwd"  placeholder="最少8個字元"/>
 								</div>
 							</div>
 						</div>
@@ -37,7 +85,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" v-model="newUser.pwd2"  placeholder="輸入確認帳戶密碼"/>
+									<input type="text" class="form-control" v-model="newUser.pwd2"  placeholder="輸入確認帳戶密碼"/>
 								</div>
 							</div>
 						</div>
@@ -135,6 +183,9 @@
 									<button type="button" name="del" class="btn btn-danger btn-sm" @click="delCheck(index, user.userName)">
 										 刪除
 									</button>
+									<button type="button" name="chOwd" class="btn btn-warning btn-sm" @click="pwdCheck(index)">
+										更改密碼
+								 </button>
 								</td>
 							</tr>
 					</tbody>
@@ -172,6 +223,8 @@
 		         </div>
 		      </div><!-- /.modal-content -->
 		</div><!-- /.modal -->
+
+		
 
 
 <%- include ../page/footer %>

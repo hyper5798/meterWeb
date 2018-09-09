@@ -26,9 +26,14 @@ var app = new Vue({
     delPoint: -1,
     isTest: false,
     userList: users,
+    selectUser: {
+      name: '',
+      pwd: ''
+    },
     isNew: false,
     newUser: empty,
     alertMsg: '',
+    alertMsg2: '',
     options: [
           { text: '管理者', value: 1 },
           { text: '一般用戶', value: 8 },
@@ -60,6 +65,11 @@ var app = new Vue({
         console.log(name);
         this.delPoint = index;
         $('#myModal').modal('show');
+    },
+    pwdCheck: function (index) {
+      this.selectUser = this.userList[index];
+      this.selectUser.pwd = '';
+      $('#pwdModal').modal('show');
     },
     saveEdit: function(index) {
       toUpdate(index);
@@ -107,6 +117,28 @@ function toUpdate() {
     $('#myModal').modal('hide');
     var target = app.userList[app.editPoint];
     toModifyUser('updateUser', target)
+}
+
+function changePwd() {
+  
+  if(app.selectUser.pwd.length == 0) {
+      app.alertMsg2 = '尚未輸入密碼';
+  } else if(app.selectUser.pwd.length < 8) {
+      app.alertMsg2 = '密碼長度小於8';
+  }
+  if(app.alertMsg2.length > 0) {
+      setTimeout(function () {
+          app.alertMsg2 = '';
+          }, 3000);
+      return;
+  }
+  
+  $('#pwdModal').modal('hide');
+  $.LoadingOverlay("show");
+  var url = 'http://'+host+":"+port+'/todos/changeUserPwd?updateUser=' + JSON.stringify(app.selectUser) + '&userName=' + userName;
+  url = url + '&queryType=changePwd';
+  console.log(url);
+  loadDoc(url);
 }
 
 function toModifyUser(type, user){
@@ -163,6 +195,12 @@ function loadDoc(url) {
               } if (json.responseCode == '000') {
                   app.editPoint = -1;
                   app.alertMsg = '更新成功!!!';
+              }
+            } else if(queryType === 'changePwd'){
+              if(json.responseCode == '999'){
+                  app.alertMsg = json.responseMsg;
+              } if (json.responseCode == '000') {
+                  app.alertMsg = '更新密碼成功!!!';
               }
             }
         }

@@ -123,6 +123,38 @@ router.route('/user')
  
 	});
 
+//changeSlfPwd
+router.route('/changeSelfPwd')
+
+	// get all the bears (accessed at GET http://localhost:8080/api/bears)
+	.get(function(req, res) {
+		var newUser = JSON.parse(req.query.updateUser);
+		var queryType = req.query.queryType;
+		myapi.changeSelfPwd(newUser.name, newUser, function(err, result){
+			if(err) {
+				return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+			}
+			result.queryType = queryType;
+			return res.json(result);
+		});
+	});
+
+router.route('/changeUserPwd')
+
+	// get all the bears (accessed at GET http://localhost:8080/api/bears)
+	.get(function(req, res) {
+		var userName = req.query.userName;
+		var newUser = JSON.parse(req.query.updateUser);
+		var queryType = req.query.queryType;
+		myapi.changeUserPwd(userName, newUser, function(err, result){
+			if(err) {
+				return res.json({queryType: queryType,responseCode:"999", responseMsg: err});
+			}
+			result.queryType = queryType;
+			return res.json(result);
+		});
+	});
+
 router.route('/device')
 
 	// get all the bears (accessed at GET http://localhost:8080/api/bears)
