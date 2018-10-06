@@ -397,17 +397,29 @@ function getMonthDataList(list){
 
     var keys = Object.keys(obj);
     var allEsum = 0;
+    var monthDiff = 0;
+    var first = 0;
+    var last = 0;
 
     for(let j in keys) {
       let eventList = obj[keys[j]];
       let start = eventList[0];
       let end = eventList[eventList.length - 1];
-      let diff = end.information.Esum- start.information.Esum;
-      allEsum = allEsum + diff;
+      if(j == 0) {
+        first = start.information.Esum;
+      } else if (j == keys.length-1) {
+        last = end.information.Esum;
+      }
+      let diff = ( (end.information.Esum*10) - (start.information.Esum*10))/10;
+      allEsum = (allEsum*10 + diff*10)/10;
       arr.push( [ keys[j], start.date, start.information.Esum, end.date, end.information.Esum, diff] );
     }
+    monthDiff =  ((last*10)-(first*10))/10;
     console.log('allEsum :' + allEsum);
-    arr.push(['總和', '', '', '', '', allEsum]);
+    console.log('first :' + first);
+    console.log('last :' + last);
+    console.log('diff :' + monthDiff) ;
+    arr.push(['總和', '', '', '', '', monthDiff]);
     return arr;
 }
 
