@@ -422,10 +422,11 @@ function addDays(date, days) {
 
 function getEventList(name, mac, startDate, endDate, callback) {
     var form = {macAddr:mac};
+    var now = new Date();
     if(endDate == ''){
-        var now = new Date();
         endDate = (now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate() );
     }
+    var zoneOffset = now.getTimezoneOffset();
     //Jason modify for zone offset on 2019.7.8
     //var dateOffset = (1*1000); //1秒
     var dateOffset = -(8*60*60+1)*1000;
