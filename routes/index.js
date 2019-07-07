@@ -397,7 +397,15 @@ module.exports = function(app) {
 			}
 		], function(errs, results){
 			if(errs) {
-				return callback(errs, null);
+				console.log('???? get zone errors ----');
+				console.log(errs);
+				res.render('zone', { title: 'Zone', // user/account
+					user:myuser,//current user : administrator
+					devices: [],//All devices
+					zones: [],
+					error: errs,
+					success: successMessae
+				});
 			} else {
 				// console.log(results);   // results = [result1, result2, result3]
 				var sensorList = results[0];

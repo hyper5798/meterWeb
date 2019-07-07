@@ -426,7 +426,9 @@ function getEventList(name, mac, startDate, endDate, callback) {
         var now = new Date();
         endDate = (now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate() );
     }
-    var dateOffset = (1*1000); //1秒
+    //Jason modify for zone offset on 2019.7.8
+    //var dateOffset = (1*1000); //1秒
+    var dateOffset = -(8*60*60+1)*1000;
     var formatStr = "YYYY-MM-DD"
     //Start day + 1 exp: 2017/8/13  => 2017/8/14 00:00:00
     var toMoment = moment(endDate,"YYYY-MM-DD").add(1,'days');
