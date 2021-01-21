@@ -24,6 +24,6 @@
     "request": "^2.81.0",
     "require": "^2.4.20",
     "serve-favicon": "~2.3.0",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.4.0"
   }
 }
