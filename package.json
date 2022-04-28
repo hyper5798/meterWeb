@@ -6,7 +6,7 @@
     "start": "node powermeter.js"
   },
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "axios": "^0.18.0",
     "body-parser": "~1.15.1",
     "connect-flash": "^0.1.1",
